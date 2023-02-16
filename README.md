@@ -1,4 +1,4 @@
-# PROJECT NAME
+# RADIO-CITY
 
 ## Ведение кода
 
