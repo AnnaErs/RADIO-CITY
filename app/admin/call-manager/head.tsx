@@ -1,7 +1,7 @@
 export default function Head() {
     return (
         <>
-            <title>Contacts</title>
+            <title>Менеджер звонков</title>
         </>
     );
 }
