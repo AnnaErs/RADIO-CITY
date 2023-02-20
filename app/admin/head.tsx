@@ -1,7 +1,7 @@
 export default function Head() {
     return (
         <>
-            <title>Клиентам</title>
+            <title>Админ панель</title>
         </>
     );
 }
