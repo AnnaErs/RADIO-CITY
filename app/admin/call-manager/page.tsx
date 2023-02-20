@@ -1,11 +1,13 @@
 import { memo } from "react";
 
+import CallManagerSection from "@components/sections/admin/CallManager/CallManagerSection";
+
 import { CallManagerPageType } from "./types";
 
 const CallManagerPage: CallManagerPageType = () => {
     return (
         <>
-            <p>Звонки</p>
+            <CallManagerSection />
         </>
     );
 };

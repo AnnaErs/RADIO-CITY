@@ -2,18 +2,20 @@ import { memo } from "react";
 
 import Section from "@components/layout/Section";
 
+import ClientsTable from "@components/table/ClientsTable/ClientsTable";
+
 const SECTION_TITLE = {
-    title: "Клиентам",
+    title: "Таблица",
 };
 
-const AboutSection = () => {
+const CallManagerSection = () => {
     return (
         <div className="flex">
             <Section title={SECTION_TITLE.title}>
-                <></>
+                <ClientsTable />
             </Section>
         </div>
     );
 };
 
-export default memo(AboutSection);
+export default memo(CallManagerSection);
