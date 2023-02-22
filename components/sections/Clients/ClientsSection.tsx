@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import Section from "@/components/layout/Section";
+import Section from "@components/layout/Section";
 
 const SECTION_TITLE = {
     title: "Клиентам",

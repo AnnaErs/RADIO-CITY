@@ -9,8 +9,21 @@ module.exports = {
       'tablet': '640px',
       'desktop': '1024px',
     },
+    fontSize: {
+      '2xl': ['1.5rem', {
+        lineHeight: '2rem',
+        fontWeight: '400',
+      }],
+      '3xl': ['4.5rem', {
+        lineHeight: '5rem',
+        fontWeight: '800',
+      }],
+    },
     extend: {
       colors:{
+        'blue': '#0087BD',
+        'lavender':'#8D07FE',
+        'pink': '#FD31FC',
       }
     },
   },
