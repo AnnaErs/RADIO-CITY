@@ -1,3 +1,5 @@
+import {FC} from "react";
+
 export type MainSectionHeadingsPropsType = {
     mainTitle: {
         firstPart: string,
@@ -6,3 +8,6 @@ export type MainSectionHeadingsPropsType = {
     subTitle: string,
     buttonTitle: string,
 };
+
+type MainSectionPropsType = {}
+export type MainSectionType = FC<MainSectionPropsType>

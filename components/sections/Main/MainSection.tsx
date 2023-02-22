@@ -5,18 +5,18 @@ import MainSectionImage from "@public/MainSectionImage.gif";
 import RightArrow from "@public/RightArrow.png";
 import Line from "@public/Line.png";
 
-import { MainSectionHeadingsPropsType } from "./types";
+import { MainSectionHeadingsPropsType, MainSectionType } from "./types";
 
 const MainSectionHeadings: MainSectionHeadingsPropsType = {
     mainTitle: {
         firstPart: "радио",
         secondPart: "сити",
     },
-    subTitle:
-        "Крупнейший оператор радиосвязи  Свердловской области с 1995 года.",
+    subTitle: "Крупнейший оператор радиосвязи  Свердловской области с 1995 года.",
     buttonTitle: "Узнать больше",
 };
-const MainSection = () => {
+
+const MainSection: MainSectionType = () => {
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="flex flex-row mt-44 mr-10 mb-48 ml-36 gap-9">
@@ -30,7 +30,7 @@ const MainSection = () => {
                         {MainSectionHeadings.subTitle}
                     </div>
                     <div>
-                        <button className="w-[16rem] h-[3.25rem] rounded-[1.25rem] bg-blue transition hover:bg-lavender active:bg-pink">
+                        <button className="w-[16rem] h-[3.25rem] rounded-[1.25rem] bg-blue ease-in-out duration-200 hover:bg-lavender active:bg-pink">
                             <p className="flex flex-row items-center justify-center gap-2 text-2xl">
                                 {MainSectionHeadings.buttonTitle}
                                 <Image
