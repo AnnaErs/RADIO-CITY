@@ -8,11 +8,9 @@ const SECTION_TITLE = {
 
 const AboutSection = () => {
     return (
-        <div className="flex">
-            <Section title={SECTION_TITLE.title}>
-                <></>
-            </Section>
-        </div>
+        <Section title={SECTION_TITLE.title}>
+            <></>
+        </Section>
     );
 };
 
