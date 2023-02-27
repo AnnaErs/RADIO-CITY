@@ -5,6 +5,7 @@ import MainSectionImage from "@public/MainSectionImage.gif";
 import RightArrow from "@public/RightArrow.png";
 
 import { MainSectionHeadingsPropsType, MainSectionType } from "./types";
+import Container from "@components/layout/Container";
 
 const MainSectionHeadings: MainSectionHeadingsPropsType = {
     mainTitle: {

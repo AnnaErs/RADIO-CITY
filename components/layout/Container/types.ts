@@ -1,6 +1,4 @@
 import { FC, PropsWithChildren } from "react";
 
-type ContainerPropsType = {
-    title: string;
-}
+type ContainerPropsType = {}
 export type ContainerType = FC<PropsWithChildren<ContainerPropsType>>

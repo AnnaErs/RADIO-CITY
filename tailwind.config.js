@@ -14,7 +14,14 @@ module.exports = {
         '2.25rem',
         {
           lineHeight: '2.5rem',
-          fontWeight: '800'
+          fontWeight: '700'
+        }
+      ],
+      'h2':[
+        '2rem',
+        {
+          lineHeight: '3rem',
+          fontWeight: '700'
         }
       ],
       '2xl': [
@@ -35,6 +42,8 @@ module.exports = {
     extend: {
       boxShadow: {
         pink: "0 3px 5px #FD31FC",
+        blue: "0 6px 10px #00EEFA",
+        lavender: "0 10px 10px #8D07FE"
       },
       colors:{
         blue: "#0087BD",
