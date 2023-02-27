@@ -24,6 +24,13 @@ module.exports = {
           fontWeight: '700'
         }
       ],
+      'lg': [
+        '14px',
+        {
+          lineHeight: '18px',
+          fontWeight: '400',
+        }
+      ],
       '2xl': [
         '1.5rem',
         {

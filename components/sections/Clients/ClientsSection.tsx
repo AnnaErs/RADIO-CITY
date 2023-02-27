@@ -26,15 +26,17 @@ const SECTION = {
 
 const ClientsSection = () => {
     return (
-        <Section title={SECTION.title}>
-            {SECTION.clients.map((client, index) => (
-                <ClientRowCards
-                    {...client}
-                    isReverse={!!(index % 2)}
-                    key={title}
-                />
-            ))}
-        </Section>
+        <div id="clients">
+            <Section title={SECTION.title}>
+                {SECTION.clients.map((client, index) => (
+                    <ClientRowCards
+                        {...client}
+                        isReverse={!!(index % 2)}
+                        key={title}
+                    />
+                ))}
+            </Section>
+        </div>
     );
 };
 

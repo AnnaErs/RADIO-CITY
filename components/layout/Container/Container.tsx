@@ -5,7 +5,7 @@ import Title from "../Title";
 import { ContainerType } from "./types";
 
 const Container: ContainerType = ({ children }) => {
-    return <div className="px-10 w-[1440px] mx-auto">{children}</div>;
+    return <div className="px-10 mx-auto">{children}</div>;
 };
 
 export default memo(Container);
