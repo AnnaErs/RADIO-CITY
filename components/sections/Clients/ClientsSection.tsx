@@ -6,6 +6,8 @@ import Client2Image from "@public/ClientsImage2.png";
 import ClientRowCards from "@components/cards/ClientsCards/ClientRowCards";
 import { title } from "process";
 
+import { ClientsSectionType } from "./types";
+
 const SECTION = {
     title: "Клиентам",
     clients: [
@@ -24,7 +26,7 @@ const SECTION = {
     ],
 };
 
-const ClientsSection = () => {
+const ClientsSection: ClientsSectionType = () => {
     return (
         <div id="clients">
             <Section title={SECTION.title}>
