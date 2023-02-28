@@ -4,16 +4,17 @@ type Link = {
         id: number;
         name: string;
         href: string;
+        target?: string;
 };
 type Links = Array<Link>;
 
 type PagesNavigationType = Links;
 
-export type FooterLinksType = {
+export type HeaderLinksType = {
+    head: Link;
     pages: PagesNavigationType;
-    production: Link;
 };
 
-type FooterPropsType = {}
-export type FooterType = FC<FooterPropsType>;
+type HeaderPropsType = {}
+export type HeaderType = FC<HeaderPropsType>;
 
