@@ -3,40 +3,35 @@ import React, { memo } from "react";
 
 import Container from "@components/layout/Container";
 
-import { FooterType, FooterLinksPropsType } from "./types";
+import { FooterType, FooterLinksType } from "./types";
 
-const FOOTER_LINKS: FooterLinksPropsType = {
+const FOOTER_LINKS: FooterLinksType = {
     pages: [
         {
-            link: {
-                name: "Главная",
-                href: "/#",
-            },
+            id: 0,
+            name: "Главная",
+            href: "/#",
         },
         {
-            link: {
-                name: "О нас",
-                href: "/#about-us",
-            },
+            id: 1,
+            name: "О нас",
+            href: "/#about-us",
         },
         {
-            link: {
-                name: "Клиентам",
-                href: "/#clients",
-            },
+            id: 2,
+            name: "Клиентам",
+            href: "/#clients",
         },
         {
-            link: {
-                name: "Контакты",
-                href: "/#contacts",
-            },
+            id: 3,
+            name: "Контакты",
+            href: "/#contacts",
         },
     ],
     production: {
-        link: {
-            name: "MARTIR.DEV",
-            href: "https://t.me/maximmartyr",
-        },
+        id: 4,
+        name: "MARTIR.DEV",
+        href: "https://t.me/maximmartyr",
     },
 };
 
@@ -45,19 +40,19 @@ const Footer: FooterType = () => {
         <Container>
             <div className="flex justify-between my-3">
                 <div className=" text-lg">
-                    {FOOTER_LINKS.pages.map((ar) => (
-                        <a href={ar.link.href} className="mr-16 mx-3">
-                            {ar.link.name}
+                    {FOOTER_LINKS.pages.map((ar, key = ar.id) => (
+                        <a href={ar.href} className="mr-16">
+                            {ar.name}
                         </a>
                     ))}
                 </div>
                 <div>
                     {
                         <Link
-                            href={FOOTER_LINKS.production.link.href}
+                            href={FOOTER_LINKS.production.href}
                             target="_blank"
                         >
-                            {FOOTER_LINKS.production.link.name}
+                            {FOOTER_LINKS.production.name}
                         </Link>
                     }
                 </div>

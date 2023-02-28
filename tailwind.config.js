@@ -31,6 +31,13 @@ module.exports = {
           fontWeight: '400',
         }
       ],
+      'xl': [
+        '18px',
+        {
+          lineHeight: '24px',
+          fontWeight: '400',
+        }
+      ],
       '2xl': [
         '1.5rem',
         {
@@ -58,6 +65,7 @@ module.exports = {
         pink: "#FD31FC",
         bg: "#0F0019",
         primary: "#00EEFA",
+        gray: "#979797",
       }
     },
   },
