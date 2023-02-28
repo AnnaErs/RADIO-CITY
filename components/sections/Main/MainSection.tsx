@@ -31,15 +31,18 @@ const MainSection: MainSectionType = () => {
                         {MainSectionHeadings.subTitle}
                     </div>
                     <div>
-                        <button className="w-[16rem] h-[3.25rem] rounded-[1.25rem] bg-blue ease-in-out duration-200 hover:bg-lavender active:bg-pink">
-                            <p className="flex flex-row items-center justify-center gap-2 text-2xl">
+                        <button className="rounded-[1.25rem] bg-blue ease-in-out duration-200 hover:bg-lavender active:bg-pink">
+                            <a
+                                href="/#about-us"
+                                className="flex flex-row items-center justify-center gap-2 text-2xl px-6 py-3"
+                            >
                                 {MainSectionHeadings.buttonTitle}
                                 <Image
                                     src={RightArrow}
                                     width={30}
                                     alt="arrow"
                                 />
-                            </p>
+                            </a>
                         </button>
                     </div>
                 </div>
@@ -48,8 +51,7 @@ const MainSection: MainSectionType = () => {
                         src={MainSectionImage}
                         alt="Radiowaves"
                         priority={true}
-                        height="659"
-                        width={670}
+                        width={800}
                     />
                 </div>
             </div>

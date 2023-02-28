@@ -4,6 +4,8 @@ import Map from "@components/map";
 import Section from "@components/layout/Section";
 import ContactCards from "@components/cards";
 
+import { ContactsSectionType } from "./types";
+
 const SECTION_TITLE = {
     title: "Контакты",
     contacts: [
@@ -32,7 +34,7 @@ const SECTION_TITLE = {
     ],
 };
 
-const ContactsSection = () => {
+const ContactsSection: ContactsSectionType = () => {
     return (
         <div id="contacts">
             <Section title={SECTION_TITLE.title}>
