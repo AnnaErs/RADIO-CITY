@@ -1,9 +1,10 @@
 "use client";
-import "./globals.css";
 import { usePathname } from "next/navigation";
 
 import Header from "@components/header/Header";
 import Footer from "@components/footer/Footer";
+
+import "../globals.css";
 
 export default function RootLayout({
     children,
@@ -21,7 +22,7 @@ export default function RootLayout({
                 <link rel="icon" href="/favicon.ico" />
                 <script src="https://api-maps.yandex.ru/3.0/?apikey=263e44fe-b036-4039-8e0d-5a94e01b864e&lang=ru_RU" />
             </head>
-            <body className="bg-bg">
+            <body className="bg-bg text-white">
                 {router === "/auth" ? "" : <Header />}
                 <div>{children}</div>
                 <Footer />
