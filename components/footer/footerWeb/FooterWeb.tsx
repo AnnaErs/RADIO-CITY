@@ -3,7 +3,7 @@ import React, { memo } from "react";
 
 import Container from "@components/layout/Container";
 
-import { FooterType, FooterLinksType } from "./types";
+import { FooterType, FooterLinksType } from "../types";
 
 const FOOTER_LINKS: FooterLinksType = {
     pages: [
@@ -35,7 +35,7 @@ const FOOTER_LINKS: FooterLinksType = {
     },
 };
 
-const Footer: FooterType = () => {
+const FooterWeb: FooterType = () => {
     return (
         <Container>
             <div className="flex justify-between my-3">
@@ -61,4 +61,4 @@ const Footer: FooterType = () => {
     );
 };
 
-export default memo(Footer);
+export default memo(FooterWeb);
