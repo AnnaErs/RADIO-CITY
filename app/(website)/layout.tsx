@@ -1,8 +1,8 @@
 "use client";
 import { usePathname } from "next/navigation";
 
-import Header from "@components/header/Header";
-import Footer from "@components/footer/Footer";
+import HeaderWeb from "@components/header/headerWeb/HeaderWeb";
+import FooterWeb from "@components/footer/footerWeb/FooterWeb";
 
 import "../globals.css";
 
@@ -23,9 +23,9 @@ export default function RootLayout({
                 <script src="https://api-maps.yandex.ru/3.0/?apikey=263e44fe-b036-4039-8e0d-5a94e01b864e&lang=ru_RU" />
             </head>
             <body className="bg-bg text-white">
-                {router === "/auth" ? "" : <Header />}
+                <HeaderWeb />
                 <div>{children}</div>
-                <Footer />
+                <FooterWeb />
             </body>
         </html>
     );

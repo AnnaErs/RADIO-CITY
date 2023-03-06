@@ -3,40 +3,29 @@ import React, { memo, useEffect, useMemo, useState } from "react";
 
 import Container from "@components/layout/Container";
 
-import { HeaderType, HeaderLinksType } from "./types";
+import { HeaderType, HeaderLinksType } from "../types";
 
 const HEADER_LINKS: HeaderLinksType = {
     head: {
         id: 0,
-        name: "Главная",
-        href: "/#",
+        name: "Вадим Ф.",
+        href: "/",
     },
     pages: [
         {
             id: 1,
-            name: "О нас",
-            href: "/#about-us",
+            name: "Звонки",
+            href: "/admin/call-manager",
         },
         {
             id: 2,
-            name: "Клиентам",
-            href: "/#clients",
-        },
-        {
-            id: 3,
-            name: "Контакты",
-            href: "/#contacts",
-        },
-        {
-            id: 4,
-            name: "Войти",
-            href: "/auth",
-            target: "_blank",
+            name: "Клиенты",
+            href: "/admin/clients",
         },
     ],
 };
 
-const Header: HeaderType = () => {
+const HeaderAdmin: HeaderType = () => {
     const [isOnTop, setOnTopStatus] = useState(window.pageYOffset < 200);
 
     useEffect(() => {
@@ -52,7 +41,7 @@ const Header: HeaderType = () => {
     }, [setOnTopStatus]);
 
     const classNames = useMemo(() => {
-        const classes = ["sticky top-0 ease-in-out duration-200 bg-bg"];
+        const classes = ["sticky top-0 ease-in-out duration-200 bg-white"];
 
         if (!isOnTop) {
             classes.push("shadow-blue");
@@ -64,27 +53,25 @@ const Header: HeaderType = () => {
     return (
         <header className={classNames}>
             <Container>
-                <div className="flex justify-between py-6 text-xl text-gray">
+                <div className="flex justify-between py-6 text-xl text-black">
                     <div>
-                        {
-                            <a
-                                href={HEADER_LINKS.head.href}
-                                id={HEADER_LINKS.head.name}
-                            >
-                                {HEADER_LINKS.head.name}
-                            </a>
-                        }
-                    </div>
-                    <div className="">
                         {HEADER_LINKS.pages.map((ar, key = ar.id) => (
                             <a
                                 href={ar.href}
-                                className="ml-20"
+                                className="mr-12"
                                 target={ar.target}
                             >
                                 {ar.name}
                             </a>
                         ))}
+                    </div>
+                    <div>
+                        <a
+                            href={HEADER_LINKS.head.href}
+                            id={HEADER_LINKS.head.name}
+                        >
+                            {HEADER_LINKS.head.name}
+                        </a>
                     </div>
                 </div>
             </Container>
@@ -92,4 +79,4 @@ const Header: HeaderType = () => {
     );
 };
 
-export default memo(Header);
+export default memo(HeaderAdmin);
