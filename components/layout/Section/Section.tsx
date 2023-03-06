@@ -8,7 +8,7 @@ const Section: SectionType = ({ title, children }) => {
     return (
         <div className="py-8 tablet:py-12 desktop:py-20">
             <Container>
-                <Title title={title} />
+                {title && <Title title={title} />}
                 {children}
             </Container>
         </div>

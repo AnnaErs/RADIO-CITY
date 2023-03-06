@@ -24,6 +24,20 @@ module.exports = {
           fontWeight: '700'
         }
       ],
+      'h4-bold':[
+        '1.5rem',
+        {
+          lineHeight: '2rem',
+          fontWeight: '700'
+        }
+      ],
+      'h4':[
+        '1.5rem',
+        {
+          lineHeight: '2rem',
+          fontWeight: '400'
+        }
+      ],
       'lg': [
         '14px',
         {
