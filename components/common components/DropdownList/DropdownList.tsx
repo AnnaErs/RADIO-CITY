@@ -4,7 +4,7 @@ import { DropdownListType } from "./types";
 
 const DropdownList: DropdownListType = ({ states }) => {
     return (
-        <div className="w-[400px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1">
+        <div className="absolute bg-white w-[400px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1">
             {states.map((state) => (
                 <div
                     key={state}

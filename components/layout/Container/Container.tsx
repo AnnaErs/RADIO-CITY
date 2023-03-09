@@ -1,7 +1,5 @@
 import { memo } from "react";
 
-import Title from "../Title";
-
 import { ContainerType } from "./types";
 
 const Container: ContainerType = ({ children }) => {
