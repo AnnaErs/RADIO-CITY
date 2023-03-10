@@ -1,1 +1,1 @@
-export {default} from './FooterAdmin';
+export {default} from "./FooterAdmin";

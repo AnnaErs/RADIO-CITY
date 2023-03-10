@@ -1,10 +1,10 @@
-import { memo } from "react";
+import {memo} from "react";
 
 import Map from "@components/map";
 import Section from "@components/layout/Section";
 import ContactCards from "@components/cards";
 
-import { ContactsSectionType } from "./types";
+import {ContactsSectionType} from "./types";
 
 const SECTION_TITLE = {
     title: "Контакты",

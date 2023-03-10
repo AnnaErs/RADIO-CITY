@@ -1,9 +1,9 @@
 "use client";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, {memo, useEffect, useMemo, useState} from "react";
 
 import Container from "@components/layout/Container";
 
-import { HeaderType, HeaderLinksType } from "../types";
+import {HeaderType, HeaderLinksType} from "../types";
 
 const HEADER_LINKS: HeaderLinksType = {
     head: {
@@ -76,11 +76,12 @@ const HeaderWeb: HeaderType = () => {
                         }
                     </div>
                     <div className="">
-                        {HEADER_LINKS.pages.map((ar, key = ar.id) => (
+                        {HEADER_LINKS.pages.map((ar) => (
                             <a
                                 href={ar.href}
                                 className="ml-20"
                                 target={ar.target}
+                                key={ar.id}
                             >
                                 {ar.name}
                             </a>

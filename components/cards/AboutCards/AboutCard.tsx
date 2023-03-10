@@ -1,8 +1,8 @@
-import React, { memo } from "react";
+import React, {memo} from "react";
 
-import { AboutCardType } from "./types";
+import {AboutCardType} from "./types";
 
-const AboutCard: AboutCardType = ({ aboutSegment }) => {
+const AboutCard: AboutCardType = ({aboutSegment}) => {
     return (
         <div className="flex basis-2/5 h-full flex-row items-stretch">
             <div className="h-14 aspect-square border-t-2 border-l-2 border-white" />

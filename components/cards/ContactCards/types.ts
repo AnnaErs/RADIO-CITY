@@ -1,13 +1,13 @@
-import {FC} from 'react';
+import {FC} from "react";
 
 type Contact = {
     title: string;
     entities: Array<string>;
-}
+};
 type Contacts = Array<Contact>;
 
 type ContactCardsPropsType = {
-    contacts: Contacts
+    contacts: Contacts;
 };
 export type ContactCardsType = FC<ContactCardsPropsType>;
 

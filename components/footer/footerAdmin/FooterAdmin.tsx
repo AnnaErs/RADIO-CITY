@@ -1,9 +1,9 @@
 import Link from "next/link";
-import React, { memo } from "react";
+import React, {memo} from "react";
 
 import Container from "@components/layout/Container";
 
-import { FooterType, FooterLinksType } from "../types";
+import {FooterType, FooterLinksType} from "../types";
 
 const FOOTER_LINKS: FooterLinksType = {
     pages: [
@@ -30,8 +30,8 @@ const FooterAdmiin: FooterType = () => {
         <Container>
             <div className="flex justify-between my-3">
                 <div className=" text-lg">
-                    {FOOTER_LINKS.pages.map((ar, key = ar.id) => (
-                        <a href={ar.href} className="mr-16">
+                    {FOOTER_LINKS.pages.map((ar) => (
+                        <a href={ar.href} className="mr-16" key={ar.id}>
                             {ar.name}
                         </a>
                     ))}

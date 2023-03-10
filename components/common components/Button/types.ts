@@ -1,6 +1,6 @@
-import { FC } from "react";
+import {FC} from "react";
 
 type ButtonPropsType = {
-    title: string,
+    title: string;
 };
 export type ButtonType = FC<ButtonPropsType>;

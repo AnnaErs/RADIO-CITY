@@ -1,13 +1,13 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import CallManagerSection from "@components/sections/admin/CallManager/CallManagerSection";
+import CallManagerSection from "@components/sections/CallManager";
 
-import { CallManagerPageType } from "./types";
+import {CallManagerPageType} from "./types";
 
 const CallManagerPage: CallManagerPageType = () => {
     return (
         <>
-            <CallManagerSection/>
+            <CallManagerSection />
         </>
     );
 };

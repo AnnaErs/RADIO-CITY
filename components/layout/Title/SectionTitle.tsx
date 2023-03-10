@@ -1,10 +1,10 @@
-import { memo } from "react";
+import {FC, memo} from "react";
 
-interface Props {
+type SectionTitleType = FC<{
     title: string;
-}
+}>;
 
-const SectionTitle = ({ title }: Props) => {
+const SectionTitle: SectionTitleType = ({title}) => {
     return (
         <div>
             <div className="inline-block mb-24">

@@ -1,6 +1,6 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import { ClientsPageType } from "./types";
+import {ClientsPageType} from "./types";
 
 const UsersPage: ClientsPageType = () => {
     return (

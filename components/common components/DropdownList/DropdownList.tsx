@@ -1,8 +1,8 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import { DropdownListType } from "./types";
+import {DropdownListType} from "./types";
 
-const DropdownList: DropdownListType = ({ states }) => {
+const DropdownList: DropdownListType = ({states}) => {
     return (
         <div className="w-[400px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1">
             {states.map((state) => (

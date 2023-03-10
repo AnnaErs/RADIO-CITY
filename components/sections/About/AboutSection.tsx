@@ -1,9 +1,9 @@
-import { memo } from "react";
+import {memo} from "react";
 
 import Section from "@components/layout/Section";
 import AboutCards from "@components/cards/AboutCards";
 
-import { AboutSectionType } from "./types";
+import {AboutSectionType} from "./types";
 
 const SECTION = {
     title: "О нас",

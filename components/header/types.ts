@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import {FC} from "react";
 
 type Link = {
-        id: number;
-        name: string;
-        href: string;
-        target?: string;
+    id: number;
+    name: string;
+    href: string;
+    target?: string;
 };
 type Links = Array<Link>;
 
@@ -15,6 +15,5 @@ export type HeaderLinksType = {
     pages: PagesNavigationType;
 };
 
-type HeaderPropsType = {}
+type HeaderPropsType = {};
 export type HeaderType = FC<HeaderPropsType>;
-

@@ -1,2 +1,1 @@
-export {default} from './HeaderWeb';
-
+export {default} from "./HeaderWeb";
