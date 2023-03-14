@@ -1,11 +1,10 @@
-import { memo } from "react";
+import {memo} from "react";
 import Image from "next/image";
 
 import MainSectionImage from "@public/MainSectionImage.gif";
 import RightArrow from "@public/RightArrow.png";
 
-import { MainSectionHeadingsPropsType, MainSectionType } from "./types";
-import Container from "@components/layout/Container";
+import {MainSectionHeadingsPropsType, MainSectionType} from "./types";
 
 const MainSectionHeadings: MainSectionHeadingsPropsType = {
     mainTitle: {

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import {FC, PropsWithChildren} from "react";
 
-type ContainerPropsType = {}
-export type ContainerType = FC<PropsWithChildren<ContainerPropsType>>
+type ContainerPropsType = {};
+export type ContainerType = FC<PropsWithChildren<ContainerPropsType>>;

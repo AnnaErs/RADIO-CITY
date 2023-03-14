@@ -1,17 +1,14 @@
 "use client";
-import { usePathname } from "next/navigation";
+// import {usePathname} from "next/navigation";
 
 import HeaderWeb from "@components/header/headerWeb/HeaderWeb";
 import FooterWeb from "@components/footer/footerWeb/FooterWeb";
 
 import "../globals.css";
+import {RootLayoutType} from "./types";
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    const router = usePathname();
+const RootLayout: RootLayoutType = ({children}) => {
+    // const router = usePathname();
     return (
         <html lang="en">
             <head>
@@ -29,4 +26,6 @@ export default function RootLayout({
             </body>
         </html>
     );
-}
+};
+
+export default RootLayout;

@@ -1,7 +1,4 @@
-import { FC, PropsWithChildren } from "react";
-
-type RootLayoutPropsType = PropsWithChildren<{}>;
-export type RootLayoutType = FC<RootLayoutPropsType>;
+import {FC} from "react";
 
 type ClientsPagePropsType = {};
 export type ClientsPageType = FC<ClientsPagePropsType>;

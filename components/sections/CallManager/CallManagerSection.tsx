@@ -1,11 +1,11 @@
-import { memo } from "react";
+import {memo} from "react";
 
 import Section from "@components/layout/Section";
 import CurrentInfo from "@components/common components/CurrentInfo";
 import Button from "@components/common components/Button";
 import DropdownList from "@components/common components/DropdownList";
 
-import { CallManagerSectionType } from "./types";
+import {CallManagerSectionType} from "./types";
 
 const DROPDOWN_STATES = [
     "Всё ОК",

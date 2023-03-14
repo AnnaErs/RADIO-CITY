@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import {FC} from "react";
 
 type Link = {
-        id: number;
-        name: string;
-        href: string;
+    id: number;
+    name: string;
+    href: string;
 };
 type Links = Array<Link>;
 
@@ -14,6 +14,5 @@ export type FooterLinksType = {
     production: Link;
 };
 
-type FooterPropsType = {}
+type FooterPropsType = {};
 export type FooterType = FC<FooterPropsType>;
-

@@ -1,7 +1,7 @@
 import moment from "moment";
-import { memo } from "react";
+import {memo} from "react";
 
-import { CurrentInfoType } from "./types";
+import {CurrentInfoType} from "./types";
 
 const CURRENT_INFO = {
     title: "Текущая информация",
@@ -31,8 +31,6 @@ let currentDate = [
     months[date.getMonth()],
     date.getFullYear().toString(),
 ];
-
-let cuttentTime = date.toLocaleTimeString();
 
 const CurrentInfo: CurrentInfoType = () => {
     return (

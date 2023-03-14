@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren } from "react";
+import {FC, PropsWithChildren} from "react";
 
 type SectionPropsType = {
     title?: string;
-}
-export type SectionType = FC<PropsWithChildren<SectionPropsType>>
+};
+export type SectionType = FC<PropsWithChildren<SectionPropsType>>;

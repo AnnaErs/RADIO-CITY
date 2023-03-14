@@ -1,12 +1,11 @@
-import { memo } from "react";
+import {memo} from "react";
 
 import Section from "@components/layout/Section";
 import Client1Image from "@public/ClientsImage1.png";
 import Client2Image from "@public/ClientsImage2.png";
 import ClientRowCards from "@components/cards/ClientsCards/ClientRowCards";
-import { title } from "process";
 
-import { ClientsSectionType } from "./types";
+import {ClientsSectionType} from "./types";
 
 const SECTION = {
     title: "Клиентам",
@@ -34,7 +33,7 @@ const ClientsSection: ClientsSectionType = () => {
                     <ClientRowCards
                         {...client}
                         isReverse={!!(index % 2)}
-                        key={title}
+                        key={client.title}
                     />
                 ))}
             </Section>

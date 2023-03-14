@@ -1,9 +1,9 @@
-import { memo, useMemo } from "react";
+import {memo, useMemo} from "react";
 import Image from "next/image";
 
 import ClientCard from "./ClientCard";
 
-import { ClientRowCardsType } from "./types";
+import {ClientRowCardsType} from "./types";
 
 const ClientRowCards: ClientRowCardsType = ({
     src,

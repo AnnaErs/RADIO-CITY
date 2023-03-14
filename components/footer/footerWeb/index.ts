@@ -1,1 +1,1 @@
-export {default} from './FooterWeb';
+export {default} from "./FooterWeb";
