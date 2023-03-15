@@ -9,9 +9,9 @@ import { AccordeonType } from "./types";
 const Accordeon: AccordeonType = ({
     title,
     children,
-    defoaultState = false,
+    defaultState = false,
 }) => {
-    const [isOpen, toggle] = useToggle(defoaultState);
+    const [isOpen, toggle] = useToggle(defaultState);
     const classNames = useMemo(() => {
         const classes = ["self-center"];
 
@@ -25,7 +25,7 @@ const Accordeon: AccordeonType = ({
         <div>
             <div
                 onClick={toggle}
-                className="flex justify-between text-h4-bold w-1/3"
+                className="flex justify-between text-h4-bold w-1/3 py-3"
             >
                 <div>{title}</div>
                 <div className={classNames}>

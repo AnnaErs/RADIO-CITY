@@ -1,8 +1,8 @@
 import useToggle from "@utils/useToggle";
 import { memo } from "react";
-import DropdownList from "../DropdownList";
+import DropdownList from "../../DropdownList";
 
-import { ButtonType } from "./types";
+import { ButtonType } from "../types";
 
 const DROPDOWN_STATES = [
     "Всё ОК",
@@ -13,7 +13,7 @@ const DROPDOWN_STATES = [
     "Не умеет работать",
 ];
 
-const Button: ButtonType = ({ title }) => {
+const ButtonWithDropdownList: ButtonType = ({ title }) => {
     const [modal, setModal] = useToggle(false);
     return (
         <div>
@@ -28,4 +28,4 @@ const Button: ButtonType = ({ title }) => {
     );
 };
 
-export default memo(Button);
+export default memo(ButtonWithDropdownList);
