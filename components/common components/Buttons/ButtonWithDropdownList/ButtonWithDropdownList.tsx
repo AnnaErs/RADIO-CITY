@@ -1,6 +1,8 @@
 import useToggle from "@utils/useToggle";
 import { memo } from "react";
+
 import DropdownList from "../../DropdownList";
+import Button from "../Button/Button";
 
 import { ButtonType } from "../types";
 
@@ -17,12 +19,7 @@ const ButtonWithDropdownList: ButtonType = ({ title }) => {
     const [modal, setModal] = useToggle(false);
     return (
         <div>
-            <button
-                onClick={setModal}
-                className="text-h4 bg-white border-2 border-primary ease-in-out delay-200 rounded-xl children:p-3 hover:shadow hover:shadow-primary active:border-pink active:shadow-pink"
-            >
-                <p>{title}</p>
-            </button>
+            <Button title={title} onClick={setModal}/>
             {modal && <DropdownList states={DROPDOWN_STATES} />}
         </div>
     );
