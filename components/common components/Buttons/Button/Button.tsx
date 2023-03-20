@@ -1,16 +1,15 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import { ButtonType } from "../types";
+import {ButtonType} from "../types";
 
-const Button: ButtonType = ({ title, onClick}) => {
+const Button: ButtonType = ({title, onClick}) => {
     return (
-        <div>
-            <button 
+        <button
             onClick={onClick}
-            className="text-h4 bg-white border-2 border-primary ease-in-out delay-200 rounded-xl children:p-3 hover:shadow hover:shadow-primary active:border-pink active:shadow-pink">
-                <p>{title}</p>
-            </button>
-        </div>
+            className="inline-block text-xl p-3 bg-white border-2 border-primary ease-in-out delay-200 rounded-xl hover:shadow hover:shadow-primary active:border-pink active:shadow-pink"
+        >
+            {title}
+        </button>
     );
 };
 

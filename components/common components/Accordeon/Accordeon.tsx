@@ -1,3 +1,4 @@
+"use client"
 import { memo, useMemo } from "react";
 import Image from "next/image";
 
