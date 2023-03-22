@@ -1,6 +1,6 @@
 import {memo} from "react";
 
-import CallManagerSection from "@components/sections/admin/CallManager";
+import CallManagerSection from "@components/sections/CallManager";
 
 import {CallManagerPageType} from "./types";
 

@@ -1,5 +1,5 @@
 "use client";
-import {memo, useCallback, useEffect, useRef} from "react";
+import {memo, useCallback} from "react";
 
 import Accordeon from "@components/common components/Accordeon";
 import List, {ListItem, ListRow} from "@components/common components/List";

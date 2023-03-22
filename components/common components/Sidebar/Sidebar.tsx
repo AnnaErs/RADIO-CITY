@@ -1,23 +1,14 @@
-import {memo, useEffect, useRef} from "react";
+import {memo, useRef} from "react";
 
 import Button from "../Buttons/Button/Button";
 import Input from "../Input";
+import useOnOutsideClick from "@utils/useOnOutsideClick";
 
 import {SidebarType} from "./types";
 
 const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
     const sidebar = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const closeSidebar = (event: MouseEvent) => {
-            if (!sidebar.current?.contains(event.target as Node)) {
-                onOutsideClick?.();
-            }
-        };
-        document.addEventListener("click", closeSidebar);
-        return () => {
-            document.removeEventListener("click", closeSidebar);
-        };
-    }, []);
+    useOnOutsideClick(sidebar, onOutsideClick);
     return (
         <div
             ref={sidebar}

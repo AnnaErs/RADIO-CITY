@@ -2,7 +2,7 @@ import {memo} from "react";
 
 import CurrentInfo from "@components/common components/CurrentInfo";
 import Accordeon from "@components/common components/Accordeon";
-import List, { ListItem, ListRow } from "@components/common components/List";
+import List, {ListItem, ListRow} from "@components/common components/List";
 import Button from "@components/common components/Buttons/ButtonWithDropdownList";
 import Container from "@components/layout/Container";
 
