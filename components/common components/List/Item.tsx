@@ -1,10 +1,10 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import { ListType } from "./types";
+import {ListType} from "./types";
 
-const Item: ListType = ({ children }) => {
+const Item: ListType = ({children}) => {
     return (
-        <td className="text-h4 pr-12 last:p-0 last:pl-32 last:border-2 last:border-white ">
+        <td className="text-h4 text-start py-2 px-2 min-w-0 h-16 last:pr-0 border-b-2 last:border-transparent ">
             {children}
         </td>
     );

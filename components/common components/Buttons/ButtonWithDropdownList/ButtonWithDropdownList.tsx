@@ -1,7 +1,8 @@
+"use client"
 import useToggle from "@utils/useToggle";
 import { memo } from "react";
 
-import DropdownList from "../../DropdownList";
+import DropdownList from "../DropdownList";
 import Button from "../Button/Button";
 
 import { ButtonType } from "../types";

@@ -1,10 +1,10 @@
-import { memo } from "react";
+import {memo} from "react";
 
-import { ListType } from "./types";
+import {ListType} from "./types";
 
-const List: ListType = ({ children }) => {
+const List: ListType = ({children}) => {
     return (
-        <table className="border-separate border-spacing-y-3">
+        <table className="border-separate">
             <tbody>{children}</tbody>
         </table>
     );

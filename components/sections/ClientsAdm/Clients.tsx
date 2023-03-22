@@ -1,14 +1,13 @@
 "use client";
-import { memo } from "react";
+import {memo, useCallback} from "react";
 
-import CurrentInfo from "@components/common components/CurrentInfo";
 import Accordeon from "@components/common components/Accordeon";
-import List, { ListItem, ListRow } from "@components/common components/List";
-import Button from "@components/common components/Buttons/ButtonWithDropdownList";
+import List, {ListItem, ListRow} from "@components/common components/List";
 import Container from "@components/layout/Container";
-import useToggle from "@utils/useToggle";
+import Sidebar from "@components/common components/Sidebar";
 
-import { CallManagerSectionType } from "./types";
+import {ClientsSectionType} from "./types";
+import useToggle from "@utils/useToggle";
 
 const CLIENTS = [
     {
@@ -21,6 +20,7 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -33,6 +33,7 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -45,6 +46,7 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -57,6 +59,7 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -69,6 +72,7 @@ const CLIENTS = [
         },
         isCalled: true,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -81,6 +85,7 @@ const CLIENTS = [
         },
         isCalled: true,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -93,6 +98,7 @@ const CLIENTS = [
         },
         isCalled: true,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -105,6 +111,7 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 
     {
@@ -117,35 +124,51 @@ const CLIENTS = [
         },
         isCalled: false,
         phone: "+799999999",
+        active_days: "пн, вт, ср, чт, пт, сб, вс",
     },
 ];
 
 const GROUPS_TITLES = {
-    missed: "Недоступные клиенты",
-    future: "Будущие клиенты",
-    called: "Обзвоненные клиенты",
+    activated: "Активные клиенты",
+    deactivated: "Деактивные клиенты",
 };
 
-const CallManagerSection: CallManagerSectionType = () => {
+const ClientsSections: ClientsSectionType = () => {
+    const [isSidebarOpen, toggleVisability, setOpenStatus] = useToggle(false);
+    const clickHandle = useCallback(() => {
+        setOpenStatus(true);
+    }, [setOpenStatus]);
     return (
         <Container>
-            <CurrentInfo />
-            <Accordeon title={GROUPS_TITLES.called}>
+            <Accordeon title={GROUPS_TITLES.activated}>
                 <List>
                     {CLIENTS.map((client) => (
-                        <ListRow key={client.id}>
+                        <ListRow key={client.id} onClick={clickHandle}>
                             <ListItem>{client.name}</ListItem>
                             <ListItem>{client.phone}</ListItem>
                             <ListItem>{client.active_period.time}</ListItem>
-                            <ListItem>
-                                <Button title="Дозвонились" />
-                            </ListItem>
+                            <ListItem>{client.active_days}</ListItem>
+                            <ListItem></ListItem>
                         </ListRow>
                     ))}
                 </List>
             </Accordeon>
+            <div id="sidebar">
+                {isSidebarOpen && (
+                    <Sidebar
+                        clientInfo={{
+                            name: "Анна Кондратова",
+                            phone: "89993416196",
+                            time: "10:30",
+                            days: "пн вт ср чт",
+                            history: [],
+                        }}
+                        onOutsideClick={toggleVisability}
+                    />
+                )}
+            </div>
         </Container>
     );
 };
 
-export default memo(CallManagerSection);
+export default memo(ClientsSections);
