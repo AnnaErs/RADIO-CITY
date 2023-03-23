@@ -1,14 +1,14 @@
-"use client";
-import {memo, useEffect, useRef} from "react";
+import {memo} from "react";
+import Image from "next/image";
+
+import map from "./map.png";
 
 const Map = () => {
-    const ref = useRef(null);
-
-    useEffect(() => {
-        // TODO добавить карту
-    }, [ref]);
-
-    return <div ref={ref} />;
+    return (
+        <div>
+            <Image src={map} alt="map" className="w-full" />
+        </div>
+    );
 };
 
 export default memo(Map);

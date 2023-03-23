@@ -4,7 +4,7 @@ import {ClientCardType} from "./types";
 
 const ClientCard: ClientCardType = ({children}) => {
     return (
-        <div className="rounded-3xl shadow-blue hover:shadow-lavender ease-in-out duration-200 overflow-hidden h-full">
+        <div className="rounded-[3rem] shadow-blue hover:shadow-lavender ease-in-out duration-200 overflow-hidden h-full">
             {children}
         </div>
     );

@@ -1,18 +1,16 @@
 import {FC} from "react";
 
 type Link = {
-    id: number;
     name: string;
     href: string;
+    target?: string;
 };
 type Links = Array<Link>;
 
-type PagesNavigationType = Links;
-
-export type FooterLinksType = {
-    pages: PagesNavigationType;
-    production: Link;
+type FooterPropsType = {
+    links: {
+        left?: Links;
+        right?: Links;
+    };
 };
-
-type FooterPropsType = {};
 export type FooterType = FC<FooterPropsType>;
