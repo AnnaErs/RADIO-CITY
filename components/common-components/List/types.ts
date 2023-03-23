@@ -1,8 +1,6 @@
-import { FC, PropsWithChildren, ReactNode } from "react";
+import {FC, PropsWithChildren} from "react";
 
 type ListPropsType = PropsWithChildren<{
-   onClick?: ()=>void,
-
+    onClick?: () => void;
 }>;
 export type ListType = FC<ListPropsType>;
-

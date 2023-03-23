@@ -1,14 +1,54 @@
 "use client";
 // import {usePathname} from "next/navigation";
 
-import HeaderAdmin from "@components/header/headerAdmin";
-import FooterAdmin from "@components/footer/footerAdmin/FooterAdmin";
+import Header from "@components/header";
+import Footer from "@components/footer";
 
 import "../globals.css";
 import {RootLayoutType} from "./types";
 
+const HEADER_LINKS = {
+    right: [
+        {
+            id: 0,
+            name: "Вадим Ф.",
+            href: "/",
+        },
+    ],
+    left: [
+        {
+            id: 1,
+            name: "Звонки",
+            href: "/admin/call-manager",
+        },
+        {
+            id: 2,
+            name: "Клиенты",
+            href: "/admin/clients",
+        },
+    ],
+};
+
+const FOOTER_LINKS = {
+    left: [
+        {
+            name: "Звонки",
+            href: "/admin/call-manager",
+        },
+        {
+            name: "Клиенты",
+            href: "/clients",
+        },
+    ],
+    right: [
+        {
+            name: "MARTIR.DEV",
+            href: "https://t.me/maximmartyr",
+        },
+    ],
+};
+
 const RootLayout: RootLayoutType = ({children}) => {
-    // const router = usePathname();
     return (
         <html lang="en">
             <head>
@@ -17,12 +57,11 @@ const RootLayout: RootLayoutType = ({children}) => {
                     name="viewport"
                 />
                 <link rel="icon" href="/favicon.ico" />
-                <script src="https://api-maps.yandex.ru/3.0/?apikey=263e44fe-b036-4039-8e0d-5a94e01b864e&lang=ru_RU" />
             </head>
-            <body>
-                <HeaderAdmin />
-                <div>{children}</div>
-                <FooterAdmin />
+            <body className="flex flex-col min-h-screen">
+                <Header links={HEADER_LINKS} isAdmin />
+                <div className="flex-1">{children}</div>
+                <Footer links={FOOTER_LINKS} />
             </body>
         </html>
     );

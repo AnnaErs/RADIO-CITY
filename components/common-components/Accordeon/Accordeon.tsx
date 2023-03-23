@@ -1,17 +1,13 @@
-"use client"
-import { memo, useMemo } from "react";
+"use client";
+import {memo, useMemo} from "react";
 import Image from "next/image";
 
 import useToggle from "@utils/useToggle";
 import Switch from "@public/Switch.png";
 
-import { AccordeonType } from "./types";
+import {AccordeonType} from "./types";
 
-const Accordeon: AccordeonType = ({
-    title,
-    children,
-    defaultState = false,
-}) => {
+const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
     const [isOpen, toggle] = useToggle(defaultState);
     const classNames = useMemo(() => {
         const classes = ["self-center"];

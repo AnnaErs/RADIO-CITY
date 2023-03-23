@@ -1,10 +1,10 @@
 "use client";
 import {memo, useCallback} from "react";
 
-import Accordeon from "@components/common components/Accordeon";
-import List, {ListItem, ListRow} from "@components/common components/List";
+import Accordeon from "@components/common-components/Accordeon";
+import List, {ListItem, ListRow} from "@components/common-components/List";
+import Sidebar from "@components/common-components/Sidebar";
 import Container from "@components/layout/Container";
-import Sidebar from "@components/common components/Sidebar";
 
 import {ClientsSectionType} from "./types";
 import useToggle from "@utils/useToggle";
