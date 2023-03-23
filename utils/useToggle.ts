@@ -1,5 +1,5 @@
-"use client"
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+"use client";
+import {Dispatch, SetStateAction, useCallback, useState} from "react";
 
 const useToggle = (
     defaultValue?: boolean,
