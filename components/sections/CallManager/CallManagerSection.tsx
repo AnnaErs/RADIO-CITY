@@ -1,4 +1,5 @@
-import {memo} from "react";
+"use client";
+import {memo, useEffect, useState} from "react";
 
 import CurrentInfo from "@components/common-components/CurrentInfo";
 import Accordeon from "@components/common-components/Accordeon";
@@ -7,116 +8,15 @@ import Button from "@components/common-components/Buttons/ButtonWithDropdownList
 import Container from "@components/layout/Container";
 
 import {CallManagerSectionType} from "./types";
+import {ClientsState} from "../ClientsAdm/types";
+import {getClients, getClientsResponce} from "@api/getClients";
 
-const CLIENTS = [
-    {
-        id: "0",
-        name: "Артём Яковлев",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Президент Казахстана",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "19:50",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Виктор Кокшаров",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "19:40",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Надежда Бабкина",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "19:30",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Евгений Страшинин",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: true,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Илья Обабков",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: true,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Максим Пушкарев",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: true,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Юлия Бурдукова",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-
-    {
-        id: "0",
-        name: "Сквозь баб",
-        active_period: {
-            from: "8:00",
-            to: "20:00",
-            time: "10:30",
-        },
-        isCalled: false,
-        phone: "+799999999",
-    },
-];
+const convertClientsToClientList = (responseClients: getClientsResponce) => {
+    const responceClientsArray = Object.values(responseClients);
+    return responceClientsArray.map((versions) => {
+        return versions[versions.length - 1];
+    });
+};
 
 const GROUPS_TITLES = {
     missed: "Недоступные клиенты",
@@ -125,19 +25,33 @@ const GROUPS_TITLES = {
 };
 
 const CallManagerSection: CallManagerSectionType = () => {
+    const [clients, setClients] = useState<ClientsState>({
+        loading: false,
+        data: undefined,
+    });
+    useEffect(() => {
+        if (!clients.loading) {
+            getClients().then((res) => {
+                const convertedClients = convertClientsToClientList(res.data);
+                setClients({data: convertedClients, loading: false});
+            });
+        }
+    }, []);
+
     return (
         <Container>
             <CurrentInfo />
             <Accordeon title={GROUPS_TITLES.called}>
                 <List>
-                    {CLIENTS.map((client) => (
-                        <ListRow key={client.id}>
+                    {clients.data?.map((client) => (
+                        <ListRow key={client.client_id}>
                             <ListItem>{client.name}</ListItem>
                             <ListItem>{client.phone}</ListItem>
-                            <ListItem>{client.active_period.time}</ListItem>
+                            <ListItem>{client.call_time}</ListItem>
                             <ListItem>
                                 <Button title="Дозвонились" />
                             </ListItem>
+                            <ListItem></ListItem>
                         </ListRow>
                     ))}
                 </List>
