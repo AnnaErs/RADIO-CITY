@@ -1,4 +1,4 @@
 import {FC} from "react";
 
 type UserPagePropsType = {};
-export type UserPageType = FC<UserPagePropsType>;
+export type UserPageType = (props: UserPagePropsType) => Promise<JSX.Element>;

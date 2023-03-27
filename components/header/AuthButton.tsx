@@ -10,10 +10,9 @@ const AuthButton = () => {
                 {
                     client_id: "d77dee1660984443a3961a2c661f66d9",
                     response_type: "token",
-                    redirect_uri:
-                        "https://mimpushkarev-verbose-system-rq47j57xqwr3xvwq-3000.preview.app.github.dev/auth",
+                    redirect_uri: `${window.location.origin}/auth`,
                 },
-                "https://mimpushkarev-verbose-system-rq47j57xqwr3xvwq-3000.preview.app.github.dev/auth",
+                `${window.location.origin}/auth`,
                 {
                     view: "button",
                     parentId: "button",

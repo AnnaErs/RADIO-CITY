@@ -7,7 +7,7 @@ import List, {ListItem, ListRow} from "@components/common-components/List";
 import Sidebar from "@components/common-components/Sidebar";
 import Container from "@components/layout/Container";
 import useToggle from "@utils/useToggle";
-import {getClients, getClientsResponce} from "@api/getClients";
+import {getClients, getClientsResponce} from "@api/clientsAPI";
 
 import {ClientsSectionType, ClientsState} from "./types";
 
@@ -52,6 +52,7 @@ const ClientsSections: ClientsSectionType = () => {
     const deactivatedClients = clients.data?.filter((client) => {
         return moment(client.active_period_to).isBefore(moment());
     });
+
     return (
         <Container>
             {!!activeClients?.length && (

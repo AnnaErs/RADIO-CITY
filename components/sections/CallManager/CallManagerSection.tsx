@@ -6,10 +6,10 @@ import Accordeon from "@components/common-components/Accordeon";
 import List, {ListItem, ListRow} from "@components/common-components/List";
 import Button from "@components/common-components/Buttons/ButtonWithDropdownList";
 import Container from "@components/layout/Container";
+import {getClients, getClientsResponce} from "@api/clientsAPI";
 
 import {CallManagerSectionType} from "./types";
 import {ClientsState} from "../ClientsAdm/types";
-import {getClients, getClientsResponce} from "@api/getClients";
 
 const convertClientsToClientList = (responseClients: getClientsResponce) => {
     const responceClientsArray = Object.values(responseClients);
