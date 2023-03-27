@@ -1,7 +1,7 @@
-import {FC} from "react";
+import {FC, PropsWithChildren} from "react";
 
-type ButtonPropsType = {
-    title: string;
+type ButtonPropsType = PropsWithChildren<{
+    title?: string;
     onClick?: () => void;
-};
+}>;
 export type ButtonType = FC<ButtonPropsType>;

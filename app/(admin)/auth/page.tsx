@@ -1,12 +1,10 @@
 "use client";
-import {memo, useEffect} from "react";
+import React, {memo, useEffect} from "react";
 
 const Auth = () => {
     useEffect(() => {
         const timerId = setTimeout(() => {
-            (window as any)?.YaSendSuggestToken?.(
-                "https://mimpushkarev-verbose-system-rq47j57xqwr3xvwq-3000.preview.app.github.dev/",
-            );
+            (window as any)?.YaSendSuggestToken?.(`${window.location.origin}`);
         });
 
         return () => {
