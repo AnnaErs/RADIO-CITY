@@ -1,7 +1,8 @@
+import {StaticImageData} from "next/image";
 import {FC, PropsWithChildren} from "react";
 
 export type ClientRowCardsPropsType = {
-    src: string;
+    src: StaticImageData;
     title: string;
     paragraph: string;
     isReverse: boolean;

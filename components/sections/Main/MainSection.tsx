@@ -1,4 +1,8 @@
 import {memo} from "react";
+import Image from "next/image";
+
+import MainSectionImage from "@public/MainSectionImage.gif";
+import RightArrow from "@public/RightArrow.png";
 
 import {MainSectionHeadingsPropsType, MainSectionType} from "./types";
 
@@ -32,8 +36,8 @@ const MainSection: MainSectionType = () => {
                                 className="flex flex-row items-center justify-center gap-2 text-2xl px-6 py-3"
                             >
                                 {MainSectionHeadings.buttonTitle}
-                                <img
-                                    src="/RightArrow.png"
+                                <Image
+                                    src={RightArrow}
                                     width={30}
                                     alt="arrow"
                                 />
@@ -42,8 +46,8 @@ const MainSection: MainSectionType = () => {
                     </div>
                 </div>
                 <div>
-                    <img
-                        src="/MainSectionImage.gif"
+                    <Image
+                        src={MainSectionImage}
                         alt="Radiowaves"
                         width={800}
                     />

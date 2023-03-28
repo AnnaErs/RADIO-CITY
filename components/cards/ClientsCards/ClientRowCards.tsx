@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import {memo, useMemo} from "react";
 
 import ClientCard from "./ClientCard";
@@ -24,7 +25,7 @@ const ClientRowCards: ClientRowCardsType = ({
         <div className={classNames}>
             <div className="w-3/5">
                 <ClientCard>
-                    <img src={src} alt={title} className="w-full" />
+                    <Image src={src} alt={title} className="w-full" />
                 </ClientCard>
             </div>
             <div className="w-2/5">

@@ -1,6 +1,8 @@
 import {memo} from "react";
 
 import Section from "@components/layout/Section";
+import Client1Image from "@public/ClientsImage1.png";
+import Client2Image from "@public/ClientsImage2.png";
 import ClientRowCards from "@components/cards/ClientsCards/ClientRowCards";
 
 import {ClientsSectionType} from "./types";
@@ -9,13 +11,13 @@ const SECTION = {
     title: "Клиентам",
     clients: [
         {
-            src: "/ClientsImage1.png",
+            src: Client1Image,
             title: "Для частных лиц",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",
         },
         {
-            src: "/ClientsImage2.png",
+            src: Client2Image,
             title: "Для организаций",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",
@@ -30,7 +32,6 @@ const ClientsSection: ClientsSectionType = () => {
                 {SECTION.clients.map((client, index) => (
                     <ClientRowCards
                         {...client}
-                        src={client.src}
                         isReverse={!!(index % 2)}
                         key={client.title}
                     />
