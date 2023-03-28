@@ -1,6 +1,8 @@
 "use client";
 import React, {memo, useEffect} from "react";
 
+import Container from "@components/layout/Container";
+
 const Auth = () => {
     useEffect(() => {
         const timerId = setTimeout(() => {
@@ -12,6 +14,6 @@ const Auth = () => {
         };
     }, []);
 
-    return <p>Авторизация...</p>;
+    return <Container>Авторизация...</Container>;
 };
 export default memo(Auth);

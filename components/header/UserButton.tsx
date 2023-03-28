@@ -2,7 +2,7 @@ import React, {memo} from "react";
 
 const UserButton = () => {
     return (
-        <a href="/admin" className="mr-12">
+        <a href="/admin">
             Админ. панель
         </a>
     );
