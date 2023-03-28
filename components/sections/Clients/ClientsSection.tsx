@@ -11,13 +11,13 @@ const SECTION = {
     title: "Клиентам",
     clients: [
         {
-            src: Client1Image as any as string,
+            src: Client1Image,
             title: "Для частных лиц",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",
         },
         {
-            src: Client2Image as any as string,
+            src: Client2Image,
             title: "Для организаций",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",
@@ -32,6 +32,7 @@ const ClientsSection: ClientsSectionType = () => {
                 {SECTION.clients.map((client, index) => (
                     <ClientRowCards
                         {...client}
+                        src={client.src}
                         isReverse={!!(index % 2)}
                         key={client.title}
                     />

@@ -23,9 +23,17 @@ const AuthButton = () => {
                 },
             )
                 .then((result: any) => result.handler())
-                .then((data: {access_token: string; expires_in: string}) => {
-                    setCookie("token", data.access_token, data.expires_in);
-                })
+                .then(
+                    ({
+                        access_token,
+                        expires_in,
+                    }: {
+                        access_token: string;
+                        expires_in: string;
+                    }) => {
+                        setCookie("token", access_token, expires_in);
+                    },
+                )
                 .catch((error: Error) => {
                     console.error("Что-то пошло не так: ", error);
                 });

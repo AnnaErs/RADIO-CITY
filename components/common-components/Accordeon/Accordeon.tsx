@@ -1,23 +1,16 @@
 "use client";
-import {memo, useMemo} from "react";
+import {memo} from "react";
 import Image from "next/image";
 
 import useToggle from "@utils/useToggle";
 import Switch from "@public/Switch.png";
+import {cn} from "@utils/cn";
 
 import {AccordeonType} from "./types";
 
 const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
     const [isOpen, toggle] = useToggle(defaultState);
-    const classNames = useMemo(() => {
-        const classes = ["self-center"];
 
-        if (isOpen) {
-            classes.push("rotate-180 ease-in-out duration-200");
-        }
-
-        return classes.join(" ");
-    }, [isOpen]);
     return (
         <div>
             <div
@@ -25,7 +18,11 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
                 className="flex justify-between text-h4-bold w-1/3 py-3"
             >
                 <div>{title}</div>
-                <div className={classNames}>
+                <div
+                    className={cn("self-center ease-in-out duration-200", {
+                        "rotate-180": isOpen,
+                    })}
+                >
                     <Image src={Switch} alt={title} width={24}></Image>
                 </div>
             </div>
