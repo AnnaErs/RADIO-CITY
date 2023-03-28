@@ -49,7 +49,6 @@ const MainSection: MainSectionType = () => {
                     <Image
                         src={MainSectionImage}
                         alt="Radiowaves"
-                        priority={true}
                         width={800}
                     />
                 </div>
