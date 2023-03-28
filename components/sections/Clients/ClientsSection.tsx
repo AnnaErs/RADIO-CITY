@@ -1,7 +1,5 @@
 import {memo} from "react";
 
-import Client1Image from "@public/ClientsImage1.png";
-import Client2Image from "@public/ClientsImage2.png";
 import Section from "@components/layout/Section";
 import ClientRowCards from "@components/cards/ClientsCards/ClientRowCards";
 
@@ -11,13 +9,13 @@ const SECTION = {
     title: "Клиентам",
     clients: [
         {
-            src: Client1Image,
+            src: "/ClientsImage1.png",
             title: "Для частных лиц",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",
         },
         {
-            src: Client2Image,
+            src: "/ClientsImage2.png",
             title: "Для организаций",
             paragraph:
                 "Если вы любите активный отдых и туризм в равной степени с безопасностью, то Вам необходима временная аренда наших готовых решений для обеспечения бесперебойной связи.",

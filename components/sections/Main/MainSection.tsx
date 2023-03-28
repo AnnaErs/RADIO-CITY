@@ -1,5 +1,4 @@
 import {memo} from "react";
-import Image from "next/image";
 
 import {MainSectionHeadingsPropsType, MainSectionType} from "./types";
 
@@ -33,7 +32,7 @@ const MainSection: MainSectionType = () => {
                                 className="flex flex-row items-center justify-center gap-2 text-2xl px-6 py-3"
                             >
                                 {MainSectionHeadings.buttonTitle}
-                                <Image
+                                <img
                                     src="/RightArrow.png"
                                     width={30}
                                     alt="arrow"
@@ -43,7 +42,7 @@ const MainSection: MainSectionType = () => {
                     </div>
                 </div>
                 <div>
-                    <Image
+                    <img
                         src="/MainSectionImage.gif"
                         alt="Radiowaves"
                         width={800}

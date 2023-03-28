@@ -1,9 +1,7 @@
 "use client";
 import {memo} from "react";
-import Image from "next/image";
 
 import useToggle from "@utils/useToggle";
-import Switch from "@public/Switch.png";
 import {cn} from "@utils/cn";
 
 import {AccordeonType} from "./types";
@@ -23,7 +21,7 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
                         "rotate-180": isOpen,
                     })}
                 >
-                    <Image src={Switch} alt={title} width={24}></Image>
+                    <img src="/Switch.png" alt={title} width={24} />
                 </div>
             </div>
             {isOpen && <div>{children}</div>}
