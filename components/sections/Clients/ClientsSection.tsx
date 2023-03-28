@@ -1,8 +1,8 @@
 import {memo} from "react";
 
+import Client1Image from "@public/ClientsImage1.png";
+import Client2Image from "@public/ClientsImage2.png";
 import Section from "@components/layout/Section";
-import Client1Image from "@assets/ClientsImage1.png";
-import Client2Image from "@assets/ClientsImage2.png";
 import ClientRowCards from "@components/cards/ClientsCards/ClientRowCards";
 
 import {ClientsSectionType} from "./types";

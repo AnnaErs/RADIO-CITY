@@ -3,7 +3,7 @@ import {memo} from "react";
 import Image from "next/image";
 
 import useToggle from "@utils/useToggle";
-import Switch from "@assets/Switch.png";
+import Switch from "@public/Switch.png";
 import {cn} from "@utils/cn";
 
 import {AccordeonType} from "./types";

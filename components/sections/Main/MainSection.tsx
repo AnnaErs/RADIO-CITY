@@ -1,9 +1,6 @@
 import {memo} from "react";
 import Image from "next/image";
 
-import MainSectionImage from "@assets/MainSectionImage.gif";
-import RightArrow from "@assets/RightArrow.png";
-
 import {MainSectionHeadingsPropsType, MainSectionType} from "./types";
 
 const MainSectionHeadings: MainSectionHeadingsPropsType = {
@@ -37,7 +34,7 @@ const MainSection: MainSectionType = () => {
                             >
                                 {MainSectionHeadings.buttonTitle}
                                 <Image
-                                    src={RightArrow}
+                                    src="/RightArrow.png"
                                     width={30}
                                     alt="arrow"
                                 />
@@ -47,7 +44,7 @@ const MainSection: MainSectionType = () => {
                 </div>
                 <div>
                     <Image
-                        src={MainSectionImage}
+                        src="/MainSectionImage.gif"
                         alt="Radiowaves"
                         width={800}
                     />
