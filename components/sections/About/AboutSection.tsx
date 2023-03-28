@@ -33,7 +33,7 @@ const SECTION = {
 
 const AboutSection: AboutSectionType = () => {
     return (
-        <div className="flex" id="about-us">
+        <div id="about-us">
             <Section title={SECTION.title}>
                 <AboutCards aboutSegments={SECTION.aboutSegments} />
             </Section>
