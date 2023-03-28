@@ -8,14 +8,12 @@ import "../globals.css";
 import {RootLayoutType} from "./types";
 
 const HEADER_LINKS = {
-    right: [
+    left: [
         {
             id: 0,
-            name: "Вадим Ф.",
+            name: "Главная",
             href: "/",
         },
-    ],
-    left: [
         {
             id: 1,
             name: "Звонки",
@@ -25,6 +23,11 @@ const HEADER_LINKS = {
             id: 2,
             name: "Клиенты",
             href: "/admin/clients",
+        },
+        {
+            id: 3,
+            name: "Пользователи",
+            href: "/admin/users",
         },
     ],
 };

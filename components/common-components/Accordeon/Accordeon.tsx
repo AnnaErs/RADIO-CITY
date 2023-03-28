@@ -15,7 +15,7 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
         <div>
             <div
                 onClick={toggle}
-                className="flex justify-between text-h4-bold w-1/3 py-3"
+                className="flex justify-between text-h4-bold w-1/3 py-3 select-none"
             >
                 <div>{title}</div>
                 <div

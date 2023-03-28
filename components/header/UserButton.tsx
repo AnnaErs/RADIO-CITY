@@ -1,7 +1,11 @@
 import React, {memo} from "react";
 
 const UserButton = () => {
-    return <div>Авторизирован</div>;
+    return (
+        <a href="/admin" className="mr-12">
+            Админ. панель
+        </a>
+    );
 };
 
 export default memo(UserButton);
