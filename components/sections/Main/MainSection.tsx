@@ -1,7 +1,6 @@
 import {memo} from "react";
 import Image from "next/image";
 
-import MainSectionImage from "@public/MainSectionImage.gif";
 import RightArrow from "@public/RightArrow.png";
 
 import {MainSectionHeadingsPropsType, MainSectionType} from "./types";
@@ -46,8 +45,8 @@ const MainSection: MainSectionType = () => {
                     </div>
                 </div>
                 <div>
-                    <Image
-                        src={MainSectionImage}
+                    <img
+                        src="https://storage.yandexcloud.net/radio-static/MainSectionImage.2f5f6806.gif"
                         alt="Radiowaves"
                         width={800}
                     />
