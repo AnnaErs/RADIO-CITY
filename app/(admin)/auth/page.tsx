@@ -5,7 +5,7 @@ import React, {memo} from "react";
 import Container from "@components/layout/Container";
 
 const init = () => {
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
         (window as any).YaSendSuggestToken?.(`${window.location.origin}`);
     }
 };
