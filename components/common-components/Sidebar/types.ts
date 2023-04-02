@@ -1,13 +1,9 @@
 import {FC} from "react";
 
+import { Client } from "@api/clientsAPI";
+
 type SidebarPropsType = {
-    clientInfo: {
-        name: string;
-        phone: string;
-        time: string;
-        days: string;
-        history: Array<string>;
-    };
+    clientInfo?: Client;
     onOutsideClick: () => void;
 };
 export type SidebarType = FC<SidebarPropsType>;
