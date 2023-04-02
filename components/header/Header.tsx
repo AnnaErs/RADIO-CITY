@@ -2,14 +2,13 @@
 import React, {memo, useEffect, useState} from "react";
 
 import Container from "@components/layout/Container";
-import {getCookie} from "@utils/cookie";
 import {cn} from "@utils/cn";
 
 import {HeaderType} from "./types";
 import AuthButton from "./AuthButton";
 import UserButton from "./UserButton";
 
-const Header: HeaderType = ({links, isAdmin}) => {
+const Header: HeaderType = ({links, isAdmin, hasToken}) => {
     const [isOnTop, setOnTopStatus] = useState(true);
 
     useEffect(() => {
@@ -57,7 +56,7 @@ const Header: HeaderType = ({links, isAdmin}) => {
                                 {link.name}
                             </a>
                         ))}
-                        {getCookie("token") ? <UserButton /> : <AuthButton />}
+                        {hasToken ? <UserButton /> : <AuthButton />}
                     </div>
                 </div>
             </Container>

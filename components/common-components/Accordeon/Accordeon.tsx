@@ -15,11 +15,11 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
         <div>
             <div
                 onClick={toggle}
-                className="flex justify-between text-h4-bold w-1/3 py-3 select-none"
+                className="flex items-center text-h4-bold w-[550px] py-3 select-none"
             >
                 <div>{title}</div>
                 <div
-                    className={cn("self-center ease-in-out duration-200", {
+                    className={cn("ml-auto ease-in-out duration-200", {
                         "rotate-180": isOpen,
                     })}
                 >

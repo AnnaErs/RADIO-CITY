@@ -1,5 +1,4 @@
-"use client";
-// import {usePathname} from "next/navigation";
+import { cookies } from "next/headers";
 
 import Header from "@components/header";
 import Footer from "@components/footer";
@@ -60,6 +59,8 @@ const FOOTER_LINKS = {
 };
 
 const RootLayout: RootLayoutType = ({children}) => {
+    const token = cookies().get('token');
+
     return (
         <html lang="ru">
             <head>
@@ -71,7 +72,7 @@ const RootLayout: RootLayoutType = ({children}) => {
                 <script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>
             </head>
             <body className="bg-bg text-white flex flex-col min-h-screen">
-                <Header links={HEADER_LINKS} />
+                <Header links={HEADER_LINKS} hasToken={!!token} />
                 <div className="flex-1">{children}</div>
                 <Footer links={FOOTER_LINKS} />
             </body>

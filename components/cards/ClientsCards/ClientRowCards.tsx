@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 import {memo, useMemo} from "react";
 
 import ClientCard from "./ClientCard";
