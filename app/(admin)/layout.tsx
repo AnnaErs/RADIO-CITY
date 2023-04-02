@@ -5,7 +5,7 @@ import Footer from "@components/footer";
 
 import "../globals.css";
 import {RootLayoutType} from "./types";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
 const HEADER_LINKS = {
     left: [
@@ -56,7 +56,7 @@ const metadata: Metadata = {
 };
 
 const RootLayout: RootLayoutType = ({children}) => {
-    const token = cookies().get('token');
+    const token = cookies().get("token");
 
     return (
         <html lang="en">

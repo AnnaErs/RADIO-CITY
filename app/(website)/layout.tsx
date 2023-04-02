@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
 import Header from "@components/header";
 import Footer from "@components/footer";
@@ -59,7 +59,7 @@ const FOOTER_LINKS = {
 };
 
 const RootLayout: RootLayoutType = ({children}) => {
-    const token = cookies().get('token');
+    const token = cookies().get("token");
 
     return (
         <html lang="ru">
