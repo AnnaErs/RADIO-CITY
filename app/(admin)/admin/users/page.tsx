@@ -1,19 +1,40 @@
 import React from "react";
 
-import {getUsers} from "@api/usersAPI";
+import {getUsers, getUserRoles} from "@api/usersAPI";
 import List, {ListItem, ListRow} from "@components/common-components/List";
-import Button from "@components/common-components/Buttons/Button/Button";
 import Container from "@components/layout/Container";
 
 import {UserPageType} from "./types";
 import {Metadata} from "next";
+import {RolesButton} from "@components/common-components/Buttons";
+import {Options} from "@components/types";
+
+const ROLES: Record<string, string> = {
+    worker: "Оператор",
+    admin: "Администратор",
+    guest: "Гость",
+};
 
 const metadata: Metadata = {
     title: "Пользователи",
 };
 
 const UsersPage: UserPageType = async () => {
-    const {data: users} = await getUsers();
+    const [{data: usersValue}, {data: rolesValue}] = await Promise.all([
+        getUsers(),
+        getUserRoles(),
+    ]);
+
+    const users = usersValue ?? [];
+    const roles = rolesValue ?? [];
+
+    const rolesOptions = roles.reduce<Options>((acc, role) => {
+        acc.push({
+            label: ROLES[role.name] ?? role.name,
+            value: role.id,
+        });
+        return acc;
+    }, []);
 
     return (
         <Container>
@@ -24,7 +45,11 @@ const UsersPage: UserPageType = async () => {
                         <ListRow key={user.id}>
                             <ListItem>{user.login}</ListItem>
                             <ListItem>
-                                <Button>{user.role}</Button>
+                                <RolesButton
+                                    options={rolesOptions}
+                                    id={user.id}
+                                    role={user.role}
+                                />
                             </ListItem>
                             <ListItem></ListItem>
                         </ListRow>

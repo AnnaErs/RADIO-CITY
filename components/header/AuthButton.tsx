@@ -1,4 +1,5 @@
 "use client";
+import {redirect} from "next/navigation";
 import React, {memo, useEffect} from "react";
 
 import axios from "axios";
@@ -31,8 +32,8 @@ const AuthButton = () => {
 
                 const data: TokenResponce = await res.handler();
 
-                const authRes = await axios.post("/api/auth", data);
-                console.log(authRes);
+                await axios.post("/api/auth", data);
+                redirect("/admin");
             } catch (error) {
                 console.error("Что-то пошло не так: ", error);
             }

@@ -27,7 +27,7 @@ export const createClient: CreateClientType = (client) => {
     return axios.post(
         `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`,
         {
-            data: client,
+            client,
         },
     );
 };
