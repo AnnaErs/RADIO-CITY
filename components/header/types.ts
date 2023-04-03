@@ -13,5 +13,6 @@ type HeaderPropsType = {
         right?: Links;
     };
     isAdmin?: boolean;
+    hasToken?: boolean;
 };
 export type HeaderType = FC<HeaderPropsType>;

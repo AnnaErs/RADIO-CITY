@@ -1,3 +1,4 @@
+import {Metadata} from "next";
 import {memo} from "react";
 
 import MainSection from "@components/sections/Main/MainSection";
@@ -6,6 +7,10 @@ import ClientsSection from "@components/sections/Clients/ClientsSection";
 import ContactsSection from "@components/sections/Contacts/ContactsSection";
 
 import {MainPageType} from "./types";
+
+const metadata: Metadata = {
+    title: "Radio-City",
+};
 
 const MainPage: MainPageType = () => {
     return (
@@ -18,3 +23,4 @@ const MainPage: MainPageType = () => {
     );
 };
 export default memo(MainPage);
+export {metadata};

@@ -6,6 +6,11 @@ import Button from "@components/common-components/Buttons/Button/Button";
 import Container from "@components/layout/Container";
 
 import {UserPageType} from "./types";
+import {Metadata} from "next";
+
+const metadata: Metadata = {
+    title: "Пользователи",
+};
 
 const UsersPage: UserPageType = async () => {
     const {data: users} = await getUsers();
@@ -32,3 +37,4 @@ const UsersPage: UserPageType = async () => {
     );
 };
 export default UsersPage;
+export {metadata};
