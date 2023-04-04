@@ -73,6 +73,7 @@ module.exports = {
                 pink: "0 3px 5px #FD31FC",
                 blue: "0 6px 10px #00EEFA",
                 lavender: "0 10px 10px #8D07FE",
+                blueSmall: "0 2px 4px #0087BD",
             },
             colors: {
                 blue: "#0087BD",

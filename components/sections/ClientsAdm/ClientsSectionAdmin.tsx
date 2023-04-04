@@ -74,61 +74,69 @@ const ClientsSectionAdmin: ClientsSectionType = () => {
 
     return (
         <Container>
-            <div className="flex">
-                {!!activeClients?.length && (
-                    <div className="flex-1">
-                        <Accordeon title={GROUPS_TITLES.activated}>
-                            <List>
-                                {activeClients?.map((client) => (
-                                    <ListRow
-                                        key={client.client_id}
-                                        onClick={openEditClient(
-                                            client.client_id,
-                                        )}
-                                        client={client}
-                                    >
-                                        <ListItem>{client.name}</ListItem>
-                                        <ListItem>{client.phone}</ListItem>
-                                        <ListItem>{client.call_time}</ListItem>
-                                        <ListItem>
-                                            {client.schedule.join()}
-                                        </ListItem>
-                                        <ListItem></ListItem>
-                                    </ListRow>
-                                ))}
-                            </List>
-                        </Accordeon>
+            <div className="flex flex-col gap-10">
+                <div className="flex">
+                    {!!activeClients?.length && (
+                        <div className="flex-1">
+                            <Accordeon title={GROUPS_TITLES.activated}>
+                                <List>
+                                    {activeClients?.map((client) => (
+                                        <ListRow
+                                            key={client.client_id}
+                                            onClick={openEditClient(
+                                                client.client_id,
+                                            )}
+                                            client={client}
+                                        >
+                                            <ListItem>{client.name}</ListItem>
+                                            <ListItem>{client.phone}</ListItem>
+                                            <ListItem>
+                                                {client.call_time}
+                                            </ListItem>
+                                            <ListItem>
+                                                {client.schedule.join()}
+                                            </ListItem>
+                                            <ListItem></ListItem>
+                                        </ListRow>
+                                    ))}
+                                </List>
+                            </Accordeon>
+                        </div>
+                    )}
+                    <div className="ml-auto">
+                        <Button onClick={openCreateClient}>
+                            Добавить клиента
+                        </Button>
                     </div>
-                )}
-                <div className="ml-auto">
-                    <Button onClick={openCreateClient}>Добавить клиента</Button>
                 </div>
+                {deactivatedClients && (
+                    <Accordeon title={GROUPS_TITLES.deactivated}>
+                        <List>
+                            {deactivatedClients?.map((client) => (
+                                <ListRow
+                                    key={client.client_id}
+                                    onClick={openEditClient(client.client_id)}
+                                    client={client}
+                                >
+                                    <ListItem>{client.name}</ListItem>
+                                    <ListItem>{client.phone}</ListItem>
+                                    <ListItem>{client.call_time}</ListItem>
+                                    <ListItem>
+                                        {client.schedule.join()}
+                                    </ListItem>
+                                    <ListItem></ListItem>
+                                </ListRow>
+                            ))}
+                        </List>
+                    </Accordeon>
+                )}
+                {params.has("mode") && (
+                    <Sidebar
+                        clientInfo={sidebarClient}
+                        onOutsideClick={closeSidebar}
+                    />
+                )}
             </div>
-            {deactivatedClients && (
-                <Accordeon title={GROUPS_TITLES.deactivated}>
-                    <List>
-                        {deactivatedClients?.map((client) => (
-                            <ListRow
-                                key={client.client_id}
-                                onClick={openEditClient(client.client_id)}
-                                client={client}
-                            >
-                                <ListItem>{client.name}</ListItem>
-                                <ListItem>{client.phone}</ListItem>
-                                <ListItem>{client.call_time}</ListItem>
-                                <ListItem>{client.schedule.join()}</ListItem>
-                                <ListItem></ListItem>
-                            </ListRow>
-                        ))}
-                    </List>
-                </Accordeon>
-            )}
-            {params.has("mode") && (
-                <Sidebar
-                    clientInfo={sidebarClient}
-                    onOutsideClick={closeSidebar}
-                />
-            )}
         </Container>
     );
 };
