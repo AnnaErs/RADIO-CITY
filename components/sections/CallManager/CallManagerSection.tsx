@@ -4,9 +4,10 @@ import {memo, useEffect, useState} from "react";
 import CurrentInfo from "@components/common-components/CurrentInfo";
 import Accordeon from "@components/common-components/Accordeon";
 import List, {ListItem, ListRow} from "@components/common-components/List";
-import Button from "@components/common-components/Buttons/ButtonWithDropdownList";
 import Container from "@components/layout/Container";
 import {getClients, getClientsResponce} from "@api/clientsAPI";
+import OrganizationTabs from "@components/OrganizationTabs/OrganizationTabs";
+import {StatesButton} from "@components/common-components/Buttons";
 
 import {CallManagerSectionType} from "./types";
 import {ClientsState} from "../ClientsAdm/types";
@@ -29,6 +30,7 @@ const CallManagerSection: CallManagerSectionType = () => {
         loading: false,
         data: undefined,
     });
+
     useEffect(() => {
         if (!clients.loading) {
             getClients().then((res) => {
@@ -40,22 +42,25 @@ const CallManagerSection: CallManagerSectionType = () => {
 
     return (
         <Container>
-            <CurrentInfo />
-            <Accordeon title={GROUPS_TITLES.called}>
-                <List>
-                    {clients.data?.map((client) => (
-                        <ListRow key={client.client_id}>
-                            <ListItem>{client.name}</ListItem>
-                            <ListItem>{client.phone}</ListItem>
-                            <ListItem>{client.call_time}</ListItem>
-                            <ListItem>
-                                <Button title="Дозвонились" />
-                            </ListItem>
-                            <ListItem></ListItem>
-                        </ListRow>
-                    ))}
-                </List>
-            </Accordeon>
+            <div className=" flex flex-col gap-11">
+                <CurrentInfo />
+                <OrganizationTabs />
+                <Accordeon title={GROUPS_TITLES.called}>
+                    <List>
+                        {clients.data?.map((client) => (
+                            <ListRow key={client.client_id}>
+                                <ListItem>{client.name}</ListItem>
+                                <ListItem>{client.phone}</ListItem>
+                                <ListItem>{client.call_time}</ListItem>
+                                <ListItem>
+                                    <StatesButton />
+                                </ListItem>
+                                <ListItem></ListItem>
+                            </ListRow>
+                        ))}
+                    </List>
+                </Accordeon>
+            </div>
         </Container>
     );
 };
