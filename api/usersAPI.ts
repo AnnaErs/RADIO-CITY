@@ -15,12 +15,12 @@ export const getUsers: GetUsersType = () => {
     );
 };
 
-type CreateUserType = (user: Omit<User, "id" | "role">) => Promise<"ok">;
+type CreateUserType = (user: Omit<User, "role">) => Promise<"ok">;
 export const createUser: CreateUserType = (user) => {
     return axios.post(
         `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/users`,
         {
-            data: user,
+            user,
         },
     );
 };
@@ -30,7 +30,33 @@ export const updateUser: UpdateUserType = (user) => {
     return axios.put(
         `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/users`,
         {
-            data: user,
+            user,
         },
     );
+};
+
+export type Role = {
+    id: string;
+    name: string;
+};
+type Roles = Array<Role>;
+
+type GetUserRolesType = () => Promise<{data: Roles}>;
+export const getUserRoles: GetUserRolesType = () => {
+    return axios.get(
+        "https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/user-roles",
+    );
+};
+
+type YAUser = {
+    login: string;
+    id: string;
+};
+type GetUserInfoByTokenType = (token: string) => Promise<YAUser>;
+export const getUserInfoByToken: GetUserInfoByTokenType = (token) => {
+    return axios.get("https://login.yandex.ru/info?format=json", {
+        headers: {
+            Authorization: `OAuth ${token}`,
+        },
+    });
 };

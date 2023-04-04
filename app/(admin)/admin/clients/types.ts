@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import { Client } from "@api/clientsAPI";
+import {Client} from "@api/clientsAPI";
 
 type ClientsPagePropsType = {};
 export type ClientsPageType = FC<ClientsPagePropsType>;

@@ -1,6 +1,6 @@
-import {FC} from "react";
+import {Options, Option} from "@components/types";
 
-type DropdownListPropsType = {
-    states: Array<string>;
+export type DropdownListPropsType = {
+    options: Options;
+    onClick?: (option: Option) => void;
 };
-export type DropdownListType = FC<DropdownListPropsType>;

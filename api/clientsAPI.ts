@@ -22,12 +22,12 @@ export const getClients = () => {
     );
 };
 
-type CreateClientType = (client: Client) => Promise<"ok">;
+type CreateClientType = (client: Omit<Client, 'client_id' | 'revision'>) => Promise<"ok">;
 export const createClient: CreateClientType = (client) => {
     return axios.post(
         `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`,
         {
-            data: client,
+            client,
         },
     );
 };

@@ -1,6 +1,6 @@
 import {memo} from "react";
 
-import {ButtonType} from "../types";
+import {ButtonType} from "./types";
 
 const Button: ButtonType = ({title, type, children, onClick}) => {
     return (

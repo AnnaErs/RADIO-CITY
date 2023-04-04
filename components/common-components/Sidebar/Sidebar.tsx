@@ -17,15 +17,15 @@ const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
         event.preventDefault();
         const formdata = new FormData(event.target as any);
         const data = {
-            activePeriodFrom: formdata.get("activePeriodFrom"),
-            activePeriodTo: formdata.get("activePeriodTo"),
-            callTime: formdata.get("callTime"),
+            active_period_from: formdata.get("activePeriodFrom"),
+            active_period_to: formdata.get("activePeriodTo"),
+            call_time: formdata.get("callTime"),
             description: formdata.get("description"),
             name: formdata.get("name"),
             phone: formdata.get("phone"),
             schedule: formdata.get("schedule"),
             type: formdata.get("type"),
-        };
+        } as any;
 
         try {
             await createClient(data);
