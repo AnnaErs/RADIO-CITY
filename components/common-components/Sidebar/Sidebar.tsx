@@ -5,6 +5,7 @@ import Button from "../Buttons/Button/Button";
 import Input from "../Input";
 import useOnOutsideClick from "@utils/useOnOutsideClick";
 import {createClient} from "@api/clientsAPI";
+import {editClient} from "@api/clientsAPI";
 
 import {SidebarType} from "./types";
 
@@ -16,23 +17,43 @@ const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formdata = new FormData(event.target as any);
+        const payloadSchedule = () => {
+            return formdata
+                .get("schedule")
+                ?.toString()
+                .split(",")
+                .map((day) => {
+                    return Number(day);
+                });
+        };
         const data = {
+            id: clientInfo?.client_id,
             active_period_from: formdata.get("activePeriodFrom"),
-            active_period_to: formdata.get("activePeriodTo"),
+            active_period_to: formdata.get("activePeriodTo") || undefined,
             call_time: formdata.get("callTime"),
             description: formdata.get("description"),
             name: formdata.get("name"),
             phone: formdata.get("phone"),
-            schedule: formdata.get("schedule"),
+            schedule: payloadSchedule(),
             type: formdata.get("type"),
         } as any;
 
-        try {
-            await createClient(data);
-            alert("Клиент создан");
-            router.push(`${pathName}`);
-        } catch (error) {
-            alert("Упс, что-то пошло не так.");
+        if (clientInfo) {
+            try {
+                await editClient(data);
+                alert("Клиент отредактирован");
+                router.push(`${pathName}`);
+            } catch (error) {
+                alert("Упс, редактировать клиента не удалось");
+            }
+        } else {
+            try {
+                await createClient(data);
+                alert("Клиент создан");
+                router.push(`${pathName}`);
+            } catch (error) {
+                alert("Упс, создать клиента не удалось");
+            }
         }
     };
     return (

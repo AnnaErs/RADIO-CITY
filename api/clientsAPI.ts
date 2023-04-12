@@ -38,3 +38,14 @@ export const getClientTypes = () => {
         `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/client-types`,
     );
 };
+
+type editClientType = (
+    client: Omit<Client, "client_id" | "revision">,
+) => Promise<"ok">;
+export const editClient: editClientType = (client) => {
+    return axios.put(
+        `https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`,{
+            client,
+        },
+    )
+}
