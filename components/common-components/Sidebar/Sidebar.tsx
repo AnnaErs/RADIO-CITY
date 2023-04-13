@@ -1,5 +1,6 @@
 import {FormEvent, memo, useRef} from "react";
 import {usePathname, useRouter} from "next/navigation";
+import moment from "moment";
 
 import Button from "../Buttons/Button/Button";
 import Input from "../Input";
@@ -8,12 +9,19 @@ import {createClient} from "@api/clientsAPI";
 import {editClient} from "@api/clientsAPI";
 
 import {SidebarType} from "./types";
+import ClientTypeSelect from "../ClientTypeSelect";
 
 const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
     const sidebar = useRef<HTMLDivElement>(null);
     useOnOutsideClick(sidebar, onOutsideClick);
     const router = useRouter();
     const pathName = usePathname();
+    const startDayValue = clientInfo?.active_period_from
+        ? moment(clientInfo.active_period_from).format("YYYY-MM-DD")
+        : "";
+    const endDayValue = clientInfo?.active_period_to
+        ? moment(clientInfo.active_period_to).format("YYYY-MM-DD")
+        : "";
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formdata = new FormData(event.target as any);
@@ -26,6 +34,7 @@ const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
                     return Number(day);
                 });
         };
+
         const data = {
             id: clientInfo?.client_id,
             active_period_from: formdata.get("activePeriodFrom"),
@@ -87,10 +96,9 @@ const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
                             value={clientInfo?.call_time}
                             placeholder="Время звонка"
                         />
-                        <Input
+                        <ClientTypeSelect
                             name="type"
-                            value={clientInfo?.type}
-                            placeholder="Тип клиента"
+                            idOfDefaultType={clientInfo?.type}
                         />
                         <Input
                             name="schedule"
@@ -100,12 +108,12 @@ const Sidebar: SidebarType = ({clientInfo, onOutsideClick}) => {
                         <div className="flex gap-x-4">
                             <Input
                                 name="activePeriodFrom"
-                                value={clientInfo?.active_period_from}
+                                value={startDayValue}
                                 placeholder="Начало работы"
                             />
                             <Input
                                 name="activePeriodTo"
-                                value={clientInfo?.active_period_to}
+                                value={endDayValue}
                                 placeholder="Конец работы"
                             />
                         </div>
