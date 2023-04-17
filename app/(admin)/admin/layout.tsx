@@ -9,8 +9,7 @@ const metadata: Metadata = {
 };
 
 const RootLayout: RootLayoutType = ({children}) => {
-    const isAuth = true;
-    // !!cookies().get("token");
+    const isAuth = !!cookies().get("token");
     return isAuth ? <>{children}</> : redirect("/");
 };
 
