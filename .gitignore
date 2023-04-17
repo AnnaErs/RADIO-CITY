@@ -1,9 +1,7 @@
 # dependencies
 /node_modules
 /.vscode
-
-# next.js
-/.next/
+/.github
 
 # production
-/build
+/dist
