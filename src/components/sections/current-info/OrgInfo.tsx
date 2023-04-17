@@ -34,7 +34,7 @@ const OrgInfo: OrgInfoType = () => {
     <div className="flex flex-row flex-wrap gap-4">
       {options.map(option => {
         return (
-          <Tab onClick={changeType(option)} key={option.value} isActive={searchParams.get('type') === option.value}>
+          <Tab onClick={changeType(option)} key={option.value} isActive={searchParams.get('type') == option.value}>
             {option.label}
           </Tab>
         );
