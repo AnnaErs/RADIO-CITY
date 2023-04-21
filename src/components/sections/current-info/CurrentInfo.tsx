@@ -2,6 +2,7 @@ import moment from 'moment';
 import {memo, useEffect, useState} from 'react';
 
 import Container from '@ui-kit/layout/container';
+import Search from '@ui-kit/search/Search';
 
 import OrgInfo from './OrgInfo';
 import {CurrentInfoType} from './types';
@@ -40,6 +41,8 @@ const CurrentInfo: CurrentInfoType = () => {
           </div>
         </div>
       </div>
+
+      <Search />
       <OrgInfo />
     </Container>
   );
