@@ -6,11 +6,19 @@ import Select from '@ui-kit/select';
 
 import {ClientTypeSelectType} from './types';
 
-const ClientTypeSelect: ClientTypeSelectType = ({name, value}) => {
-  const {data} = useSWR('GET_CLIENT_TYPES', getClientTypes);
-  const options = useMemo(() => data?.map(type => ({value: type.id, label: type.name})) ?? [], [data]);
+const DEFAULT_OPTIONS: {value: string; label: string; disabled?: boolean} = {
+  value: '',
+  label: 'Укажите тип клиента',
+  disabled: true
+};
 
-  return <Select name={name} options={options} value={value} />;
+const ClientTypeSelect: ClientTypeSelectType = ({name, value, disabled}) => {
+  const {data} = useSWR('GET_CLIENT_TYPES', getClientTypes);
+  const options = useMemo(() => {
+    return [DEFAULT_OPTIONS].concat(data?.map(type => ({value: type.id, label: type.name})) ?? []);
+  }, [data]);
+
+  return <Select name={name} options={options} value={value} disabled={disabled} />;
 };
 
 export default memo(ClientTypeSelect);

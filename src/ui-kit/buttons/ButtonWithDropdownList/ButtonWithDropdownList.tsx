@@ -40,7 +40,7 @@ const ButtonWithDropdownList: ButtonWithDropdownListType = ({value, options, onC
 
   return (
     <div ref={ref}>
-      <Button title={optionsDict[value]} onClick={toggle} />
+      <Button title={optionsDict[value] ?? value} onClick={toggle} />
       {isOpened && <DropdownList options={options} onClick={clickHandler} />}
     </div>
   );

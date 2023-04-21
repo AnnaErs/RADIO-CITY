@@ -4,7 +4,6 @@ const useOnOutsideClick = (ref: RefObject<HTMLDivElement>, handler?: () => void)
   useEffect(() => {
     if (handler) {
       const outsudeClick = (event: MouseEvent) => {
-        console.log('asdasd');
         if (!ref.current?.contains(event.target as Node)) {
           handler?.();
         }

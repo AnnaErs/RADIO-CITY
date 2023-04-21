@@ -1,10 +1,8 @@
-import {FC} from 'react';
-
-type InputPropsType = {
+export type DatePropsType = {
   name: string;
+  min?: string;
   value?: string;
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
 };
-export type InputType = FC<InputPropsType>;

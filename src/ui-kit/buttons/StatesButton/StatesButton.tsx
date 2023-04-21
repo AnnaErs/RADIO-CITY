@@ -1,36 +1,39 @@
 import {memo} from 'react';
 
 import ButtonWithDropdownList from '../ButtonWithDropdownList';
+import {StatesButtonPropsType} from './types';
 
 const DROPDOWN_STATES = [
   {
     label: 'Всё ОК',
-    value: 'Вс'
+    value: '1'
   },
   {
     label: 'Неисправен',
-    value: 'Не'
+    value: '2'
   },
   {
     label: 'Вызвал диспетчера, жду обратной связи',
-    value: 'Вы'
+    value: '3'
   },
   {
     label: 'Опоздал',
-    value: 'Оп'
+    value: '4'
   },
   {
     label: 'Дальние связи',
-    value: 'Да'
+    value: '5'
   },
   {
     label: 'Не умеет работать',
-    value: 'Неe'
+    value: '6'
   }
 ];
 
-const StatesButton = () => {
-  return <ButtonWithDropdownList value={DROPDOWN_STATES[0].value} options={DROPDOWN_STATES} />;
-};
+const DEFAULT_VALUE = 'Сменить статус';
 
-export default memo(StatesButton);
+const StatesButton = memo<StatesButtonPropsType>(({value, onChange}) => {
+  return <ButtonWithDropdownList value={value ?? DEFAULT_VALUE} options={DROPDOWN_STATES} onClick={onChange} />;
+});
+
+export {StatesButton};

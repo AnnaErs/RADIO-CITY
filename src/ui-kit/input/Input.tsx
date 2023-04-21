@@ -2,7 +2,7 @@ import {memo} from 'react';
 
 import {InputType} from './types';
 
-const Input: InputType = ({value, required, placeholder, name}) => {
+const Input: InputType = ({value, required, placeholder, disabled, name}) => {
   return (
     <input
       type="text"
@@ -11,6 +11,7 @@ const Input: InputType = ({value, required, placeholder, name}) => {
       defaultValue={value}
       placeholder={placeholder}
       name={name}
+      disabled={disabled}
     />
   );
 };
