@@ -15,8 +15,9 @@ export type Client = {
 
 type ClientVersions = Array<Client>;
 export type GetClientsResponse = Record<string, ClientVersions>;
-export const getClients = (): Promise<GetClientsResponse> => {
-  return axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`).then(res => res.data);
+export const getClients = async (): Promise<GetClientsResponse> => {
+  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`);
+  return res.data;
 };
 
 type CreateClientType = (client: Omit<Client, 'client_id' | 'revision'>) => Promise<'ok'>;
@@ -32,8 +33,9 @@ export type ClientType = {
 };
 type ClientTypes = Array<ClientType>;
 type GetClientTypes = () => Promise<ClientTypes>;
-export const getClientTypes: GetClientTypes = () => {
-  return axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/client-types`).then(res => res.data);
+export const getClientTypes: GetClientTypes = async () => {
+  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/client-types`);
+  return res.data;
 };
 
 type editClientType = (client: Omit<Client, 'client_id' | 'revision'>) => Promise<'ok'>;

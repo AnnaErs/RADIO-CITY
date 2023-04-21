@@ -45,15 +45,18 @@ export const LINKS: Record<string, HeaderLinks> = {
     right: [
       {
         name: 'О нас',
-        href: '/#about-us'
+        href: '/',
+        hash: '#about-us'
       },
       {
         name: 'Клиентам',
-        href: '/#clients'
+        href: '/',
+        hash: '#clients'
       },
       {
         name: 'Контакты',
-        href: '/#contacts'
+        href: '/',
+        hash: '#contacts'
       }
     ]
   }

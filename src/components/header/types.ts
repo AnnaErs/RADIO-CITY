@@ -3,6 +3,7 @@ import {FC} from 'react';
 type Link = {
   name: string;
   href: string;
+  hash?: string;
   target?: string;
 };
 type Links = Array<Link>;

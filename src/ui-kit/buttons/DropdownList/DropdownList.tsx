@@ -13,7 +13,7 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
 
   return (
     <div
-      className="absolute bg-white w-[350px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1 mt-2"
+      className="absolute bg-white w-[350px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1 mt-2 z-10"
       ref={ref}
     >
       {options.map(option => (

@@ -1,1 +1,1 @@
-export {default} from './StatesButton';
+export {StatesButton} from './StatesButton';

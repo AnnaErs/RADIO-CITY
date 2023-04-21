@@ -1,81 +1,47 @@
 import useSWR from 'swr';
 import {useMemo} from 'react';
 
-import Accordeon from '@ui-kit/accordeon';
-import List, {ListItem, ListRow} from '@ui-kit/list';
-import {getClients, GetClientsResponse} from '@api/clientsAPI';
+import {getClients} from '@api/clientsAPI';
 import Container from '@ui-kit/layout/container';
+import {getCalls} from '@api/callsAPI';
 
 import {CallManagerType} from './types';
-import {StatesButton} from '@ui-kit/buttons';
-
-const convertClientsToClientList = (responseClients: GetClientsResponse) => {
-  const responceClientsArray = Object.values(responseClients);
-  return responceClientsArray.map(versions => {
-    return versions[versions.length - 1];
-  });
-};
+import {getTodayPeriod, groupClients} from './utils';
+import {ClientsCallAccordeon} from './ClientsCallAccordeon';
+import {CallsType} from './consts';
 
 const GROUPS_TITLES = {
-  missed: 'Недоступные клиенты',
-  future: 'Будущие клиенты',
-  called: 'Обзвоненные клиенты'
+  [CallsType.Missed]: 'Недоступные клиенты',
+  [CallsType.Future]: 'Будущие клиенты',
+  [CallsType.Called]: 'Обзвоненные клиенты'
 };
 
 const CallManagerClients: CallManagerType = () => {
-  const {data} = useSWR('GET_CLIENTS', getClients);
-  const clients = useMemo(() => convertClientsToClientList(data ?? {}), [data]);
+  const {data: clientsData} = useSWR('GET_CLIENTS', getClients);
+  const {data: callsData, mutate} = useSWR('GET_CALLS', () => getCalls(getTodayPeriod()));
 
-  // TODO фильтрация по звонкам, мы получили клиентов на сегодня осталось их отфильтровать и вывести в списках ниже
+  const clients = useMemo(() => groupClients(clientsData, callsData), [clientsData, callsData]);
 
   return (
     <Container>
       <div className="flex flex-col gap-11">
-        {/* <Accordeon title={GROUPS_TITLES.missed}>
-                    <List>
-                        {clients?.map((client) => (
-                            <ListRow key={client.client_id}>
-                                <ListItem>{client.name}</ListItem>
-                                <ListItem>{client.phone}</ListItem>
-                                <ListItem>{client.call_time}</ListItem>
-                                <ListItem>
-                                    <StatesButton />
-                                </ListItem>
-                                <ListItem></ListItem>
-                            </ListRow>
-                        ))}
-                    </List>
-                </Accordeon>
-                <Accordeon title={GROUPS_TITLES.future}>
-                    <List>
-                        {clients?.map((client) => (
-                            <ListRow key={client.client_id}>
-                                <ListItem>{client.name}</ListItem>
-                                <ListItem>{client.phone}</ListItem>
-                                <ListItem>{client.call_time}</ListItem>
-                                <ListItem>
-                                    <StatesButton />
-                                </ListItem>
-                                <ListItem></ListItem>
-                            </ListRow>
-                        ))}
-                    </List>
-                </Accordeon> */}
-        <Accordeon title={GROUPS_TITLES.called} defaultState={true}>
-          <List>
-            {clients?.map(client => (
-              <ListRow key={client.client_id}>
-                <ListItem>{client.name}</ListItem>
-                <ListItem>{client.phone}</ListItem>
-                <ListItem>{client.call_time}</ListItem>
-                <ListItem>
-                  <StatesButton />
-                </ListItem>
-                <ListItem></ListItem>
-              </ListRow>
-            ))}
-          </List>
-        </Accordeon>
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Missed]}
+          clients={clients[CallsType.Missed]}
+          onChange={mutate}
+          openedByDefault
+        />
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Future]}
+          clients={clients[CallsType.Future]}
+          onChange={mutate}
+          openedByDefault
+        />
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Called]}
+          clients={clients[CallsType.Called]}
+          onChange={mutate}
+        />
       </div>
     </Container>
   );

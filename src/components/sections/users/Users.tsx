@@ -44,7 +44,6 @@ const Users: UserType = () => {
               <ListItem>
                 <RolesButton options={rolesOptions} id={user.id} role={user.role} />
               </ListItem>
-              <ListItem></ListItem>
             </ListRow>
           ))}
         </List>

@@ -70,7 +70,6 @@ const AdminClients: ClientsSectionType = () => {
                       <ListItem>{client.phone}</ListItem>
                       <ListItem>{client.call_time}</ListItem>
                       <ListItem>{client.schedule.join()}</ListItem>
-                      <ListItem></ListItem>
                     </ListRow>
                   ))}
                 </List>
@@ -90,7 +89,6 @@ const AdminClients: ClientsSectionType = () => {
                   <ListItem>{client.phone}</ListItem>
                   <ListItem>{client.call_time}</ListItem>
                   <ListItem>{client.schedule.join()}</ListItem>
-                  <ListItem></ListItem>
                 </ListRow>
               ))}
             </List>
