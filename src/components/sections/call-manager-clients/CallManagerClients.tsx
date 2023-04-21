@@ -22,7 +22,6 @@ const CallManagerClients: CallManagerType = () => {
 
   const clients = useMemo(() => groupClients(clientsData, callsData), [clientsData, callsData]);
 
-  console.log(clients);
   return (
     <Container>
       <div className="flex flex-col gap-11">
