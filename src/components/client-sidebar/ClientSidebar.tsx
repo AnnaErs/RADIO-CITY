@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import {memo, useCallback, useEffect, useMemo, useState, version} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import moment from 'moment';
 
@@ -89,7 +89,6 @@ const ClientSidebar: ClientSidebarType = () => {
           <Input name="phone" value={clientInfo?.phone} placeholder="Телефон" disabled={isDisabled} />
           <Input name="callTime" value={clientInfo?.call_time} placeholder="Время звонка" disabled={isDisabled} />
           <ClientTypeSelect name="type" value={clientInfo?.type} disabled={isDisabled} />
-          <Input name="type" value={clientInfo?.type} placeholder="Тип клиента" disabled={isDisabled} />
           <Input
             name="schedule"
             value={clientInfo?.schedule.join()}
