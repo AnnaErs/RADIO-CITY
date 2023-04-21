@@ -13,8 +13,15 @@ const OrgInfo: OrgInfoType = () => {
   const {data} = useSWR('GET_ORGANIZATIONS', getClientTypes);
 
   const changeType = useCallback(
-    (option: Option) => () => {
-      setSearchParams(prev => Object.assign({}, prev, {type: option.value}));
+    (option?: Option) => () => {
+      setSearchParams(prev => {
+        const objectParams = Object.fromEntries(prev);
+        if (!option) {
+          delete objectParams.type;
+          return objectParams;
+        }
+        return Object.assign({}, objectParams, {type: option?.value});
+      });
     },
     [setSearchParams]
   );
@@ -32,6 +39,9 @@ const OrgInfo: OrgInfoType = () => {
 
   return (
     <div className="flex flex-row flex-wrap gap-4">
+      <Tab onClick={changeType()} isActive={!searchParams.has('type')}>
+        Все
+      </Tab>
       {options.map(option => {
         return (
           <Tab onClick={changeType(option)} key={option.value} isActive={searchParams.get('type') == option.value}>
