@@ -39,18 +39,30 @@ const Header: HeaderType = () => {
       <Container>
         <div className="flex items-center justify-between py-4 text-xl min-h-[70px]">
           <div>
-            {links.left?.map(link => (
-              <Link key={link.href} to={link.href} className="mr-12" target={link.target}>
-                {link.name}
-              </Link>
-            ))}
+            {links.left?.map(link =>
+              link.hash ? (
+                <a key={link.hash} href={link.hash} className="mr-12">
+                  {link.name}
+                </a>
+              ) : (
+                <Link key={link.href} to={link.href} className="mr-12" target={link.target}>
+                  {link.name}
+                </Link>
+              )
+            )}
           </div>
           <div className="flex items-center children:ml-12">
-            {links.right?.map(link => (
-              <Link key={link.href} to={link.href} target={link.target}>
-                {link.name}
-              </Link>
-            ))}
+            {links.right?.map(link =>
+              link.hash ? (
+                <a key={link.hash} href={link.hash}>
+                  {link.name}
+                </a>
+              ) : (
+                <Link key={link.href} to={link.href} target={link.target}>
+                  {link.name}
+                </Link>
+              )
+            )}
             {/* {typeof window !== 'undefined' && <AuthButton />} */}
             <UserButton />
           </div>
