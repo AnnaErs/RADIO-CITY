@@ -1,16 +1,10 @@
 import {FC} from 'react';
 
-type Option = {
-//   label: string;
-//   value: string;
-//   disabled?: boolean;
-};
+type Option = {};
 type Options = Array<Option>;
 
-type SearchPropsType = {
-//   options?: Options;
-//   value?: string;
-//   name: string;
-//   disabled?: boolean;
-};
+type SearchPropsType = {};
 export type SearchType = FC<SearchPropsType>;
+
+type SearchSVGPropsType = {}
+export type SearchSVGType = FC<SearchSVGPropsType>;
