@@ -1,7 +1,7 @@
 import {memo} from 'react';
 
 import {SearchType} from './types';
-import SearchSVG from './SearchSVG';
+import SearchSVG from './SearchSVG.svg?url';
 
 const Search: SearchType = () => {
   return (
