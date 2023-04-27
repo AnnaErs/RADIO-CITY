@@ -8,6 +8,7 @@ import Accordeon from '@ui-kit/accordeon';
 import List, {ListItem, ListRow} from '@ui-kit/list';
 import Container from '@ui-kit/layout/container';
 import Button from '@ui-kit/buttons';
+import Loader from '@ui-kit/loader';
 
 import {ClientsSectionType} from './types';
 
@@ -24,7 +25,7 @@ const GROUPS_TITLES = {
 };
 
 const AdminClients: ClientsSectionType = () => {
-  const {data} = useSWR('GET_CLIENTS', getClients);
+  const {data, isLoading} = useSWR('GET_CLIENTS', getClients);
   const clients = useMemo(() => convertClientsToClientList(data ?? {}), [data]);
   const [_, setSearchParams] = useSearchParams();
 
@@ -60,27 +61,31 @@ const AdminClients: ClientsSectionType = () => {
     <Container>
       <div className="flex flex-col gap-10">
         <div className="flex">
-          {!!activeClients?.length && (
-            <div className="flex-1">
-              <Accordeon title={GROUPS_TITLES.activated} defaultState={true}>
-                <List>
-                  {activeClients?.map(client => (
-                    <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
-                      <ListItem>{client.name}</ListItem>
-                      <ListItem>{client.phone}</ListItem>
-                      <ListItem>{client.call_time}</ListItem>
-                      <ListItem>{client.schedule.join()}</ListItem>
-                    </ListRow>
-                  ))}
-                </List>
-              </Accordeon>
-            </div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            !!activeClients?.length && (
+              <div className="flex-1">
+                <Accordeon title={GROUPS_TITLES.activated} defaultState={true}>
+                  <List>
+                    {activeClients?.map(client => (
+                      <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
+                        <ListItem>{client.name}</ListItem>
+                        <ListItem>{client.phone}</ListItem>
+                        <ListItem>{client.call_time}</ListItem>
+                        <ListItem>{client.schedule.join()}</ListItem>
+                      </ListRow>
+                    ))}
+                  </List>
+                </Accordeon>
+              </div>
+            )
           )}
           <div className="ml-auto">
             <Button onClick={openCreateClient}>Добавить клиента</Button>
           </div>
         </div>
-        {deactivatedClients && (
+        {!!deactivatedClients?.length && (
           <Accordeon title={GROUPS_TITLES.deactivated}>
             <List>
               {deactivatedClients?.map(client => (

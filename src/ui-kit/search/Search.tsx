@@ -1,12 +1,12 @@
 import {memo} from 'react';
 
 import {SearchType} from './types';
-import SearchSVG from './SearchSVG.svg?url';
+import SearchSVG from './SearchSVG.svg';
 
 const Search: SearchType = () => {
   return (
     <form>
-      <label htmlFor="default-search" className=" sr-only">
+      <label htmlFor="default-search" className="sr-only">
         Search
       </label>
       <div className="relative mb-10 w-1/2">
