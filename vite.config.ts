@@ -1,9 +1,9 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import svgLoader from 'vite-svg-loader'
+import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  plugins: [react(), svgLoader()],
+  plugins: [react(), svgr({exportAsDefault:true})],
   server: {
     port: 3000
   },

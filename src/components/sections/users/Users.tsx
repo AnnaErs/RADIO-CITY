@@ -5,6 +5,7 @@ import {getUsers, getUserRoles} from '@api/usersAPI';
 import List, {ListItem, ListRow} from '@ui-kit/list';
 import Container from '@ui-kit/layout/container';
 import {RolesButton} from '@ui-kit/buttons';
+import Loader from '@ui-kit/loader';
 
 import {UserType, Options} from './types';
 
@@ -47,8 +48,10 @@ const Users: UserType = () => {
             </ListRow>
           ))}
         </List>
+      ) : isLoading ? (
+        <Loader />
       ) : (
-        <p className="text-h4">{isLoading ? 'Загружается...' : 'Нет зарегестрированных пользователей'}</p>
+        <p className="text-h4">{'Нет зарегестрированных пользователей'}</p>
       )}
     </Container>
   );
