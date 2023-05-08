@@ -75,7 +75,13 @@ const ClientSidebar: ClientSidebarType = () => {
             name="responsible"
             value={clientInfo?.responsible}
             disabled={isDisabled}
-            placeholder="ФИО ответственных"
+            placeholder="ФИО ответственого"
+          />
+          <Input
+            name="responsible_phone"
+            value={clientInfo?.responsible_phone}
+            disabled={isDisabled}
+            placeholder="Телефон ответственного"
           />
           <Input
             name="schedule"

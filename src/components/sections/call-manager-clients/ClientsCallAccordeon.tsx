@@ -54,8 +54,6 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
             <ListItem>{client.unit}</ListItem>
             <ListItem>{client.trunk_phone}</ListItem>
             <ListItem>{client.call_time}</ListItem>
-            <ListItem>{client.responsible}</ListItem>
-            <ListItem>{client.responsible_phone}</ListItem>
             <ListItem onClick={e => e.stopPropagation()}>
               <StatesButton value={client.call?.['calls-type_id']} onChange={changeCallStatus(client)} />
             </ListItem>

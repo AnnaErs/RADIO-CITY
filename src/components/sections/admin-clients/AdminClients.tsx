@@ -93,8 +93,6 @@ const AdminClients: ClientsSectionType = () => {
                           <ListItem>{client.unit}</ListItem>
                           <ListItem>{client.trunk_phone}</ListItem>
                           <ListItem>{client.call_time}</ListItem>
-                          <ListItem>{client.responsible}</ListItem>
-                          <ListItem>{client.responsible_phone}</ListItem>
                           <ListItem>{client.schedule.join()}</ListItem>
                         </ListRow>
                       ))}
@@ -112,12 +110,10 @@ const AdminClients: ClientsSectionType = () => {
               <List>
                 {deactivatedClients?.map(client => (
                   <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
+                    <ListItem>{client.call_time}</ListItem>
                     <ListItem>{client.location}</ListItem>
                     <ListItem>{client.unit}</ListItem>
                     <ListItem>{client.trunk_phone}</ListItem>
-                    <ListItem>{client.call_time}</ListItem>
-                    <ListItem>{client.responsible}</ListItem>
-                    <ListItem>{client.responsible_phone}</ListItem>
                     <ListItem>{client.schedule.join()}</ListItem>
                   </ListRow>
                 ))}
