@@ -52,7 +52,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                 <tr key={clientId}>
                   <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.location}</td>
                   <td className="py-2 pr-3">{lastRevisionOfClient?.call_time}</td>
-                  <td className="py-2 pr-3">{lastRevisionOfClient?.call_sign}</td>
+                  <td className="py-2 pr-3">{lastRevisionOfClient?.trunk_phone}</td>
                   {arrayOfDays.map((_, index) => {
                     const dayOfMonth = moment().date(index).day();
 
