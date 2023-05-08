@@ -8,7 +8,7 @@ import {ClientTypeSelectType} from './types';
 
 const DEFAULT_OPTIONS: {value: string; label: string; disabled?: boolean} = {
   value: '',
-  label: 'Укажите тип клиента',
+  label: 'Укажите категорию абонента',
   disabled: true
 };
 

@@ -14,12 +14,11 @@ type GetCallsReqType = {
   to: string;
 };
 type GetCallsType = (req: GetCallsReqType) => Promise<CallResponse>;
-export const getCalls: GetCallsType = request => {
-  return axios
-    .get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/calls`, {
-      params: request
-    })
-    .then(res => res.data);
+export const getCalls: GetCallsType = async request => {
+  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/calls`, {
+    params: request
+  });
+  return res.data;
 };
 
 type CallRequest = {
@@ -30,7 +29,14 @@ type CallRequest = {
     comment?: string;
   };
 };
-type CreateCallType = (req: CallRequest) => void;
-export const createCall: CreateCallType = request => {
-  return axios.post(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/calls`, request).then(res => res.data);
+type CreateCallType = (req: CallRequest) => Promise<void>;
+export const createCall: CreateCallType = async request => {
+  const res = await axios.post(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/calls`, request);
+  return res.data;
+};
+
+type CallTypesType = () => Promise<Array<{id: string; name: string}>>;
+export const getCallTypes: CallTypesType = async () => {
+  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/call-types`);
+  return res.data;
 };

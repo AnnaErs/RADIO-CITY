@@ -22,14 +22,14 @@ const Footer: FooterType = () => {
         <div className="flex justify-between">
           <div className="text-lg flex">
             {LINKS.left?.map(link => (
-              <Link key={link.href} to={link.href} className="mr-12 p-2 block" target={link.target}>
+              <Link key={link.href} to={link.href} className="mr-12 py-2 block" target={link.target}>
                 {link.name}
               </Link>
             ))}
           </div>
           <div className="flex">
             {LINKS.right?.map(link => (
-              <Link key={link.href} to={link.href} className="ml-12 p-2 block" target={link.target}>
+              <Link key={link.href} to={link.href} className="ml-12 py-2 block" target={link.target}>
                 {link.name}
               </Link>
             ))}

@@ -1,39 +1,25 @@
-import {memo} from 'react';
+import useSWR from 'swr';
+import {memo, useMemo} from 'react';
+
+import {getCallTypes} from '@api/callsAPI';
 
 import ButtonWithDropdownList from '../ButtonWithDropdownList';
 import {StatesButtonPropsType} from './types';
 
-const DROPDOWN_STATES = [
-  {
-    label: 'Всё ОК',
-    value: '1'
-  },
-  {
-    label: 'Неисправен',
-    value: '2'
-  },
-  {
-    label: 'Вызвал диспетчера, жду обратной связи',
-    value: '3'
-  },
-  {
-    label: 'Опоздал',
-    value: '4'
-  },
-  {
-    label: 'Дальние связи',
-    value: '5'
-  },
-  {
-    label: 'Не умеет работать',
-    value: '6'
-  }
-];
-
 const DEFAULT_VALUE = 'Сменить статус';
 
-const StatesButton = memo<StatesButtonPropsType>(({value, onChange}) => {
-  return <ButtonWithDropdownList value={value ?? DEFAULT_VALUE} options={DROPDOWN_STATES} onClick={onChange} />;
+const StatesButton = memo<StatesButtonPropsType>(function StatesButton({value, onChange}) {
+  const {data} = useSWR('GET_CLIENT_TYPES', getCallTypes);
+  const options = useMemo(() => {
+    return [
+      {
+        label: DEFAULT_VALUE,
+        value: ''
+      }
+    ].concat(data?.map(type => ({value: type.id, label: type.name})) ?? []);
+  }, [data]);
+
+  return <ButtonWithDropdownList value={value ?? DEFAULT_VALUE} options={options} onClick={onChange} />;
 });
 
 export {StatesButton};

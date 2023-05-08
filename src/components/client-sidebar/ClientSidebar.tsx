@@ -8,11 +8,11 @@ import Input from '@ui-kit/input';
 import {Date} from '@ui-kit/date';
 import {ClientTypeSelect} from '@ui-kit/select';
 import {getClients} from '@api/clientsAPI';
+import TextArea from '@ui-kit/text-area';
 import Sidebar from '@ui-kit/sidebar';
 
 import {ClientSidebarType} from './types';
-import {addHistory, addRevision, formatDate, getDate, removeSidebarParams, submitHandler} from './utils';
-import {last} from 'lodash';
+import {addRevision, formatDate, getClientInfo, getDate, removeSidebarParams, submitHandler} from './utils';
 
 const INPUT_DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -20,35 +20,11 @@ const ClientSidebar: ClientSidebarType = () => {
   const {data, isLoading, mutate} = useSWR('GET_CLIENTS', getClients);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const today = moment().format(INPUT_DATE_FORMAT);
-  const clientInfo = useMemo(() => {
-    const idFromParams = searchParams.get('id');
-    if (!idFromParams || !data) {
-      return;
-    }
-
-    const clientsRevisions = data[idFromParams];
-    if (!clientsRevisions) {
-      return;
-    }
-
-    const revision = searchParams.get('revision');
-    if (revision) {
-      const foundClientByRevision = clientsRevisions.find(clients => clients.revision.toString() === revision);
-      return addHistory(foundClientByRevision, clientsRevisions);
-    }
-
-    const todayDate = moment.utc();
-
-    const activeRevision = clientsRevisions.find(version => {
-      const isFromBeforeToday = moment.utc(version.active_period_from).isBefore(today);
-      const isToAfterToday = !version.active_period_to || todayDate.isBefore(moment.utc(version.active_period_to));
-
-      return isFromBeforeToday && isToAfterToday;
-    });
-    const lastRevision = last(clientsRevisions);
-    return addHistory(activeRevision ?? lastRevision, clientsRevisions);
-  }, [data, searchParams]);
+  const today = moment.utc().format(INPUT_DATE_FORMAT);
+  const clientInfo = useMemo(
+    () => getClientInfo(data, searchParams.get('id'), searchParams.get('revision'), today),
+    [data, searchParams]
+  );
 
   const startDayValue = useMemo(() => getDate(clientInfo?.active_period_from), [clientInfo?.active_period_from]);
   const endDayValue = useMemo(() => getDate(clientInfo?.active_period_to, ''), [clientInfo?.active_period_to]);
@@ -63,7 +39,7 @@ const ClientSidebar: ClientSidebarType = () => {
 
     return (
       <span className="leading-4 flex">
-        {clientInfo.name}
+        {clientInfo.location}
         <span className="ml-2 text-xl leading-4 italic">(№{clientInfo.revision})</span>
       </span>
     );
@@ -83,12 +59,24 @@ const ClientSidebar: ClientSidebarType = () => {
   const Form = useCallback(
     () => (
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-y-4 mt-6">
-          <Input name="name" value={clientInfo?.name} placeholder="Имя" disabled={isDisabled} />
-          <Input name="description" value={clientInfo?.description} placeholder="Описание" disabled={isDisabled} />
-          <Input name="phone" value={clientInfo?.phone} placeholder="Телефон" disabled={isDisabled} />
-          <Input name="callTime" value={clientInfo?.call_time} placeholder="Время звонка" disabled={isDisabled} />
+        <div className="flex flex-col gap-y-4">
+          <Input name="location" value={clientInfo?.location} disabled={isDisabled} placeholder="Населенный пункт" />
+          <Input name="unit" value={clientInfo?.unit} disabled={isDisabled} placeholder="Подразделение" />
+          <Input name="call_sign" value={clientInfo?.call_sign} disabled={isDisabled} placeholder="Позывной" />
+          <Input
+            name="trunk_phone"
+            value={clientInfo?.trunk_phone}
+            disabled={isDisabled}
+            placeholder="Транковый номер"
+          />
+          <Input name="call_time" value={clientInfo?.call_time} placeholder="Время звонка" disabled={isDisabled} />
           <ClientTypeSelect name="type" value={clientInfo?.type} disabled={isDisabled} />
+          <Input
+            name="responsible"
+            value={clientInfo?.responsible}
+            disabled={isDisabled}
+            placeholder="ФИО ответственных"
+          />
           <Input
             name="schedule"
             value={clientInfo?.schedule.join()}
@@ -97,14 +85,15 @@ const ClientSidebar: ClientSidebarType = () => {
           />
           <div className="flex gap-x-4">
             <Date
-              name="activePeriodFrom"
+              name="active_period_from"
               value={startDayValue}
               min={today}
               disabled={isDisabled || searchParams.has('id')}
               required
             />
-            <Date name="activePeriodTo" value={endDayValue} placeholder="Конец работы" disabled={isDisabled} />
+            <Date name="active_period_to" value={endDayValue} placeholder="Конец работы" disabled={isDisabled} />
           </div>
+          <TextArea name="description" value={clientInfo?.description} placeholder="Описание" disabled={isDisabled} />
           {!isDisabled && (
             <div>
               <Button type="submit" title={clientInfo ? 'Изменить' : 'Создать'} />
@@ -122,7 +111,7 @@ const ClientSidebar: ClientSidebarType = () => {
       {!isLoading && <Form />}
       {/* TODO вынести историю в отдельный компонент */}
       {clientInfo && (
-        <div className="mt-6">
+        <div>
           <div className="text-h4-bold mb-5">История изменений</div>
           <table className="text-xl w-full">
             <tbody>

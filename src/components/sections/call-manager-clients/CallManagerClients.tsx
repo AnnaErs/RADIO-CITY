@@ -1,26 +1,34 @@
 import useSWR from 'swr';
 import {useMemo} from 'react';
+import {useSearchParams} from 'react-router-dom';
 
 import {getClients} from '@api/clientsAPI';
 import Container from '@ui-kit/layout/container';
 import {getCalls} from '@api/callsAPI';
 import Loader from '@ui-kit/loader';
+import {getTodayPeriod} from '@utils/times';
+
 import {CallManagerType} from './types';
-import {getTodayPeriod, groupClients} from './utils';
+import {groupClients} from './utils';
 import {ClientsCallAccordeon} from './ClientsCallAccordeon';
 import {CallsType} from './consts';
 
 const GROUPS_TITLES = {
-  [CallsType.Missed]: 'Недоступные клиенты',
-  [CallsType.Future]: 'Будущие клиенты',
-  [CallsType.Called]: 'Обзвоненные клиенты'
+  [CallsType.Missed]: 'Не вышли на связь',
+  [CallsType.Future]: 'Ожидание вызова',
+  [CallsType.Called]: 'Вышли на связь'
 };
 
 const CallManagerClients: CallManagerType = () => {
   const {data: clientsData, isLoading: isLoadingClients} = useSWR('GET_CLIENTS', getClients);
   const {data: callsData, mutate, isLoading: isLoadingCalls} = useSWR('GET_CALLS', () => getCalls(getTodayPeriod()));
 
-  const clients = useMemo(() => groupClients(clientsData, callsData), [clientsData, callsData]);
+  const [searchParams] = useSearchParams();
+
+  const clients = useMemo(
+    () => groupClients(clientsData, callsData, searchParams.get('type'), searchParams.get('search')),
+    [clientsData, callsData, searchParams]
+  );
 
   return (
     <Container>

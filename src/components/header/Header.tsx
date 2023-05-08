@@ -30,7 +30,7 @@ const Header: HeaderType = () => {
 
   return (
     <header
-      className={cn('sticky top-0 ease-in-out duration-200', {
+      className={cn('sticky top-0 ease-in-out duration-200 z-10', {
         'bg-white text-black': !!isAdmin,
         'bg-bg text-gray': !isAdmin,
         'shadow-blue': !isOnTop

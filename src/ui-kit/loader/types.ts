@@ -1,6 +1,5 @@
-import { FC } from "react";
+import {FC} from 'react';
 
 type LoaderPropsType = {};
 
-export type LoaderType = FC<LoaderPropsType>
-  
+export type LoaderType = FC<LoaderPropsType>;

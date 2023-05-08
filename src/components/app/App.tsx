@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div
-      className={cn('m-auto w-fit flex flex-col min-h-screen', {
+      className={cn('flex flex-col min-h-screen', {
         'bg-bg text-white': !isAdmin
       })}
     >

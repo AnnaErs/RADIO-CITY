@@ -9,9 +9,12 @@ const Sidebar: SidebarType = ({title, close, children}) => {
   useOnOutsideClick(sidebar, close);
 
   return (
-    <div ref={sidebar} className="fixed top-0 right-0 shadow-lg shadow-blue bg-white py-5 px-14 w-[480px] h-full">
+    <div
+      ref={sidebar}
+      className="fixed top-0 right-0 shadow-lg shadow-blue bg-white py-5 px-14 w-[480px] h-full overflow-auto z-50"
+    >
       <div className="text-h4-bold pb-3 border-b-2 border-gray">{title}</div>
-      <div>{children}</div>
+      <div className="children:my-6">{children}</div>
     </div>
   );
 };

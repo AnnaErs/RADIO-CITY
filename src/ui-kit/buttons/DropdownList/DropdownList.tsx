@@ -25,7 +25,7 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
           <div className="text-xl text-ellipsis overflow-hidden whitespace-nowrap py-2 pr-3">{option.label}</div>
           <div
             className="flex bg-primary rounded-full h-8 aspect-square"
-            style={{backgroundColor: strToColor(option.value)}}
+            style={{backgroundColor: strToColor(option.label)}}
           />
         </div>
       ))}

@@ -22,11 +22,11 @@ export const LINKS: Record<string, HeaderLinks> = {
         href: '/'
       },
       {
-        name: 'Звонки',
+        name: 'Журнал вызовов',
         href: '/admin/call-manager'
       },
       {
-        name: 'Клиенты',
+        name: 'Абоненты',
         href: '/admin/clients'
       },
       {
