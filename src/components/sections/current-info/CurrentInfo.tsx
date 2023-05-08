@@ -3,8 +3,8 @@ import {memo, useEffect, useState} from 'react';
 
 import Container from '@ui-kit/layout/container';
 import Search from '@ui-kit/search/Search';
+import {OrgInfo} from '@components/org-info';
 
-import OrgInfo from './OrgInfo';
 import {CurrentInfoType} from './types';
 
 const CURRENT_INFO = {
@@ -22,7 +22,7 @@ const CurrentInfo: CurrentInfoType = () => {
     const intervalId = setInterval(() => setMoment(moment()), 1000 * 60);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [setMoment]);
 
   return (
     <Container>

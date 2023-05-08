@@ -15,7 +15,9 @@ export type ConvertClientsToClientListType = (
 
 export type GroupClientsType = (
   responseClients: GetClientsResponse | undefined,
-  callsData: CallResponse | undefined
+  callsData: CallResponse | undefined,
+  type: string | null,
+  search: string | null
 ) => [ClientWithCall[], ClientWithCall[], ClientWithCall[]];
 
 export type ClientsCallAccordeonPropsType = {

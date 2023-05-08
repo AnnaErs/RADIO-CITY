@@ -5,9 +5,9 @@ import useSWR from 'swr';
 import Tab from '@ui-kit/tab';
 import {getClientTypes} from '@api/clientsAPI';
 
-import {OrgInfoType, Options, Option} from './types';
+import {OrgInfoPropsType, Option} from './types';
 
-const OrgInfo: OrgInfoType = () => {
+const OrgInfo = memo<OrgInfoPropsType>(function OrgInfo() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {data} = useSWR('GET_ORGANIZATIONS', getClientTypes);
@@ -30,12 +30,10 @@ const OrgInfo: OrgInfoType = () => {
     return null;
   }
 
-  const options: Options = data.map(type => {
-    return {
-      value: type.id,
-      label: type.name
-    };
-  });
+  const options = data.map(type => ({
+    value: type.id,
+    label: type.name
+  }));
 
   return (
     <div className="flex flex-row flex-wrap gap-4">
@@ -51,6 +49,6 @@ const OrgInfo: OrgInfoType = () => {
       })}
     </div>
   );
-};
+});
 
-export default memo(OrgInfo);
+export {OrgInfo};

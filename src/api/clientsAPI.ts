@@ -6,11 +6,15 @@ export type Client = {
   call_time: string;
   client_id: string;
   description: string;
-  name: string;
-  phone: string;
   revision: number;
   schedule: Array<number>;
   type: string;
+  location: string;
+  unit: string;
+  call_sign: string;
+  trunk_phone: string;
+  responsible: string;
+  responsible_phone: string;
 };
 
 type ClientVersions = Array<Client>;

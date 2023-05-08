@@ -4,10 +4,6 @@ import {assign, fromPairs} from 'lodash';
 import {CallsType} from './consts';
 
 const BACKEND_FORMAT = 'YYYY-MM-DD';
-export const getTodayPeriod = () => ({
-  from: moment.utc().startOf('day').format(BACKEND_FORMAT),
-  to: moment.utc().endOf('day').add(1, 'day').format(BACKEND_FORMAT)
-});
 
 export const getMonthPeriod = () => ({
   from: moment.utc().startOf('month').format(BACKEND_FORMAT),
@@ -37,39 +33,58 @@ const convertClientsToClientList: ConvertClientsToClientListType = (responseClie
   }, []);
 };
 
-export const groupClients: GroupClientsType = (clients, calls) => {
+export const groupClients: GroupClientsType = (clients, calls, type, search) => {
   const allActiveClients = convertClientsToClientList(clients ?? {}, calls ?? []);
 
   const now = moment.utc();
-  return allActiveClients.reduce<[ClientWithCall[], ClientWithCall[], ClientWithCall[]]>(
-    (acc, client) => {
-      let type: 0 | 1 | 2 | undefined;
-      const clientCallTime = moment.utc(client.call_time, 'HH:mm');
+  return allActiveClients
+    .filter(client => {
+      return (
+        (!type || client.type === type) &&
+        (!search || client.location?.includes(search)) &&
+        (!search || client.trunk_phone?.includes(search)) &&
+        (!search || client.call_sign?.includes(search)) &&
+        (!search || client.unit?.includes(search)) &&
+        client.schedule.includes(moment.utc().day() + 1)
+      );
+    })
+    .sort((clientA, clientB) => {
+      const aCallTime = moment.utc(clientA.call_time, 'HH:mm');
+      const bCallTime = moment.utc(clientB.call_time, 'HH:mm');
+      if (aCallTime.isAfter(bCallTime)) return 1;
+      if (aCallTime.isBefore(bCallTime)) return -1;
 
-      const clientHasCall = !!client.call?.['calls-type_id'];
-      const clientCallTimeIsBeforeNow = clientCallTime.isBefore(now);
-      const clientCallTimeIsAfterNow = clientCallTime.isAfter(now);
+      return clientA.location.localeCompare(clientB.location);
+    })
+    .reduce<[ClientWithCall[], ClientWithCall[], ClientWithCall[]]>(
+      (acc, client) => {
+        let type: 0 | 1 | 2 | undefined;
+        const clientCallTime = moment.utc(client.call_time, 'HH:mm');
 
-      if (clientHasCall) {
-        type = CallsType.Called;
-      } else if (clientCallTimeIsBeforeNow) {
-        type = CallsType.Missed;
-      } else if (clientCallTimeIsAfterNow) {
-        type = CallsType.Future;
-      }
+        const clientHasCall = !!client.call?.['calls-type_id'];
+        const clientCallTimeIsBeforeNow = clientCallTime.isBefore(now);
+        const clientCallTimeIsAfterNow = clientCallTime.isAfter(now);
 
-      if (typeof type === 'number') {
-        acc[type].push(client);
-      } else {
-        console.error({client, date: now.format()});
-      }
+        if (clientHasCall) {
+          type = CallsType.Called;
+        } else if (clientCallTimeIsBeforeNow) {
+          type = CallsType.Missed;
+        } else if (clientCallTimeIsAfterNow) {
+          type = CallsType.Future;
+        }
 
-      return acc;
-    },
-    [
-      [], // clientsWithCallStatus
-      [], // clientsWithoutCallStatusAndBeforeNow
-      [] // clientsWithoutCallStatusAndAfterNow
-    ]
-  );
+        if (typeof type === 'number') {
+          acc[type].push(client);
+        } else {
+          console.error({client, date: now.format()});
+        }
+
+        return acc;
+      },
+      [
+        [], // clientsWithCallStatus
+        [], // clientsWithoutCallStatusAndBeforeNow
+        [] // clientsWithoutCallStatusAndAfterNow
+      ]
+    );
 };

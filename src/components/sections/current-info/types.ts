@@ -8,6 +8,3 @@ export type Option = {
   value: string;
 };
 export type Options = Array<Option>;
-
-type OrgInfoPropsType = {};
-export type OrgInfoType = FC<OrgInfoPropsType>;
