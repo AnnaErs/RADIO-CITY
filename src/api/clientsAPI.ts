@@ -15,6 +15,8 @@ export type Client = {
   trunk_phone: string;
   responsible: string;
   responsible_phone: string;
+  organization: string;
+  mo: string;
 };
 
 type ClientVersions = Array<Client>;

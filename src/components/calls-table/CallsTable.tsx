@@ -36,8 +36,9 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
               <tr>
                 <th className="text-left py-2 pr-3">Время</th>
                 <th className="text-left py-2 pr-3">Нас. пункт</th>
-                <th className="text-left py-2 pr-3">Служба</th>
+                <th className="text-left py-2 pr-3">Организация</th>
                 <th className="text-left py-2 pr-3">Подразделение</th>
+                <th className="text-left py-2 pr-3">Категория</th>
                 <th className="text-left py-2 pr-3">Номер</th>
                 <th className="text-left py-2 pr-3">Позывной</th>
                 {arrayOfDays.map((_, index) => (
@@ -58,7 +59,8 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                   <tr key={clientId} className="hover:bg-slate-100">
                     <td className="py-2 pr-3">{lastRevisionOfClient?.call_time}</td>
                     <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.location}</td>
-                    <td className="py-2 pr-3">{lastRevisionOfClient?.unit}</td>
+                    <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.organization}</td>
+                    <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.unit}</td>
                     <td className="py-2 pr-3 whitespace-nowrap">
                       <OrgTypeToString value={lastRevisionOfClient?.type} />
                     </td>
@@ -67,7 +69,6 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                     {arrayOfDays.map((_, index) => {
                       const dayOfMonth = moment().date(index).day();
 
-                      console.log(getColorByCallTypeId(callsByDay[index]?.['calls-type_id']));
                       return (
                         <td
                           key={index}

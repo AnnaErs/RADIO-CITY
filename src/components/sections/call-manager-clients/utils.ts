@@ -41,10 +41,13 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
     .filter(client => {
       return (
         (!type || client.type === type) &&
-        (!search || client.location?.includes(search)) &&
-        (!search || client.trunk_phone?.includes(search)) &&
-        (!search || client.call_sign?.includes(search)) &&
-        (!search || client.unit?.includes(search)) &&
+        (!search ||
+          client.mo?.includes(search) ||
+          client.location.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.organization.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.unit.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.trunk_phone.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.call_sign.toLowerCase()?.includes(search.toLowerCase())) &&
         client.schedule.includes(moment.utc().day() + 1)
       );
     })
