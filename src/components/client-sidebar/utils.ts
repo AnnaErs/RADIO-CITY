@@ -50,7 +50,9 @@ export const submitHandler =
       call_sign: formdata.get('call_sign') || undefined,
       trunk_phone: formdata.get('trunk_phone') || undefined,
       responsible: formdata.get('responsible') || undefined,
-      responsible_phone: formdata.get('responsible_phone') || undefined
+      responsible_phone: formdata.get('responsible_phone') || undefined,
+      organization: formdata.get('organization') || undefined,
+      mo: formdata.get('mo') || undefined
     } as any;
 
     const isCreate = !clientInfo;

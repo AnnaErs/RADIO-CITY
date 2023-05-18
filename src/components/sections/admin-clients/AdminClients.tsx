@@ -25,10 +25,13 @@ const convertClientsToClientList = (
     .filter(
       client =>
         (!type || client.type === type) &&
-        (!search || client.location.includes(search)) &&
-        (!search || client.trunk_phone.includes(search)) &&
-        (!search || client.call_sign.includes(search)) &&
-        (!search || client.unit.includes(search))
+        (!search ||
+          client.mo.toLowerCase().includes(search.toLowerCase()) ||
+          client.location.toLowerCase().includes(search.toLowerCase()) ||
+          client.organization.toLowerCase().includes(search.toLowerCase()) ||
+          client.unit.toLowerCase().includes(search.toLowerCase()) ||
+          client.trunk_phone.toLowerCase().includes(search.toLowerCase()) ||
+          client.call_sign.toLowerCase().includes(search.toLowerCase()))
     )
     .sort((clientA, clientB) => {
       const aCallTime = moment(clientA.call_time, 'HH:mm');
@@ -89,12 +92,13 @@ const AdminClients: ClientsSectionType = () => {
                     <List>
                       {activeClients?.map(client => (
                         <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
+                          <ListItem>{client.mo}</ListItem>
                           <ListItem>{client.location}</ListItem>
+                          <ListItem>{client.organization}</ListItem>
                           <ListItem>{client.unit}</ListItem>
                           <ListItem>{client.trunk_phone}</ListItem>
+                          <ListItem>{client.call_sign}</ListItem>
                           <ListItem>{client.call_time}</ListItem>
-                          <ListItem>{client.responsible}</ListItem>
-                          <ListItem>{client.responsible_phone}</ListItem>
                           <ListItem>{client.schedule.join()}</ListItem>
                         </ListRow>
                       ))}
@@ -112,12 +116,13 @@ const AdminClients: ClientsSectionType = () => {
               <List>
                 {deactivatedClients?.map(client => (
                   <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
+                    <ListItem>{client.mo}</ListItem>
                     <ListItem>{client.location}</ListItem>
+                    <ListItem>{client.organization}</ListItem>
                     <ListItem>{client.unit}</ListItem>
                     <ListItem>{client.trunk_phone}</ListItem>
+                    <ListItem>{client.call_sign}</ListItem>
                     <ListItem>{client.call_time}</ListItem>
-                    <ListItem>{client.responsible}</ListItem>
-                    <ListItem>{client.responsible_phone}</ListItem>
                     <ListItem>{client.schedule.join()}</ListItem>
                   </ListRow>
                 ))}

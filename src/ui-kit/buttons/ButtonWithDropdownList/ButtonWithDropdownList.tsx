@@ -7,7 +7,7 @@ import DropdownList from '../DropdownList';
 import Button from '../Button';
 import {ButtonWithDropdownListType, Option} from './types';
 
-const ButtonWithDropdownList: ButtonWithDropdownListType = ({value, options, onClick}) => {
+const ButtonWithDropdownList: ButtonWithDropdownListType = ({value, options, optionColor, onClick}) => {
   const ref = useRef(null);
   const [isOpened, toggle, setValue] = useToggle(false);
 
@@ -41,7 +41,7 @@ const ButtonWithDropdownList: ButtonWithDropdownListType = ({value, options, onC
   return (
     <div ref={ref}>
       <Button title={optionsDict[value] ?? value} onClick={toggle} />
-      {isOpened && <DropdownList options={options} onClick={clickHandler} />}
+      {isOpened && <DropdownList options={options} optionColor={optionColor} onClick={clickHandler} />}
     </div>
   );
 };

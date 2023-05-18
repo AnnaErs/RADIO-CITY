@@ -60,7 +60,9 @@ const ClientSidebar: ClientSidebarType = () => {
     () => (
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-y-4">
+          <Input name="mo" value={clientInfo?.mo} disabled={isDisabled} placeholder="Муниципальное образование" />
           <Input name="location" value={clientInfo?.location} disabled={isDisabled} placeholder="Населенный пункт" />
+          <Input name="organization" value={clientInfo?.organization} disabled={isDisabled} placeholder="Организация" />
           <Input name="unit" value={clientInfo?.unit} disabled={isDisabled} placeholder="Подразделение" />
           <Input name="call_sign" value={clientInfo?.call_sign} disabled={isDisabled} placeholder="Позывной" />
           <Input
@@ -75,7 +77,13 @@ const ClientSidebar: ClientSidebarType = () => {
             name="responsible"
             value={clientInfo?.responsible}
             disabled={isDisabled}
-            placeholder="ФИО ответственных"
+            placeholder="ФИО ответственого"
+          />
+          <Input
+            name="responsible_phone"
+            value={clientInfo?.responsible_phone}
+            disabled={isDisabled}
+            placeholder="Телефон ответственного"
           />
           <Input
             name="schedule"
