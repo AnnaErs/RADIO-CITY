@@ -1,7 +1,7 @@
 import {memo, useCallback} from 'react';
 
 import Accordeon from '@ui-kit/accordeon';
-import List, {ListItem, ListRow} from '@ui-kit/list';
+import List, {ListItem, ListRow, HeadListItem} from '@ui-kit/list';
 import {StatesButton} from '@ui-kit/buttons';
 
 import {ClientWithCall, ClientsCallAccordeonPropsType} from './types';
@@ -48,6 +48,16 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
   return (
     <Accordeon title={title} defaultState={openedByDefault}>
       <List>
+        <ListRow className="whitespace-nowrap">
+          <HeadListItem>Муниципальное образование</HeadListItem>
+          <HeadListItem>Населённый пункт</HeadListItem>
+          <HeadListItem>Организация</HeadListItem>
+          <HeadListItem>Подразделение</HeadListItem>
+          <HeadListItem>Транковый номер</HeadListItem>
+          <HeadListItem>Позывной</HeadListItem>
+          <HeadListItem>Время звонка</HeadListItem>
+          <HeadListItem />
+        </ListRow>
         {clients?.map(client => (
           <ListRow key={client.client_id} onClick={openSidebar(client.client_id, client.revision)}>
             <ListItem>{client.mo}</ListItem>
