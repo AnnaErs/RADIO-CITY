@@ -4,9 +4,7 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import store from '@utils/reducer/app';
 import Home from '@components/pages/home';
 import NotFound from '@components/pages/not-found';
-import Auth from '@components/pages/auth';
 import CallManager from '@components/pages/call-manager';
-import UsersManager from '@components/pages/users-manager';
 import ClientsManager from '@components/pages/clients-manager';
 import Header from '@components/header';
 import Footer from '@components/footer';
@@ -27,11 +25,9 @@ const App = () => {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Navigate to="/admin/call-manager" replace={true} />} />
             <Route path="/admin/call-manager" element={<CallManager />} />
             <Route path="/admin/clients" element={<ClientsManager />} />
-            <Route path="/admin/users" element={<UsersManager />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

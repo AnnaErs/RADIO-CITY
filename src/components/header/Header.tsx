@@ -31,12 +31,12 @@ const Header: HeaderType = () => {
   return (
     <header
       className={cn('sticky top-0 ease-in-out duration-200 z-10', {
-        'bg-white text-black': !!isAdmin,
+        'bg-white text-black': isAdmin,
         'bg-bg text-gray': !isAdmin,
         'shadow-blue': !isOnTop
       })}
     >
-      <Container>
+      <Container isFullWidth={isAdmin}>
         <div className="flex items-center justify-between py-4 text-xl min-h-[70px]">
           <div>
             {links.left?.map(link =>

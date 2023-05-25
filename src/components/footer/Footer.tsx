@@ -14,11 +14,11 @@ const Footer: FooterType = () => {
   return (
     <footer
       className={cn('ease-in-out duration-200', {
-        'bg-white text-black': !!isAdmin,
+        'bg-white text-black': isAdmin,
         'bg-bg text-gray': !isAdmin
       })}
     >
-      <Container>
+      <Container isFullWidth={isAdmin}>
         <div className="flex justify-between">
           <div className="text-lg flex">
             {LINKS.left?.map(link => (

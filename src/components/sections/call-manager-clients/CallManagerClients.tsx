@@ -22,7 +22,6 @@ const GROUPS_TITLES = {
 const CallManagerClients: CallManagerType = () => {
   const {data: clientsData, isLoading: isLoadingClients} = useSWR('GET_CLIENTS', getClients);
   const {data: callsData, mutate, isLoading: isLoadingCalls} = useSWR('GET_CALLS', () => getCalls(getTodayPeriod()));
-
   const [searchParams] = useSearchParams();
 
   const clients = useMemo(
@@ -31,7 +30,7 @@ const CallManagerClients: CallManagerType = () => {
   );
 
   return (
-    <Container>
+    <Container isFullWidth>
       {isLoadingCalls && isLoadingClients ? (
         <Loader />
       ) : (

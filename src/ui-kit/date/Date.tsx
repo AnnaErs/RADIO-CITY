@@ -7,7 +7,6 @@ const Date = memo<DatePropsType>(function Date({value: defaultValue, required, p
 
   const changeValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      console.log('hello');
       setValue(e.target.value);
     },
     [setValue]

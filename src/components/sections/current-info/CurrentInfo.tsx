@@ -25,7 +25,7 @@ const CurrentInfo: CurrentInfoType = () => {
   }, [setMoment]);
 
   return (
-    <Container>
+    <Container isFullWidth>
       <div className="flex flex-col gap-4 mb-10">
         <div>
           <p className=" text-h4-bold">{CURRENT_INFO.title}</p>

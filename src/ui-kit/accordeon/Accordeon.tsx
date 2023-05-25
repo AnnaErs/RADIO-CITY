@@ -11,7 +11,7 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
 
   return (
     <div>
-      <div onClick={toggle} className="flex items-center text-h4-bold w-[550px] py-3 select-none">
+      <div onClick={toggle} className="flex items-center text-h4-bold w-full max-w-[550px] py-3 select-none">
         <div>{title}</div>
         <div
           className={cn('ml-auto ease-in-out duration-200', {
@@ -21,7 +21,7 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
           <img src={switchArrow} alt={title} width={24} />
         </div>
       </div>
-      {isOpen && <div>{children}</div>}
+      {isOpen && <div className="overflow-auto w-full">{children}</div>}
     </div>
   );
 };

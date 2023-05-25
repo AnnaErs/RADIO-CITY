@@ -13,6 +13,7 @@ import {CallsTableType} from './types';
 import Loader from '@ui-kit/loader/Loader';
 import {getColorByCallTypeId} from './utils';
 import {OrgTypeToString} from '@components/org-type-to-string';
+import {useSearchParams} from 'react-router-dom';
 
 const CallsTable = memo<CallsTableType>(function CallsTable() {
   const {data: clientsData, isLoading: isLoadingClients} = useSWR('GET_CLIENTS', getClients);
@@ -20,76 +21,105 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
     getCalls(getCurrentMonthPeriod())
   );
 
+  const [searchParams] = useSearchParams();
   const callsByClientId = useMemo(() => groupBy(callsData, 'client_id'), [callsData]);
 
   const today = moment().date();
   const arrayOfDays = useMemo(() => Array(moment().daysInMonth()).fill(undefined), []);
 
+  const clients = useMemo(() => {
+    const type = searchParams.get('type');
+    const search = searchParams.get('search');
+
+    return Object.values(clientsData ?? {})
+      .map(versions => versions[versions.length - 1])
+      .filter(
+        client =>
+          Boolean(client) &&
+          (!type || client.type === type) &&
+          (!search ||
+            client.mo?.toLowerCase()?.includes(search.toLowerCase()) ||
+            client.location?.toLowerCase()?.includes(search.toLowerCase()) ||
+            client.organization?.toLowerCase()?.includes(search.toLowerCase()) ||
+            client.unit?.toLowerCase()?.includes(search.toLowerCase()) ||
+            client.trunk_phone?.toLowerCase()?.includes(search.toLowerCase()) ||
+            client.call_sign?.toLowerCase()?.includes(search.toLowerCase()))
+      )
+      .sort((clientA, clientB) => {
+        const now = moment();
+        const aCallTime = clientA.call_time ? moment(clientA.call_time, 'H:mm') : now;
+        const bCallTime = clientB.call_time ? moment(clientB.call_time, 'H:mm') : now;
+
+        if (aCallTime.isAfter(bCallTime)) return 1;
+        if (aCallTime.isBefore(bCallTime)) return -1;
+
+        return (clientA.location || '').localeCompare(clientB.location || '');
+      });
+  }, [clientsData, searchParams]);
+
   return (
-    <div className="overflow-auto">
-      <Container>
-        {isLoadingClients || isLoadingCalls ? (
-          <Loader />
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th className="text-left py-2 pr-3">Время</th>
-                <th className="text-left py-2 pr-3">Нас. пункт</th>
-                <th className="text-left py-2 pr-3">Организация</th>
-                <th className="text-left py-2 pr-3">Подразделение</th>
-                <th className="text-left py-2 pr-3">Категория</th>
-                <th className="text-left py-2 pr-3">Номер</th>
-                <th className="text-left py-2 pr-3">Позывной</th>
-                {arrayOfDays.map((_, index) => (
-                  <th key={index}>{index + 1}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(clientsData ?? []).map(([clientId, client]) => {
-                const lastRevisionOfClient = last(client);
-                const calls = callsByClientId[clientId];
-                const callsByDay = (calls ?? []).reduce<Record<string, Call>>((acc, call) => {
-                  acc[moment(call['date-time']).date()] = call;
-                  return acc;
-                }, {});
+    <Container isRealFullWidth>
+      {isLoadingClients || isLoadingCalls ? (
+        <Loader />
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th className="text-left py-2 pr-3">Время</th>
+              <th className="text-left py-2 pr-3">Нас. пункт</th>
+              <th className="text-left py-2 pr-3">Организация</th>
+              <th className="text-left py-2 pr-3">Подразделение</th>
+              <th className="text-left py-2 pr-3">Категория</th>
+              <th className="text-left py-2 pr-3">Номер</th>
+              <th className="text-left py-2 pr-3">Позывной</th>
+              {arrayOfDays.map((_, index) => (
+                <th key={index}>{index + 1}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map(client => {
+              const lastRevisionOfClient = client;
+              const calls = callsByClientId[client.client_id];
+              const callsByDay = (calls ?? []).reduce<Record<string, Call>>((acc, call) => {
+                acc[moment(call['date-time']).date()] = call;
+                return acc;
+              }, {});
 
-                return (
-                  <tr key={clientId} className="hover:bg-slate-100">
-                    <td className="py-2 pr-3">{lastRevisionOfClient?.call_time}</td>
-                    <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.location}</td>
-                    <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.organization}</td>
-                    <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.unit}</td>
-                    <td className="py-2 pr-3 whitespace-nowrap">
-                      <OrgTypeToString value={lastRevisionOfClient?.type} />
-                    </td>
-                    <td className="py-2 pr-3">{lastRevisionOfClient?.trunk_phone}</td>
-                    <td className="py-2 pr-3">{lastRevisionOfClient?.call_sign}</td>
-                    {arrayOfDays.map((_, index) => {
-                      const dayOfMonth = moment().date(index).day();
+              return (
+                <tr key={client.client_id} className="hover:bg-slate-100">
+                  <td className="py-2 pr-3">{lastRevisionOfClient?.call_time}</td>
+                  <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.location}</td>
+                  <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.organization}</td>
+                  <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.unit}</td>
+                  <td className="py-2 pr-3 whitespace-nowrap">
+                    <OrgTypeToString value={lastRevisionOfClient?.type} />
+                  </td>
+                  <td className="py-2 pr-3">{lastRevisionOfClient?.trunk_phone}</td>
+                  <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.call_sign}</td>
+                  {arrayOfDays.map((_, index) => {
+                    const dayOfMonth = moment().date(index).day();
 
-                      return (
-                        <td
-                          key={index}
-                          className={cn('min-w-[48px] min-h-[48px] border border-gray-100 text-center bg-white', {
-                            ['bg-zinc-300']: !lastRevisionOfClient?.schedule.includes(dayOfMonth + 1),
-                            ['!bg-zinc-500']: today <= index
-                          })}
-                          style={{backgroundColor: getColorByCallTypeId(callsByDay[index]?.['calls-type_id'])}}
-                        >
-                          {callsByDay[index] ? moment(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-      </Container>
-    </div>
+                    return (
+                      <td
+                        key={index}
+                        className={cn('min-w-[48px] min-h-[48px] border border-gray-100 text-center bg-white', {
+                          ['bg-zinc-300']: !lastRevisionOfClient?.schedule.includes(dayOfMonth + 1),
+                          ['!bg-zinc-500']: today <= index
+                        })}
+                        style={{backgroundColor: getColorByCallTypeId(callsByDay[index]?.['calls-type_id'])}}
+                      >
+                        {callsByDay[index] ? moment(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </Container>
   );
 });
 
