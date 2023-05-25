@@ -14,6 +14,7 @@ const convertClientsToClientList: ConvertClientsToClientListType = (responseClie
   const today = moment.utc();
   const callsByClientId = fromPairs(callsData.map(call => [call.client_id, call]));
   const responceClientsArray = Object.values(responseClients);
+
   return responceClientsArray.reduce<Array<ClientWithCall>>((acc, versions) => {
     // Find active version of client
     const activeVersion = versions.find(version => {
@@ -22,6 +23,7 @@ const convertClientsToClientList: ConvertClientsToClientListType = (responseClie
 
       return isFromBeforeToday && isToAfterToday;
     });
+
     // Add to active client call and add to show list
     if (activeVersion) {
       const clientCall = callsByClientId[activeVersion.client_id];
@@ -43,11 +45,11 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
         (!type || client.type === type) &&
         (!search ||
           client.mo?.includes(search) ||
-          client.location.toLowerCase()?.includes(search.toLowerCase()) ||
-          client.organization.toLowerCase()?.includes(search.toLowerCase()) ||
-          client.unit.toLowerCase()?.includes(search.toLowerCase()) ||
-          client.trunk_phone.toLowerCase()?.includes(search.toLowerCase()) ||
-          client.call_sign.toLowerCase()?.includes(search.toLowerCase())) &&
+          client.location?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.organization?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.unit?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.trunk_phone?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.call_sign?.toLowerCase()?.includes(search.toLowerCase())) &&
         client.schedule.includes(moment.utc().day() + 1)
       );
     })

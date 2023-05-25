@@ -28,10 +28,6 @@ export const LINKS: Record<string, HeaderLinks> = {
       {
         name: 'Абоненты',
         href: '/admin/clients'
-      },
-      {
-        name: 'Пользователи',
-        href: '/admin/users'
       }
     ]
   },

@@ -26,12 +26,12 @@ const convertClientsToClientList = (
       client =>
         (!type || client.type === type) &&
         (!search ||
-          client.mo.toLowerCase().includes(search.toLowerCase()) ||
-          client.location.toLowerCase().includes(search.toLowerCase()) ||
-          client.organization.toLowerCase().includes(search.toLowerCase()) ||
-          client.unit.toLowerCase().includes(search.toLowerCase()) ||
-          client.trunk_phone.toLowerCase().includes(search.toLowerCase()) ||
-          client.call_sign.toLowerCase().includes(search.toLowerCase()))
+          client.mo?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.location?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.organization?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.unit?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.trunk_phone?.toLowerCase()?.includes(search.toLowerCase()) ||
+          client.call_sign?.toLowerCase()?.includes(search.toLowerCase()))
     )
     .sort((clientA, clientB) => {
       const aCallTime = moment(clientA.call_time, 'HH:mm');
@@ -51,9 +51,18 @@ const GROUPS_TITLES = {
 const AdminClients: ClientsSectionType = () => {
   const {data, isLoading} = useSWR('GET_CLIENTS', getClients);
   const [searchParams, setSearchParams] = useSearchParams();
+
   const clients = useMemo(
     () => convertClientsToClientList(data ?? {}, searchParams.get('type'), searchParams.get('search')),
     [data, searchParams]
+  );
+  const activeClients = useMemo(
+    () => clients?.filter(client => !client.active_period_to || moment(client.active_period_to).isAfter(moment())),
+    [clients]
+  );
+  const deactivatedClients = useMemo(
+    () => clients?.filter(client => moment(client.active_period_to).isBefore(moment())),
+    [clients]
   );
 
   const openEditClient = useCallback(
@@ -65,52 +74,39 @@ const AdminClients: ClientsSectionType = () => {
     [setSearchParams]
   );
 
-  const activeClients = useMemo(
-    () => clients?.filter(client => !client.active_period_to || moment(client.active_period_to).isAfter(moment())),
-    [clients]
-  );
-  const deactivatedClients = useMemo(
-    () => clients?.filter(client => moment(client.active_period_to).isBefore(moment())),
-    [clients]
-  );
-
   return (
-    <Container>
+    <Container isFullWidth>
       <div className="flex flex-col gap-14">
         <div>
           <Search />
           <OrgInfo />
         </div>
         <div className="flex flex-col gap-10">
-          <div className="flex">
-            {isLoading ? (
-              <Loader />
-            ) : (
-              !!activeClients?.length && (
-                <div className="flex-1">
-                  <Accordeon title={GROUPS_TITLES.activated} defaultState={true}>
-                    <List>
-                      {activeClients?.map(client => (
-                        <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
-                          <ListItem>{client.mo}</ListItem>
-                          <ListItem>{client.location}</ListItem>
-                          <ListItem>{client.organization}</ListItem>
-                          <ListItem>{client.unit}</ListItem>
-                          <ListItem>{client.trunk_phone}</ListItem>
-                          <ListItem>{client.call_sign}</ListItem>
-                          <ListItem>{client.call_time}</ListItem>
-                          <ListItem>{client.schedule.join()}</ListItem>
-                        </ListRow>
-                      ))}
-                    </List>
-                  </Accordeon>
-                </div>
-              )
-            )}
-            <div className="ml-auto sticky top-[80px] self-start">
-              <Button onClick={openCreateClient}>Добавить абонента</Button>
-            </div>
+          <div className="ml-auto sticky top-[80px] self-start">
+            <Button onClick={openCreateClient}>Добавить абонента</Button>
           </div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            !!activeClients?.length && (
+              <Accordeon title={GROUPS_TITLES.activated} defaultState={true}>
+                <List>
+                  {activeClients?.map(client => (
+                    <ListRow key={client.client_id} onClick={openEditClient(client.client_id)}>
+                      <ListItem>{client.mo}</ListItem>
+                      <ListItem>{client.location}</ListItem>
+                      <ListItem>{client.organization}</ListItem>
+                      <ListItem>{client.unit}</ListItem>
+                      <ListItem>{client.trunk_phone}</ListItem>
+                      <ListItem>{client.call_sign}</ListItem>
+                      <ListItem>{client.call_time}</ListItem>
+                      <ListItem>{client.schedule.join()}</ListItem>
+                    </ListRow>
+                  ))}
+                </List>
+              </Accordeon>
+            )
+          )}
           {!!deactivatedClients.length && (
             <Accordeon title={GROUPS_TITLES.deactivated}>
               <List>
