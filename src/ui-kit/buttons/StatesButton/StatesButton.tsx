@@ -15,13 +15,13 @@ const optionColor = (option: {value: string}) => {
     case '2':
       return '#f43f5e';
     case '3':
-      return '#fde047';
-    case '4':
-      return '#3b82f6';
-    case '5':
-      return '#8b5cf6';
-    case '6':
       return '#f97316';
+    case '4':
+      return '#fde047';
+    case '5':
+      return '#3b82f6';
+    case '6':
+      return '#8b5cf6';
     default:
       return '#fff';
   }
