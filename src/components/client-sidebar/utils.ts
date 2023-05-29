@@ -10,7 +10,7 @@ export const formatDate = (date: string | undefined) => (date ? moment(date).for
 
 export const getDate = (date: string | undefined, defaultDate?: string) => {
   if (!date) {
-    return defaultDate ?? moment().format(INPUT_DATE_FORMAT);
+    return defaultDate ?? moment().utcOffset(0, true).format(INPUT_DATE_FORMAT);
   }
 
   return moment(date).format(INPUT_DATE_FORMAT);
@@ -98,7 +98,7 @@ export const getClientInfo = (
     return addHistory(foundClientByRevision, clientsRevisions);
   }
 
-  const todayDate = moment.utc();
+  const todayDate = moment().utcOffset(0, true);
 
   const activeRevision = clientsRevisions.find(version => {
     const isFromBeforeToday = moment.utc(version.active_period_from).isBefore(today);

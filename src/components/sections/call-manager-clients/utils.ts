@@ -6,12 +6,12 @@ import {CallsType} from './consts';
 const BACKEND_FORMAT = 'YYYY-MM-DD';
 
 export const getMonthPeriod = () => ({
-  from: moment.utc().startOf('month').format(BACKEND_FORMAT),
-  to: moment.utc().endOf('month').format(BACKEND_FORMAT)
+  from: moment().utcOffset(0, true).startOf('month').format(BACKEND_FORMAT),
+  to: moment().utcOffset(0, true).endOf('month').format(BACKEND_FORMAT)
 });
 
 const convertClientsToClientList: ConvertClientsToClientListType = (responseClients, callsData) => {
-  const today = moment.utc();
+  const today = moment().utcOffset(0, true);
   const callsByClientId = fromPairs(callsData.map(call => [call.client_id, call]));
   const responceClientsArray = Object.values(responseClients);
 
@@ -38,7 +38,7 @@ const convertClientsToClientList: ConvertClientsToClientListType = (responseClie
 export const groupClients: GroupClientsType = (clients, calls, type, search) => {
   const allActiveClients = convertClientsToClientList(clients ?? {}, calls ?? []);
 
-  const now = moment.utc();
+  const now = moment().utcOffset(0, true);
   return allActiveClients
     .filter(client => {
       return (
@@ -50,12 +50,12 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
           client.unit?.toLowerCase()?.includes(search.toLowerCase()) ||
           client.trunk_phone?.toLowerCase()?.includes(search.toLowerCase()) ||
           client.call_sign?.toLowerCase()?.includes(search.toLowerCase())) &&
-        client.schedule.includes(moment.utc().day() + 1)
+        client.schedule.includes(moment().utcOffset(0, true).day() + 1)
       );
     })
     .sort((clientA, clientB) => {
-      const aCallTime = moment.utc(clientA.call_time, 'HH:mm');
-      const bCallTime = moment.utc(clientB.call_time, 'HH:mm');
+      const aCallTime = moment.utc(clientA.call_time, 'H:mm');
+      const bCallTime = moment.utc(clientB.call_time, 'H:mm');
       if (aCallTime.isAfter(bCallTime)) return 1;
       if (aCallTime.isBefore(bCallTime)) return -1;
 
@@ -64,7 +64,7 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
     .reduce<[ClientWithCall[], ClientWithCall[], ClientWithCall[]]>(
       (acc, client) => {
         let type: 0 | 1 | 2 | undefined;
-        const clientCallTime = moment.utc(client.call_time, 'HH:mm');
+        const clientCallTime = moment.utc(client.call_time, 'H:mm');
 
         const clientHasCall = !!client.call?.['calls-type_id'];
         const clientCallTimeIsBeforeNow = clientCallTime.isBefore(now);
