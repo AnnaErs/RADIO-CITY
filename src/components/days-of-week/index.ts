@@ -1,0 +1,1 @@
+export {DaysOfWeek} from './DaysOfWeek';

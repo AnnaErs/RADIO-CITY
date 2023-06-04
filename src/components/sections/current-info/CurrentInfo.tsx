@@ -13,13 +13,13 @@ const CURRENT_INFO = {
   time_subtitle: 'Время:'
 };
 
-const CURR_MOMENT = moment();
+const CURR_MOMENT = moment().utcOffset(0, true);
 
 const CurrentInfo: CurrentInfoType = () => {
   const [currMoment, setMoment] = useState(CURR_MOMENT);
 
   useEffect(() => {
-    const intervalId = setInterval(() => setMoment(moment()), 1000 * 60);
+    const intervalId = setInterval(() => setMoment(moment().utcOffset(0, true)), 1000 * 60);
 
     return () => clearInterval(intervalId);
   }, [setMoment]);
@@ -37,7 +37,7 @@ const CurrentInfo: CurrentInfoType = () => {
           </div>
           <div>
             <p className="text-h4-bold">{CURRENT_INFO.time_subtitle}</p>
-            <div>{currMoment.format('HH:mm')}</div>
+            <div>{currMoment.format('H:mm')}</div>
           </div>
         </div>
       </div>

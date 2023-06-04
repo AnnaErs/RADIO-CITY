@@ -34,8 +34,8 @@ const convertClientsToClientList = (
           client.call_sign?.toLowerCase()?.includes(search.toLowerCase()))
     )
     .sort((clientA, clientB) => {
-      const aCallTime = moment(clientA.call_time, 'HH:mm');
-      const bCallTime = moment(clientB.call_time, 'HH:mm');
+      const aCallTime = moment(clientA.call_time, 'H:mm');
+      const bCallTime = moment(clientB.call_time, 'H:mm');
       if (aCallTime.isAfter(bCallTime)) return 1;
       if (aCallTime.isBefore(bCallTime)) return -1;
 
@@ -57,16 +57,19 @@ const AdminClients: ClientsSectionType = () => {
     [data, searchParams]
   );
   const activeClients = useMemo(
-    () => clients?.filter(client => !client.active_period_to || moment(client.active_period_to).isAfter(moment())),
+    () =>
+      clients?.filter(
+        client => !client.active_period_to || moment(client.active_period_to).isAfter(moment().utcOffset(0, true))
+      ),
     [clients]
   );
   const deactivatedClients = useMemo(
-    () => clients?.filter(client => moment(client.active_period_to).isBefore(moment())),
+    () => clients?.filter(client => moment(client.active_period_to).isBefore(moment().utcOffset(0, true))),
     [clients]
   );
 
   const openEditClient = useCallback(
-    (id: string) => () => setSearchParams(prev => Object.assign({}, prev, {id, mode: 'edit'})),
+    (id: string) => () => setSearchParams(prev => Object.assign({}, Object.fromEntries(prev), {id, mode: 'edit'})),
     [setSearchParams]
   );
   const openCreateClient = useCallback(

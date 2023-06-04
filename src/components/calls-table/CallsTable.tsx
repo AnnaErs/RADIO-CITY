@@ -24,8 +24,8 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
   const [searchParams] = useSearchParams();
   const callsByClientId = useMemo(() => groupBy(callsData, 'client_id'), [callsData]);
 
-  const today = moment().date();
-  const arrayOfDays = useMemo(() => Array(moment().daysInMonth()).fill(undefined), []);
+  const today = moment().utcOffset(0, true).date();
+  const arrayOfDays = useMemo(() => Array(moment().utcOffset(0, true).daysInMonth()).fill(undefined), []);
 
   const clients = useMemo(() => {
     const type = searchParams.get('type');
@@ -46,9 +46,9 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
             client.call_sign?.toLowerCase()?.includes(search.toLowerCase()))
       )
       .sort((clientA, clientB) => {
-        const now = moment();
-        const aCallTime = clientA.call_time ? moment(clientA.call_time, 'H:mm') : now;
-        const bCallTime = clientB.call_time ? moment(clientB.call_time, 'H:mm') : now;
+        const now = moment().utcOffset(0, true);
+        const aCallTime = clientA.call_time ? moment.utc(clientA.call_time, 'H:mm') : now;
+        const bCallTime = clientB.call_time ? moment.utc(clientB.call_time, 'H:mm') : now;
 
         if (aCallTime.isAfter(bCallTime)) return 1;
         if (aCallTime.isBefore(bCallTime)) return -1;
@@ -82,7 +82,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
               const lastRevisionOfClient = client;
               const calls = callsByClientId[client.client_id];
               const callsByDay = (calls ?? []).reduce<Record<string, Call>>((acc, call) => {
-                acc[moment(call['date-time']).date()] = call;
+                acc[moment.utc(call['date-time']).date()] = call;
                 return acc;
               }, {});
 
@@ -98,7 +98,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                   <td className="py-2 pr-3">{lastRevisionOfClient?.trunk_phone}</td>
                   <td className="py-2 pr-3 whitespace-nowrap">{lastRevisionOfClient?.call_sign}</td>
                   {arrayOfDays.map((_, index) => {
-                    const dayOfMonth = moment().date(index).day();
+                    const dayOfMonth = moment().utcOffset(0, true).date(index).day();
 
                     return (
                       <td
@@ -109,7 +109,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                         })}
                         style={{backgroundColor: getColorByCallTypeId(callsByDay[index]?.['calls-type_id'])}}
                       >
-                        {callsByDay[index] ? moment(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
+                        {callsByDay[index] ? moment.utc(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
                       </td>
                     );
                   })}

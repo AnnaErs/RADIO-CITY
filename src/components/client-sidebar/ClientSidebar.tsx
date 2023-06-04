@@ -10,6 +10,7 @@ import {ClientTypeSelect} from '@ui-kit/select';
 import {getClients} from '@api/clientsAPI';
 import TextArea from '@ui-kit/text-area';
 import Sidebar from '@ui-kit/sidebar';
+import {DaysOfWeek} from '@components/days-of-week';
 
 import {ClientSidebarType} from './types';
 import {addRevision, formatDate, getClientInfo, getDate, removeSidebarParams, submitHandler} from './utils';
@@ -20,7 +21,7 @@ const ClientSidebar: ClientSidebarType = () => {
   const {data, isLoading, mutate} = useSWR('GET_CLIENTS', getClients);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const today = moment.utc().format(INPUT_DATE_FORMAT);
+  const today = moment().utcOffset(0, true).format(INPUT_DATE_FORMAT);
   const clientInfo = useMemo(
     () => getClientInfo(data, searchParams.get('id'), searchParams.get('revision'), today),
     [data, searchParams]
@@ -45,7 +46,7 @@ const ClientSidebar: ClientSidebarType = () => {
     );
   }, [isLoading, clientInfo]);
 
-  const isDisabled = moment.utc(clientInfo?.active_period_to).isBefore(moment.utc());
+  const isDisabled = !!clientInfo && moment.utc(clientInfo?.active_period_to).isBefore(moment().utcOffset(0, true));
 
   const handleSubmit = useCallback(submitHandler(clientInfo, mutate), [clientInfo, mutate]);
   const closeSidebar = useCallback(() => setSearchParams(removeSidebarParams), [setSearchParams]);
@@ -85,12 +86,7 @@ const ClientSidebar: ClientSidebarType = () => {
             disabled={isDisabled}
             placeholder="Телефон ответственного"
           />
-          <Input
-            name="schedule"
-            value={clientInfo?.schedule.join()}
-            placeholder="Рабочие дни недели"
-            disabled={isDisabled}
-          />
+          <DaysOfWeek name="schedule" defaultValue={clientInfo?.schedule} disabled={isDisabled} />
           <div className="flex gap-x-4">
             <Date
               name="active_period_from"
