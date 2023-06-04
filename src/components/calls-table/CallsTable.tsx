@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import {memo, useMemo} from 'react';
 import moment from 'moment';
-import {groupBy, last} from 'lodash';
+import {groupBy} from 'lodash';
 
 import Container from '@ui-kit/layout/container';
 import {Call, getCalls} from '@api/callsAPI';

@@ -26,7 +26,7 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
             clientId: client.client_id
           }
         });
-        onChange?.();
+        onChange?.(client);
       },
     []
   );

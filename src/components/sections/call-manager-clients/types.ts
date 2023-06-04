@@ -24,5 +24,11 @@ export type ClientsCallAccordeonPropsType = {
   clients: ClientWithCall[];
   title: string;
   openedByDefault?: boolean;
-  onChange?: () => void;
+  onChange?: (client: ClientWithCall) => void;
+};
+
+export type PrevCallStatusType = {
+  clientId: string;
+  statusId?: string;
+  callId?: string;
 };

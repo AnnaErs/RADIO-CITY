@@ -1,14 +1,14 @@
 import useSWR from 'swr';
-import {useMemo} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 
 import {getClients} from '@api/clientsAPI';
 import Container from '@ui-kit/layout/container';
-import {getCalls} from '@api/callsAPI';
+import {createCall, getCalls} from '@api/callsAPI';
 import Loader from '@ui-kit/loader';
 import {getTodayPeriod} from '@utils/times';
 
-import {CallManagerType} from './types';
+import {CallManagerType, ClientWithCall, PrevCallStatusType} from './types';
 import {groupClients} from './utils';
 import {ClientsCallAccordeon} from './ClientsCallAccordeon';
 import {CallsType} from './consts';
@@ -20,6 +20,7 @@ const GROUPS_TITLES = {
 };
 
 const CallManagerClients: CallManagerType = () => {
+  const [previousCallStatus, setStatus] = useState<PrevCallStatusType | undefined>(undefined);
   const {data: clientsData, isLoading: isLoadingClients} = useSWR('GET_CLIENTS', getClients);
   const {data: callsData, mutate, isLoading: isLoadingCalls} = useSWR('GET_CALLS', () => getCalls(getTodayPeriod()));
   const [searchParams] = useSearchParams();
@@ -28,6 +29,37 @@ const CallManagerClients: CallManagerType = () => {
     () => groupClients(clientsData, callsData, searchParams.get('type'), searchParams.get('search')),
     [clientsData, callsData, searchParams]
   );
+
+  const onChangeStatus = useCallback(
+    (prevClient: ClientWithCall) => {
+      mutate();
+      setStatus({
+        clientId: prevClient.client_id,
+        statusId: prevClient.call?.['calls-type_id'],
+        callId: prevClient.call?.id
+      });
+    },
+    [mutate, setStatus]
+  );
+
+  useEffect(() => {
+    const undoCallStatus = async (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ' && previousCallStatus) {
+        await createCall({
+          call: {
+            id: previousCallStatus.callId,
+            callsTypeId: previousCallStatus.statusId || '',
+            clientId: previousCallStatus.clientId
+          }
+        });
+        mutate();
+      }
+    };
+    document.addEventListener('keydown', undoCallStatus);
+    return () => {
+      document.removeEventListener('keydown', undoCallStatus);
+    };
+  }, [mutate, previousCallStatus]);
 
   return (
     <Container isFullWidth>
@@ -38,19 +70,19 @@ const CallManagerClients: CallManagerType = () => {
           <ClientsCallAccordeon
             title={GROUPS_TITLES[CallsType.Missed]}
             clients={clients[CallsType.Missed]}
-            onChange={mutate}
+            onChange={onChangeStatus}
             openedByDefault
           />
           <ClientsCallAccordeon
             title={GROUPS_TITLES[CallsType.Future]}
             clients={clients[CallsType.Future]}
-            onChange={mutate}
+            onChange={onChangeStatus}
             openedByDefault
           />
           <ClientsCallAccordeon
             title={GROUPS_TITLES[CallsType.Called]}
             clients={clients[CallsType.Called]}
-            onChange={mutate}
+            onChange={onChangeStatus}
           />
         </div>
       )}
