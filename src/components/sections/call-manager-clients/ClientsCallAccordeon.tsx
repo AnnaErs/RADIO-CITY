@@ -49,6 +49,7 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
     <Accordeon title={title} defaultState={openedByDefault}>
       <List>
         <ListRow className="whitespace-nowrap">
+          <HeadListItem />
           <HeadListItem>Муниципальное образование</HeadListItem>
           <HeadListItem>Населённый пункт</HeadListItem>
           <HeadListItem>Организация</HeadListItem>
@@ -56,10 +57,12 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
           <HeadListItem>Транковый номер</HeadListItem>
           <HeadListItem>Позывной</HeadListItem>
           <HeadListItem>Время звонка</HeadListItem>
-          <HeadListItem />
         </ListRow>
         {clients?.map(client => (
           <ListRow key={client.client_id} onClick={openSidebar(client.client_id, client.revision)}>
+            <ListItem onClick={e => e.stopPropagation()}>
+              <StatesButton value={client.call?.['calls-type_id']} onChange={changeCallStatus(client)} />
+            </ListItem>
             <ListItem>{client.mo}</ListItem>
             <ListItem>{client.location}</ListItem>
             <ListItem>{client.organization}</ListItem>
@@ -67,9 +70,6 @@ const ClientsCallAccordeon = memo<ClientsCallAccordeonPropsType>(function Client
             <ListItem>{client.trunk_phone}</ListItem>
             <ListItem>{client.call_sign}</ListItem>
             <ListItem>{client.call_time}</ListItem>
-            <ListItem onClick={e => e.stopPropagation()}>
-              <StatesButton value={client.call?.['calls-type_id']} onChange={changeCallStatus(client)} />
-            </ListItem>
           </ListRow>
         ))}
       </List>

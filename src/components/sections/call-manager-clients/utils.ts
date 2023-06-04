@@ -54,6 +54,13 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
       );
     })
     .sort((clientA, clientB) => {
+      if (clientA.call_time && !clientB.call_time) {
+        return 1;
+      }
+      if (!clientA.call_time && clientB.call_time) {
+        return -1;
+      }
+
       const aCallTime = moment.utc(clientA.call_time, 'H:mm');
       const bCallTime = moment.utc(clientB.call_time, 'H:mm');
       if (aCallTime.isAfter(bCallTime)) return 1;
@@ -67,8 +74,8 @@ export const groupClients: GroupClientsType = (clients, calls, type, search) => 
         const clientCallTime = moment.utc(client.call_time, 'H:mm');
 
         const clientHasCall = !!client.call?.['calls-type_id'];
-        const clientCallTimeIsBeforeNow = clientCallTime.isBefore(now);
-        const clientCallTimeIsAfterNow = clientCallTime.isAfter(now);
+        const clientCallTimeIsBeforeNow = client.call_time && clientCallTime.isBefore(now);
+        const clientCallTimeIsAfterNow = !client.call_time || clientCallTime.isAfter(now);
 
         if (clientHasCall) {
           type = CallsType.Called;

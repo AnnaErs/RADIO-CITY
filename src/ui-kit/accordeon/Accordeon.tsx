@@ -21,7 +21,7 @@ const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
           <img src={switchArrow} alt={title} width={24} />
         </div>
       </div>
-      {isOpen && <div className="overflow-auto w-full">{children}</div>}
+      {isOpen && <div>{children}</div>}
     </div>
   );
 };
