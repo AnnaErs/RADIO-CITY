@@ -14,6 +14,8 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
     [onClick]
   );
 
+  console.log(optionColor, optionColor?.(options[0]));
+
   return (
     <div
       className="absolute bg-white w-[350px] max-h-[500px] overflow-auto shadow-md shadow-primary rounded-xl py-1 mt-2 z-10"
@@ -27,7 +29,7 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
         >
           <div className="text-xl text-ellipsis overflow-hidden whitespace-nowrap py-2 pr-3">{option.label}</div>
           <div
-            className="flex bg-primary rounded-full h-8 aspect-square"
+            className="flex rounded-full h-8 aspect-square"
             style={{backgroundColor: optionColor?.(option) ?? strToColor(option.label)}}
           />
         </div>

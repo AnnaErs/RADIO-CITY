@@ -61,32 +61,41 @@ const CallManagerClients: CallManagerType = () => {
     };
   }, [mutate, previousCallStatus]);
 
-  return (
-    <Container isFullWidth>
-      {isLoadingCalls && isLoadingClients ? (
+  if (isLoadingCalls && isLoadingClients) {
+    return (
+      <Container isRealFullWidth>
         <Loader />
-      ) : (
-        <div className="flex flex-col gap-11">
-          <ClientsCallAccordeon
-            title={GROUPS_TITLES[CallsType.Missed]}
-            clients={clients[CallsType.Missed]}
-            onChange={onChangeStatus}
-            openedByDefault
-          />
-          <ClientsCallAccordeon
-            title={GROUPS_TITLES[CallsType.Future]}
-            clients={clients[CallsType.Future]}
-            onChange={onChangeStatus}
-            openedByDefault
-          />
-          <ClientsCallAccordeon
-            title={GROUPS_TITLES[CallsType.Called]}
-            clients={clients[CallsType.Called]}
-            onChange={onChangeStatus}
-          />
-        </div>
-      )}
-    </Container>
+      </Container>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-11">
+      <Container isRealFullWidth>
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Missed]}
+          clients={clients[CallsType.Missed]}
+          onChange={onChangeStatus}
+          openedByDefault
+        />
+      </Container>
+      <Container isRealFullWidth>
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Future]}
+          clients={clients[CallsType.Future]}
+          onChange={onChangeStatus}
+          openedByDefault
+        />
+      </Container>
+      <Container isRealFullWidth>
+        <ClientsCallAccordeon
+          title={GROUPS_TITLES[CallsType.Called]}
+          clients={clients[CallsType.Called]}
+          onChange={onChangeStatus}
+        />
+      </Container>
+    </div>
   );
 };
+
 export default CallManagerClients;

@@ -109,7 +109,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable() {
                         })}
                         style={{backgroundColor: getColorByCallTypeId(callsByDay[index]?.['calls-type_id'])}}
                       >
-                        {callsByDay[index] ? moment.utc(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
+                        {callsByDay[index] ? moment(callsByDay[index]?.['date-time']).format('H:mm') : undefined}
                       </td>
                     );
                   })}
