@@ -28,7 +28,7 @@ const optionColor = (option: {value: string}) => {
 };
 
 const StatesButton = memo<StatesButtonPropsType>(function StatesButton({value, onChange}) {
-  const {data} = useSWR('GET_CLIENT_TYPES', getCallTypes);
+  const {data} = useSWR('GET_CALL_STATUSES', getCallTypes);
   const options = useMemo(() => {
     return [
       {
