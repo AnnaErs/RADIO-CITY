@@ -1,10 +1,10 @@
 import {memo, useCallback, useMemo, useRef} from 'react';
 
-import useToggle from '@utils/hooks/useToggle';
 import useOnOutsideClick from '@utils/hooks/useOnOutsideClick';
+import useToggle from '@utils/hooks/useToggle';
 
-import DropdownList from '../DropdownList';
 import Button from '../Button';
+import DropdownList from '../DropdownList';
 import {ButtonWithDropdownListType, Option} from './types';
 
 const ButtonWithDropdownList: ButtonWithDropdownListType = ({value, options, optionColor, onClick}) => {

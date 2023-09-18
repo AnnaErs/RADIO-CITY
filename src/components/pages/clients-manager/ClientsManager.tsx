@@ -1,16 +1,16 @@
 import ClientSidebar from '@components/client-sidebar';
 import AdminClients from '@components/sections/admin-clients';
-import {useSearchParams} from 'react-router-dom';
+import {filterParser, useQuery} from '@utils/search-params';
 
 import {ClientsManagerType} from './types';
 
 const ClientsManager: ClientsManagerType = () => {
-  const [searchParams] = useSearchParams();
+  const {mode} = useQuery(filterParser);
 
   return (
     <>
       <AdminClients />
-      {searchParams.get('mode') && <ClientSidebar />}
+      {!!mode && <ClientSidebar />}
     </>
   );
 };

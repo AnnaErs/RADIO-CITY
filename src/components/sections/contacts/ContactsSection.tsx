@@ -1,8 +1,8 @@
 import {memo} from 'react';
 
-import Section from '@ui-kit/layout/section';
-import Map from '@components/map';
 import ContactCards from '@components/cards/contact-cards';
+import Map from '@components/map';
+import Section from '@ui-kit/layout/section';
 
 import {ContactsSectionType} from './types';
 

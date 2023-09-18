@@ -1,10 +1,11 @@
+import {Field} from 'formik';
 import {memo} from 'react';
 
 import {InputType} from './types';
 
 const Input: InputType = ({value, required, placeholder, disabled, name}) => {
   return (
-    <input
+    <Field
       type="text"
       className="text-xl border border-gray rounded-xl px-5 py-2 flex-1 w-full"
       required={required}

@@ -1,10 +1,8 @@
-import {FC} from 'react';
-
-type TextAreaPropsType = {
+export type TextAreaPropsType = {
   name: string;
+  className?: string;
   value?: string;
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
 };
-export type TextAreaType = FC<TextAreaPropsType>;

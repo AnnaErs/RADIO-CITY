@@ -1,7 +1,6 @@
 import {memo, useMemo} from 'react';
 
 import ClientCard from './ClientCard';
-
 import {ClientRowCardsType} from './types';
 
 const ClientRowCards: ClientRowCardsType = ({src, title, paragraph, isReverse}) => {

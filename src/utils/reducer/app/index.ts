@@ -1,6 +1,6 @@
-import {createSlice, configureStore} from '@reduxjs/toolkit';
+import {configureStore, createSlice} from '@reduxjs/toolkit';
 
-import {AppStateType, AppReducersType} from './types';
+import {AppReducersType, AppStateType} from './types';
 
 const appSlice = createSlice<AppStateType, AppReducersType>({
   name: 'AppStore',

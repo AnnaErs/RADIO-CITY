@@ -4,8 +4,8 @@ import {Link, useLocation} from 'react-router-dom';
 import Container from '@ui-kit/layout/container';
 import {cn} from '@utils/cn';
 
-import {FooterType} from './types';
 import {LINKS} from './consts';
+import {FooterType} from './types';
 
 const Footer: FooterType = () => {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import {memo} from 'react';
 
-import Section from '@ui-kit/layout/section';
 import AboutCards from '@components/cards/about-cards';
+import Section from '@ui-kit/layout/section';
 
 import {AboutSectionType} from './types';
 

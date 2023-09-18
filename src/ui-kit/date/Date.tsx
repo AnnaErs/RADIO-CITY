@@ -2,14 +2,23 @@ import {ChangeEvent, memo, useCallback, useState} from 'react';
 
 import {DatePropsType} from './types';
 
-const Date = memo<DatePropsType>(function Date({value: defaultValue, required, placeholder, name, min, disabled}) {
+const Date = memo<DatePropsType>(function Date({
+  value: defaultValue,
+  required,
+  placeholder,
+  name,
+  min,
+  disabled,
+  onChange
+}) {
   const [value, setValue] = useState(defaultValue);
 
   const changeValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
+      onChange?.(e.target.value);
     },
-    [setValue]
+    [setValue, onChange]
   );
 
   return (

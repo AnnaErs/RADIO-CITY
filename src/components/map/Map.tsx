@@ -1,7 +1,7 @@
 import {memo} from 'react';
 
-import {MapType} from './types';
 import map from './map.png';
+import {MapType} from './types';
 
 const Map: MapType = () => {
   return (

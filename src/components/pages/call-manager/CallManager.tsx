@@ -1,21 +1,18 @@
-import {useSearchParams} from 'react-router-dom';
-
-import CallManagerClients from '@components/sections/call-manager-clients';
-import CurrentInfo from '@components/sections/current-info';
-import ClientSidebar from '@components/client-sidebar';
 import {CallsTable} from '@components/calls-table';
+import ClientSidebar from '@components/client-sidebar';
+import CurrentInfo from '@components/sections/current-info';
+import {filterParser, useQuery} from '@utils/search-params';
 
 import {CallManagerPageType} from './types';
 
 const CallManager: CallManagerPageType = () => {
-  const [searchParams] = useSearchParams();
+  const {id, filterStartDate, filterEndDate} = useQuery(filterParser);
 
   return (
-    <div className="flex flex-col gap-14">
+    <div className="flex flex-col gap-14 flex-1">
       <CurrentInfo />
-      <CallManagerClients />
-      <CallsTable />
-      {searchParams.get('id') && <ClientSidebar />}
+      <CallsTable startDate={filterStartDate} endDate={filterEndDate} />
+      {!!id && <ClientSidebar />}
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import {memo, useEffect} from 'react';
 import axios from 'axios';
+import {memo, useEffect} from 'react';
 
-import {AuthButtonType, TokenResponce} from './types';
 import {YA_BUTTON_SETTINGS, YA_SCRIPT_SETTINGS} from './consts';
+import {AuthButtonType, TokenResponce} from './types';
 
 const AuthButton: AuthButtonType = () => {
   useEffect(() => {

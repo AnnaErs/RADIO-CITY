@@ -7,7 +7,7 @@ const Button: ButtonType = ({title, type, children, onClick}) => {
     <button
       onClick={onClick}
       type={type}
-      className="inline-block text-xl p-3 bg-white border-2 border-primary ease-in-out duration-200 rounded-xl hover:shadow hover:shadow-primary active:border-pink active:shadow-pink whitespace-nowrap"
+      className="inline-block text-xl px-5 py-2 bg-white border border-primary ease-in-out duration-200 rounded-xl hover:shadow hover:shadow-primary active:border-pink active:shadow-pink whitespace-nowrap"
     >
       {title || children}
     </button>

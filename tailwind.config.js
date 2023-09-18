@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  important: true,
   content: ['**/*.{ts,tsx,html}'],
   theme: {
     fontSize: {
+      'common-bold': [
+        '1rem',
+        {
+          lineHeight: '1.5rem',
+          fontWeight: 700
+        }
+      ],
       'h2-bold': [
         '2.25rem',
         {

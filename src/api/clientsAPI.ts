@@ -1,52 +1,43 @@
 import axios from 'axios';
 
-export type Client = {
-  active_period_from: string;
-  active_period_to?: string;
-  call_time: string;
-  client_id: string;
-  description: string;
-  revision: number;
-  schedule: Array<number>;
-  type: string;
-  location: string;
-  unit: string;
-  call_sign: string;
-  trunk_phone: string;
-  responsible: string;
-  responsible_phone: string;
-  organization: string;
-  mo: string;
-};
+import {GetClientType, GetClientTypes, SetClientType} from './types';
 
-type ClientVersions = Array<Client>;
-export type GetClientsResponse = Record<string, ClientVersions>;
-export const getClients = async (): Promise<GetClientsResponse> => {
-  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`);
+export const setClient: SetClientType = async client => {
+  const res = await axios.post(`https://d5dimst6sja5ndg91qpq.apigw.yandexcloud.net/set-client`, client);
   return res.data;
 };
 
-type CreateClientType = (client: Omit<Client, 'client_id' | 'revision'>) => Promise<'ok'>;
-export const createClient: CreateClientType = client => {
-  return axios.post(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`, {
-    client
-  });
-};
-
-export type ClientType = {
-  id: string;
-  name: string;
-};
-type ClientTypes = Array<ClientType>;
-type GetClientTypes = () => Promise<ClientTypes>;
 export const getClientTypes: GetClientTypes = async () => {
-  const res = await axios.get(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/client-types`);
+  const res = await axios.get(`https://d5dimst6sja5ndg91qpq.apigw.yandexcloud.net/get-client-types`);
+  return res.data[0];
+};
+
+export const getClient: GetClientType = async request => {
+  const res = await axios.post('https://d5dimst6sja5ndg91qpq.apigw.yandexcloud.net/get-client', request);
   return res.data;
 };
 
-type editClientType = (client: Omit<Client, 'client_id' | 'revision'>) => Promise<'ok'>;
-export const editClient: editClientType = client => {
-  return axios.put(`https://d5dv6m23evl6lnv8gdu7.apigw.yandexcloud.net/clients`, {
-    client
-  });
+type GetClientsRequestType = {
+  filter?: string;
+  type?: string;
+  limit: number;
+  offset: number;
+};
+type GetClientsResponseType = Array<{
+  call_sign?: string;
+  client_id: string;
+  client_type_id?: string;
+  description?: string;
+  location?: string;
+  mo?: string;
+  organization?: string;
+  responsible?: string;
+  responsible_phone?: string;
+  trunk_phone?: string;
+  unit?: string;
+}>;
+type GetClientsType = (request: GetClientsRequestType) => Promise<GetClientsResponseType>;
+export const getClients: GetClientsType = async request => {
+  const res = await axios.post('https://d5dimst6sja5ndg91qpq.apigw.yandexcloud.net/get-clients', request);
+  return res.data;
 };
