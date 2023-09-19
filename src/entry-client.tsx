@@ -1,6 +1,5 @@
 import {StrictMode} from 'react';
-import {createRoot, hydrateRoot} from 'react-dom/client';
-import {BrowserRouter} from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
 
 import App from '@components/app';
 
@@ -11,17 +10,8 @@ if (!element) {
   throw new Error(`Element with id=${EL_ID} not found`);
 }
 
-const FullApp = () => (
+ReactDOM.createRoot(element).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </StrictMode>
 );
-
-if (import.meta.hot) {
-  const root = createRoot(element);
-  root.render(<FullApp />);
-} else {
-  hydrateRoot(element, <FullApp />);
-}

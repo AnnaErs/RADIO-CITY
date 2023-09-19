@@ -1,10 +1,10 @@
 import {memo} from 'react';
 
-import useToggle from '@utils/hooks/useToggle';
 import {cn} from '@utils/cn';
+import useToggle from '@utils/hooks/useToggle';
 
-import {AccordeonType} from './types';
 import switchArrow from './switch.png';
+import {AccordeonType} from './types';
 
 const Accordeon: AccordeonType = ({title, children, defaultState = false}) => {
   const [isOpen, toggle] = useToggle(defaultState);

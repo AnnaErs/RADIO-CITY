@@ -1,7 +1,8 @@
 import {forwardRef, memo, useCallback} from 'react';
 
-import {DropdownListPropsType, Option} from './types';
 import strToColor from '@utils/string-to-color';
+
+import {DropdownListPropsType, Option} from './types';
 
 const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function DropdownList(
   {options, optionColor, onClick},
@@ -13,8 +14,6 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
     },
     [onClick]
   );
-
-  console.log(optionColor, optionColor?.(options[0]));
 
   return (
     <div
@@ -29,8 +28,8 @@ const DropdownList = forwardRef<HTMLDivElement, DropdownListPropsType>(function 
         >
           <div className="text-xl text-ellipsis overflow-hidden whitespace-nowrap py-2 pr-3">{option.label}</div>
           <div
-            className="flex rounded-full h-8 aspect-square"
-            style={{backgroundColor: optionColor?.(option) ?? strToColor(option.label)}}
+            className="flex bg-primary rounded-full h-8 aspect-square"
+            style={{backgroundColor: optionColor?.(option.value) ?? strToColor(option.label)}}
           />
         </div>
       ))}

@@ -3,7 +3,7 @@ import {memo, useCallback, useState} from 'react';
 import {updateUser} from '@api/usersAPI';
 
 import ButtonWithDropdownList from '../ButtonWithDropdownList';
-import {RolesButtonType, Option} from './types';
+import {Option, RolesButtonType} from './types';
 
 const RolesButton: RolesButtonType = ({role, id, options}) => {
   const [curRole, setRole] = useState(role);

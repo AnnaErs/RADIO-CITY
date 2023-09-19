@@ -1,11 +1,10 @@
 import {memo} from 'react';
 
-import Section from '@ui-kit/layout/section';
 import ClientRowCards from '@components/cards/client-cards';
+import Section from '@ui-kit/layout/section';
 
 import client1Image from './clientsImage1.png';
 import client2Image from './clientsImage2.png';
-
 import {ClientsSectionType} from './types';
 
 const SECTION = {

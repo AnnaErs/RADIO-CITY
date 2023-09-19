@@ -9,7 +9,7 @@ export type Options = Array<Option>;
 type ButtonWithDropdownListPropsType = PropsWithChildren<{
   value: string;
   options: Options;
-  optionColor?: (value: Option) => string;
+  optionColor?: (value: string) => string;
   onClick?: (value: Option) => void;
 }>;
 export type ButtonWithDropdownListType = FC<ButtonWithDropdownListPropsType>;

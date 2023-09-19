@@ -1,4 +1,4 @@
-import {FC, PropsWithChildren, MouseEvent} from 'react';
+import {FC, MouseEvent, PropsWithChildren} from 'react';
 
 type ListPropsType = PropsWithChildren<{
   onClick?: (e: MouseEvent) => void;

@@ -1,16 +1,23 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useMemo} from 'react';
 import {useSearchParams} from 'react-router-dom';
-import useSWR from 'swr';
 
 import Tab from '@ui-kit/tab';
-import {getClientTypes} from '@api/clientsAPI';
+import {useGetClientTypes} from '@utils/api/client-types';
+import {makeOptions} from '@utils/common';
+import {filterParser, useQuery} from '@utils/search-params';
 
-import {OrgInfoPropsType, Option} from './types';
+import {Option, OrgInfoPropsType} from './types';
+
+const RADIO_PRACTICE_OPTION = {
+  label: 'Групповые радиотренировки',
+  value: 'radio-practice'
+};
 
 const OrgInfo = memo<OrgInfoPropsType>(function OrgInfo() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const {type} = useQuery(filterParser);
+  const [_, setSearchParams] = useSearchParams();
 
-  const {data} = useSWR('GET_ORGANIZATIONS', getClientTypes);
+  const {data} = useGetClientTypes();
 
   const changeType = useCallback(
     (option?: Option) => () => {
@@ -26,23 +33,20 @@ const OrgInfo = memo<OrgInfoPropsType>(function OrgInfo() {
     [setSearchParams]
   );
 
+  const options = useMemo(() => [RADIO_PRACTICE_OPTION].concat(makeOptions(data, 'client_type_id', 'name')), [data]);
+
   if (!data) {
     return null;
   }
 
-  const options = data.map(type => ({
-    value: type.id,
-    label: type.name
-  }));
-
   return (
     <div className="flex flex-row flex-wrap gap-4">
-      <Tab onClick={changeType()} isActive={!searchParams.has('type')}>
+      <Tab onClick={changeType()} isActive={!type}>
         Все
       </Tab>
       {options.map(option => {
         return (
-          <Tab onClick={changeType(option)} key={option.value} isActive={searchParams.get('type') == option.value}>
+          <Tab onClick={changeType(option)} key={option.value} isActive={type == option.value}>
             {option.label}
           </Tab>
         );

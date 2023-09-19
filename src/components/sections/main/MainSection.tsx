@@ -2,9 +2,9 @@ import {memo} from 'react';
 
 import Container from '@ui-kit/layout/container';
 
-import {MainSectionType} from './types';
 import arrow from './arrow.png';
 import mg from './mg.gif';
+import {MainSectionType} from './types';
 
 const MainSectionHeadings = {
   mainTitle: {

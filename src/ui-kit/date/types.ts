@@ -5,4 +5,5 @@ export type DatePropsType = {
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
+  onChange?: (date: string) => void;
 };

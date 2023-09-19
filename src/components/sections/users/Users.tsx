@@ -1,13 +1,13 @@
 import {useMemo} from 'react';
 import useSWR from 'swr';
 
-import {getUsers, getUserRoles} from '@api/usersAPI';
-import List, {ListItem, ListRow} from '@ui-kit/list';
-import Container from '@ui-kit/layout/container';
+import {getUserRoles, getUsers} from '@api/usersAPI';
 import {RolesButton} from '@ui-kit/buttons';
+import Container from '@ui-kit/layout/container';
+import List, {ListItem, ListRow} from '@ui-kit/list';
 import Loader from '@ui-kit/loader';
 
-import {UserType, Options} from './types';
+import {Options, UserType} from './types';
 
 const ROLES: Record<string, string> = {
   worker: 'Оператор',

@@ -1,16 +1,18 @@
 import {memo} from 'react';
 
-import {ContainerType} from './types';
 import {cn} from '@utils/cn';
 
-const Container: ContainerType = ({children, isFullWidth, isRealFullWidth}) => {
+import {ContainerType} from './types';
+
+const Container: ContainerType = ({children, isFullWidth, isRealFullWidth, className}) => {
   return (
     <div
       className={cn('mx-auto', {
         'px-10': !isRealFullWidth,
         'w-[1360px]': !isFullWidth && !isRealFullWidth,
         'max-w-[1536px] w-full': !!isFullWidth,
-        'w-full overflow-auto': !!isRealFullWidth
+        'w-full overflow-auto': !!isRealFullWidth,
+        [className ? className : '']: !!className
       })}
     >
       <div

@@ -1,18 +1,26 @@
-import {memo} from 'react';
+import {forwardRef, memo} from 'react';
 
-import {TextAreaType} from './types';
+import {cn} from '@utils/cn';
 
-const TextArea: TextAreaType = ({value, required, placeholder, disabled, name}) => {
+import {TextAreaPropsType} from './types';
+
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaPropsType>(function TextArea(
+  {className, value, required, placeholder, disabled, name},
+  ref
+) {
   return (
     <textarea
-      className="text-xl border border-gray rounded-xl px-5 py-2 min-h-[150px] w-full"
+      className={cn('text-xl border border-gray rounded-xl px-5 py-2 min-h-[150px] w-full', {
+        [className ?? '']: !!className
+      })}
       required={required}
       defaultValue={value}
       placeholder={placeholder}
       name={name}
       disabled={disabled}
+      ref={ref}
     />
   );
-};
+});
 
 export default memo(TextArea);

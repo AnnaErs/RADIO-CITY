@@ -10,3 +10,7 @@ export const getCurrentMonthPeriod = () => ({
   from: moment().utcOffset(0, true).startOf('month').format(BACKEND_FORMAT),
   to: moment().utcOffset(0, true).endOf('month').format(BACKEND_FORMAT)
 });
+
+export const makeCallTime = (time: number) => {
+  return moment(`${Math.floor(time / 60)}:${time % 60}`, 'H:mm').format('HH:mm');
+};

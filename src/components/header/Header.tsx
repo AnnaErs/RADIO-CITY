@@ -4,10 +4,10 @@ import {Link, useLocation} from 'react-router-dom';
 import Container from '@ui-kit/layout/container';
 import {cn} from '@utils/cn';
 
-import {HeaderType} from './types';
 // import AuthButton from "./AuthButton";
 import UserButton from './UserButton';
 import {LINKS} from './consts';
+import {HeaderType} from './types';
 
 const Header: HeaderType = () => {
   const location = useLocation();
@@ -30,7 +30,7 @@ const Header: HeaderType = () => {
 
   return (
     <header
-      className={cn('sticky top-0 ease-in-out duration-200 z-10', {
+      className={cn('sticky top-0 ease-in-out duration-200 z-50', {
         'bg-white text-black': isAdmin,
         'bg-bg text-gray': !isAdmin,
         'shadow-blue': !isOnTop
@@ -63,7 +63,6 @@ const Header: HeaderType = () => {
                 </Link>
               )
             )}
-            {/* {typeof window !== 'undefined' && <AuthButton />} */}
             <UserButton />
           </div>
         </div>

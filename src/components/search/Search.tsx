@@ -1,13 +1,17 @@
 import {assign} from 'lodash';
 import {memo, useCallback} from 'react';
-
-import {SearchPropsType} from './types';
-import SearchSVG from './SearchSVG.svg';
 import {useSearchParams} from 'react-router-dom';
 
+import {filterParser, useQuery} from '@utils/search-params';
+
+import SearchSVG from './SearchSVG.svg';
+import {SearchPropsType} from './types';
+
 const Search = memo<SearchPropsType>(function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const changeType = useCallback(
+  const {search} = useQuery(filterParser);
+
+  const [_, setSearchParams] = useSearchParams();
+  const changeFilter = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as any);
@@ -26,7 +30,7 @@ const Search = memo<SearchPropsType>(function Search() {
   );
 
   return (
-    <form onSubmit={changeType}>
+    <form onSubmit={changeFilter}>
       <div className="relative mb-10 w-1/2">
         <input
           name="search"
@@ -34,7 +38,7 @@ const Search = memo<SearchPropsType>(function Search() {
           id="default-search"
           className="text-xl block w-full p-2 pl-7 border-2 border-gray outline-none outline rounded-2xl focus:border-2 focus:border-blue min-h-[48px]"
           placeholder="Введите номер или позывной..."
-          defaultValue={searchParams.get('search')?.toString()}
+          defaultValue={search}
         />
         <button
           type="submit"
