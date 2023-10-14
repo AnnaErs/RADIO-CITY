@@ -4,7 +4,7 @@ import {memo, useCallback, useMemo, useRef} from 'react';
 
 import {ClientWithTimeType, createCall} from '@api/callsAPI';
 import {StatesList} from '@components/states-list';
-import TextArea from '@ui-kit/text-area/TextArea';
+import {TextAreaWithoutForm} from '@ui-kit/text-area/TextArea';
 import {useGetCalls} from '@utils/api/calls';
 import {cn} from '@utils/cn';
 import useOnOutsideClick from '@utils/hooks/useOnOutsideClick';
@@ -16,6 +16,8 @@ type DayCellPropsType = {
   client: ClientWithTimeType & {time: string};
   index: number;
 };
+
+console.log(moment);
 
 const DayCell = memo<DayCellPropsType>(function DayCell({index, client}) {
   const {filterStartDate} = useQuery(filterParser);
@@ -50,7 +52,7 @@ const DayCell = memo<DayCellPropsType>(function DayCell({index, client}) {
 
   const today = moment().utcOffset(0, true).date();
   const date = index + moment.utc(filterStartDate).date();
-  const dayOfMonth = moment().utcOffset(0, true).date(date).day();
+  const dayOfWeek = moment().utcOffset(0, true).date(date).day() || 7; // В moment неделя с воскресенья поэтому || 7
 
   const openChangeStatusModal = useCallback(
     (e: React.MouseEvent) => {
@@ -84,28 +86,30 @@ const DayCell = memo<DayCellPropsType>(function DayCell({index, client}) {
   return (
     <td
       className={cn('min-w-[48px] min-h-[48px] border border-gray-100 text-center relative select-none', {
-        ['bg-zinc-300']: !client.schedule.includes(dayOfMonth + 1) && today > date,
-        ['bg-zinc-500']: today <= date
+        ['bg-zinc-300']: !client.schedule.includes(dayOfWeek || 7),
+        ['bg-zinc-500']: today < date
       })}
       style={{backgroundColor: cellColor}}
       onClick={openChangeStatusModal}
     >
       <div>
-        {currentCall && <span>{moment.utc(currentCall.call_id).format('H:mm')}</span>}
+        {(!!currentCall?.calls_type_id || !!currentCall?.comment) && !!currentCall.updated_at && (
+          <span>{moment(currentCall.updated_at).format('H:mm')}</span>
+        )}
         {isOpened && (
           <div
             className="absolute right-full top-0 mr-4 p-4 rounded-lg shadow-md bg-white z-10 flex flex-col gap-4 -mt-4"
             ref={ref}
           >
-            <TextArea
-              value={currentCall?.comment}
-              name="message"
+            <StatesList className="w-[300px]" onSelect={changeClientStatus} />
+            <hr className="m-auto w-11/12 text-zinc-300" />
+            <TextAreaWithoutForm
+              name="comment"
+              value={currentCall?.comment ?? ''}
               className="min-h-[70px]"
               placeholder="Заметка..."
               ref={textareaRef}
             />
-            <hr className="m-auto w-11/12 text-zinc-300" />
-            <StatesList className="w-[300px]" onSelect={changeClientStatus} />
           </div>
         )}
       </div>

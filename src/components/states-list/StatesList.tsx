@@ -5,7 +5,10 @@ import {cn} from '@utils/cn';
 import {makeOptions} from '@utils/common';
 import {getColorByCallTypeId} from '@utils/string-to-color';
 
-const DEFAULT_VALUE = 'Сменить статус';
+const DEFAULT_VALUE = {
+  label: 'Сменить статус',
+  value: ''
+};
 
 type StatesListPropsType = {
   className?: string;
@@ -14,16 +17,11 @@ type StatesListPropsType = {
 
 const StatesList = memo<StatesListPropsType>(function StatesList({className, onSelect}) {
   const {data} = useGetCallTypes();
-  const options = useMemo(
-    () =>
-      [
-        {
-          label: DEFAULT_VALUE,
-          value: ''
-        }
-      ].concat(makeOptions(data, 'calls_type_id', 'name')),
-    [data]
-  );
+  const options = useMemo(() => {
+    const sorted = (data ?? []).sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
+    const options = makeOptions(sorted, 'calls_type_id', 'name');
+    return ([DEFAULT_VALUE] as typeof options).concat(options);
+  }, [data]);
 
   const selectValue = useCallback((value: string) => () => onSelect(value), [onSelect]);
 

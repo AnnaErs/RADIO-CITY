@@ -12,6 +12,7 @@ type GetCallsResponseType = Array<{
   calls_type_id: string;
   client_id: string;
   comment?: string;
+  updated_at?: string;
 }>;
 type GetCallsType = (request: GetCallsRequestType) => Promise<GetCallsResponseType>;
 export const getCalls: GetCallsType = async request => {
@@ -63,7 +64,7 @@ export const createCall: CreateCallType = async request => {
   return res.data;
 };
 
-type CallType = {calls_type_id: string; name: string};
+type CallType = {calls_type_id: string; name: string; order?: number};
 type CallTypesType = () => Promise<Array<CallType>>;
 export const getCallTypes: CallTypesType = async () => {
   const res = await axios.get(`https://d5dimst6sja5ndg91qpq.apigw.yandexcloud.net/get-call-types`);
