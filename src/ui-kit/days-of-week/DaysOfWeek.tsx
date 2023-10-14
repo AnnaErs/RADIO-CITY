@@ -1,4 +1,4 @@
-import {Field} from 'formik';
+import {Field, useField} from 'formik';
 import {memo, useCallback, useState} from 'react';
 
 import {cn} from '@utils/cn';
@@ -12,7 +12,7 @@ type DaysOfWeekPropsType = {
 };
 
 const DaysOfWeek = memo<DaysOfWeekPropsType>(function DaysOfWeek({name, defaultValue, disabled}) {
-  const [days, setDays] = useState(defaultValue ?? [1, 2, 3, 4, 5, 6, 7]);
+  const [field, _meta, helpers] = useField<number[]>(name);
 
   const selectDay = useCallback(
     (id: number) => () => {
@@ -20,28 +20,25 @@ const DaysOfWeek = memo<DaysOfWeekPropsType>(function DaysOfWeek({name, defaultV
         return;
       }
 
-      setDays(prev => {
-        if (prev.includes(id)) {
-          return prev.filter(num => num !== id);
-        }
-
-        return [...prev, id];
-      });
+      if (field.value.includes(id)) {
+        helpers.setValue(field.value.filter(num => num !== id));
+      } else {
+        helpers.setValue([...field.value, id]);
+      }
     },
-    [disabled, setDays]
+    [field, disabled]
   );
 
   return (
     <div>
-      <Field name={name} className="-z-10 absolute opacity-0" value={days.join(',')} readOnly />
       <div className="flex items-center gap-2">
         {DAYS_OF_WEEK.map((day, index) => (
           <div
             className={cn(
               'rounded-xl w-[42px] h-[42px] flex items-center justify-center border  ease-in-out duration-200',
               {
-                'border-primary font-semibold': days.includes(index + 1),
-                'border-gray text-gray': !days.includes(index + 1),
+                'border-primary font-semibold': field.value.includes(index + 1),
+                'border-gray text-gray': !field.value.includes(index + 1),
                 'cursor-pointer hover:shadow-primary hover:shadow': !disabled,
                 'opacity-50': !!disabled
               }

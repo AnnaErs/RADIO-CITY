@@ -8,8 +8,10 @@ export const filterParser = {
   type: toString,
   search: toString,
   filterStartDate: (val: string | null) => {
-    return (val ? moment.utc(val) : moment.utc(undefined).startOf('month')).format('YYYY-MM-DDTHH:mm:ss\\Z');
+    return (val ? moment.utc(val).startOf('day') : moment.utc(undefined).startOf('month')).format(
+      'YYYY-MM-DDTHH:mm:ss\\Z'
+    );
   },
   filterEndDate: (val: string | null) =>
-    (val ? moment.utc(val) : moment.utc(undefined).endOf('month')).format('YYYY-MM-DDTHH:mm:ss\\Z')
+    (val ? moment.utc(val).endOf('day') : moment.utc(undefined).endOf('month')).format('YYYY-MM-DDTHH:mm:ss\\Z')
 };

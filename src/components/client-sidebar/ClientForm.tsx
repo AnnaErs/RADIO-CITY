@@ -1,5 +1,5 @@
 import {Form, Formik} from 'formik';
-import {assign, toNumber} from 'lodash';
+import {assign, omit, toNumber} from 'lodash';
 import {memo, useCallback, useMemo} from 'react';
 import {v4 as uuidv4} from 'uuid';
 
@@ -46,6 +46,7 @@ const ClientForm: ClientSidebarType = () => {
 
   const submitForm = useCallback(
     (data: typeof initialValues) => {
+      console.log(data);
       const commonTimes = data.timesCommon?.reduce((acc, time) => {
         if (time.call_time) {
           const [hours, minutes] = time.call_time.split(':');
@@ -70,7 +71,9 @@ const ClientForm: ClientSidebarType = () => {
 
         return acc;
       }, [] as any);
-      const newData = assign({}, initialValues, {
+
+      const withoutOldData = omit(data, ['timesCommon', 'timesRadioPractice']);
+      const newData = assign({}, withoutOldData, {
         client_id: id || uuidv4(),
         times: commonTimes.concat(radioTimes)
       });
@@ -108,8 +111,8 @@ const ClientForm: ClientSidebarType = () => {
               <ClientCallTime calls={values.timesRadioPractice} name="timesRadioPractice" />
             </FormGroup>
 
-            <FormGroup label="Радиотренировки">
-              <TextArea name="description" value={values?.description} placeholder="Описание" />
+            <FormGroup label="Описание">
+              <TextArea name="description" placeholder="Описание" />
             </FormGroup>
 
             <div>
