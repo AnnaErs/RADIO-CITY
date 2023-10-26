@@ -10,9 +10,10 @@ import {DayCell} from './DayCell';
 type ClientRowPropsType = {
   client: ClientWithTimeType & {time: string};
   arrayOfDays: Array<number>;
+  isRadio: boolean;
 };
 
-const ClientRow = memo<ClientRowPropsType>(function ClientRow({client, arrayOfDays}) {
+const ClientRow = memo<ClientRowPropsType>(function ClientRow({client, arrayOfDays, isRadio}) {
   const [_, setSearchParams] = useSearchParams();
 
   const onRowClick = useCallback(
@@ -25,6 +26,7 @@ const ClientRow = memo<ClientRowPropsType>(function ClientRow({client, arrayOfDa
       <td className="py-2 pr-3">
         <div className="min-h-[32px]">{client.time}</div>
       </td>
+      {isRadio && <td className="py-2 pr-3 max-w-[300px] truncate">{client.group_name}</td>}
       <td className="py-2 pr-3 whitespace-nowrap">{client.location}</td>
       <td className="py-2 pr-3 whitespace-nowrap">{client.organization}</td>
       <td className="py-2 pr-3 whitespace-nowrap">{client.unit}</td>

@@ -34,6 +34,7 @@ export type ClientWithTimeType = {
   schedule: number[];
   trunk_phone: string;
   unit: string;
+  group_name: string;
 };
 
 export type CallResponse = Array<ClientWithTimeType>;

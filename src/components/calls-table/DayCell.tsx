@@ -83,6 +83,7 @@ const DayCell = memo<DayCellPropsType>(function DayCell({index, client}) {
     return color === '#fff' ? undefined : color;
   }, [currentCall]);
 
+  console.log(client.schedule, dayOfWeek);
   return (
     <td
       className={cn('min-w-[48px] min-h-[48px] border border-gray-100 text-center relative select-none', {

@@ -1,8 +1,18 @@
-import {memo} from 'react';
+import {useField} from 'formik';
+import {ChangeEvent, memo, useCallback} from 'react';
 
 import {SelectType} from './types';
 
 const Select: SelectType = ({name, options, value, disabled}) => {
+  const [_v, _e, helpers] = useField(name);
+
+  const handleChangeValue = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      helpers.setValue(e.target.value);
+    },
+    [helpers.setValue]
+  );
+
   return (
     <select
       id="clientsTypesSelector"
@@ -10,6 +20,7 @@ const Select: SelectType = ({name, options, value, disabled}) => {
       defaultValue={value ?? ''}
       name={name}
       disabled={disabled}
+      onChange={handleChangeValue}
     >
       {options?.map(type => (
         <option value={type.value} key={type.value} disabled={type.disabled}>
