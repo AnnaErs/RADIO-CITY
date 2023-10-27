@@ -13,6 +13,7 @@ type GetClientResponseType = {
     responsible: string;
     responsible_phone: string;
     times: Array<{
+      group_name: string;
       client_call_id: number;
       client_id: string;
       schedule: (1 | 2 | 3 | 4 | 5 | 6 | 7)[];

@@ -7,11 +7,12 @@ import Input from '@ui-kit/input';
 
 type ClientCallTimePropsType = {
   name: string;
-  calls: Array<{call_time: string; schedule: (1 | 2 | 3 | 4 | 5 | 6 | 7)[]}> | undefined;
+  calls: Array<{group_name: string; call_time: string; schedule: (1 | 2 | 3 | 4 | 5 | 6 | 7)[]}> | undefined;
   disabled?: boolean;
+  isRadio?: boolean;
 };
 
-const ClientCallTime = memo<ClientCallTimePropsType>(function ClientCallTime({calls, name, disabled}) {
+const ClientCallTime = memo<ClientCallTimePropsType>(function ClientCallTime({calls, name, disabled, isRadio}) {
   return (
     <div className="flex flex-col gap-5">
       <FieldArray name={name}>
@@ -19,6 +20,14 @@ const ClientCallTime = memo<ClientCallTimePropsType>(function ClientCallTime({ca
           <>
             {calls?.map((call, i) => (
               <div className="flex flex-col gap-3" key={i}>
+                {isRadio && (
+                  <Input
+                    name={`${name}.${i}.group_name`}
+                    value={call.group_name}
+                    placeholder="Название радиовызова"
+                    disabled={disabled}
+                  />
+                )}
                 <Input
                   name={`${name}.${i}.call_time`}
                   value={call.call_time}

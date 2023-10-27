@@ -10,7 +10,7 @@ import {useGetCallTimes} from '@utils/api/call-times';
 import {ClientRow} from './ClientRow';
 import {CallsTableType} from './types';
 
-const CallsTable = memo<CallsTableType>(function CallsTable({startDate, endDate}) {
+const CallsTable = memo<CallsTableType>(function CallsTable({startDate, endDate, isRadio}) {
   const {data, isLoading, isValidating, setSize} = useGetCallTimes();
 
   const arrayOfDays = useMemo(() => {
@@ -36,6 +36,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable({startDate, endDate}
           <thead>
             <tr>
               <th className="text-left py-2 pr-3 whitespace-nowrap">Время</th>
+              {isRadio && <th className="text-left py-2 pr-3 whitespace-nowrap">Радиотренировка</th>}
               <th className="text-left py-2 pr-3 whitespace-nowrap">Нас. пункт</th>
               <th className="text-left py-2 pr-3 whitespace-nowrap">Организация</th>
               <th className="text-left py-2 pr-3 whitespace-nowrap">Подразделение</th>
@@ -54,7 +55,7 @@ const CallsTable = memo<CallsTableType>(function CallsTable({startDate, endDate}
           </thead>
           <tbody>
             {clients?.map((client, index) => (
-              <ClientRow client={client} arrayOfDays={arrayOfDays} key={index} />
+              <ClientRow client={client} arrayOfDays={arrayOfDays} key={index} isRadio={isRadio} />
             ))}
           </tbody>
         </table>

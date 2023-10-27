@@ -25,7 +25,7 @@ const ClientForm: ClientSidebarType = () => {
   const initialValues = useMemo(
     () => ({
       description: data?.client.description,
-      type: data?.client.client_type_id,
+      client_type_id: data?.client.client_type_id,
       location: data?.client.location,
       unit: data?.client.unit,
       call_sign: data?.client.call_sign,
@@ -65,7 +65,8 @@ const ClientForm: ClientSidebarType = () => {
           acc.push({
             time: toNumber(hours) * 60 + toNumber(minutes),
             schedule: time.schedule,
-            type: 'radio-practice'
+            type: 'radio-practice',
+            group_name: time.group_name
           });
         }
 
@@ -98,7 +99,7 @@ const ClientForm: ClientSidebarType = () => {
               <Input name="unit" value={values?.unit} placeholder="Подразделение" />
               <Input name="call_sign" value={values?.call_sign} placeholder="Позывной" />
               <Input name="trunk_phone" value={values?.trunk_phone} placeholder="Транковый номер" />
-              <ClientTypeSelect name="client_type_id" value={values?.type} />
+              <ClientTypeSelect name="client_type_id" value={values?.client_type_id} />
               <Input name="responsible" value={values?.responsible} placeholder="ФИО ответственого" />
               <Input name="responsible_phone" value={values?.responsible_phone} placeholder="Телефон ответственного" />
             </FormGroup>
@@ -108,7 +109,7 @@ const ClientForm: ClientSidebarType = () => {
             </FormGroup>
 
             <FormGroup label="Радиотренировки">
-              <ClientCallTime calls={values.timesRadioPractice} name="timesRadioPractice" />
+              <ClientCallTime calls={values.timesRadioPractice} name="timesRadioPractice" isRadio />
             </FormGroup>
 
             <FormGroup label="Описание">
